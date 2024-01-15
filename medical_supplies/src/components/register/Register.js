@@ -44,6 +44,8 @@ export default function Register() {
             .required("Vui lòng nhập ngày sinh."),
         phone: Yup.string()
             .required("Vui lòng nhập số điện thoại."),
+        gender: Yup.string()
+            .required("Vui lòng cho giới tính."),
         address: Yup.string()
             .required("Vui lòng nhập địa chỉ."),
         idRole: Yup.string()
@@ -51,16 +53,17 @@ export default function Register() {
     };
 
     const handleSubmitFormRegister = async (values, setFieldError) => {
-        console.log(values);
+
         try {
             const res = await accountService.createAccount(values);
+            console.log(res)
             if (res.status === 200) {
-                navigate("/register")
-                toast.success("Đăng ký thành công !");
+                navigate("/login")
+                toast.success("Đăng ký thành công!");
 
             }
         } catch (e) {
-            console.log(e)
+            console.log(e.data);
             setFieldError("password", e.data);
 
         }
@@ -68,13 +71,12 @@ export default function Register() {
     if (!roles) return null;
     return (
         <>
-
             <div className="main">
-                <nav className="navbar navbar-expand px-3 border-bottom">
-                    <button className="btn btn-sm" type="button" data-bs-theme="dark">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                </nav>
+                {/*<nav className="navbar navbar-expand px-3 border-bottom">*/}
+                {/*    <button className="btn btn-sm" type="button" data-bs-theme="dark">*/}
+                {/*        <span className="navbar-toggler-icon"></span>*/}
+                {/*    </button>*/}
+                {/*</nav>*/}
                 <main className="content px-3 py-2">
                     <div className="container-fluid">
                         <div className="row content">
@@ -153,20 +155,25 @@ export default function Register() {
                                                         <div>
                                                             <Field className="form-check-input" type="radio"
                                                                    name="gender"
-                                                                   id="nam" value={true}
-                                                                   checked/>
+                                                                   id="nam" value="true"
+                                                                   data-sb-validations="required"
+                                                                   />
                                                             <label className="form-check-label" htmlFor="nam">
                                                                 Nam
                                                             </label>
 
                                                             <Field className="form-check-input" type="radio"
                                                                    name="gender"
-                                                                   id="nu" value={false}/>
+                                                                   id="nu" value="false"
+                                                                   data-sb-validations="required"
+                                                            />
                                                             <label className="form-check-label" htmlFor="nu">
                                                                 Nữ
                                                             </label>
                                                         </div>
                                                     </div>
+                                                    <ErrorMessage name="gender" className="text-danger"
+                                                                  component="p"/>
                                                     <div className="mb-3">
                                                         <label htmlFor="address" className="form-label fw-bold">Địa
                                                             chỉ<span
@@ -180,14 +187,14 @@ export default function Register() {
                                                         <label htmlFor="phone" className="form-label fw-bold">
                                                             Số điện thoại
                                                             <span className="text-danger">(*)</span></label>
-                                                        <Field type="number" className="form-control" id="phone"
+                                                        <Field type="text" className="form-control" id="phone"
                                                                name="phone"/>
                                                     </div>
                                                     <ErrorMessage name="phone" className="text-danger"
                                                                   component="p"/>
                                                     <div className="row mt-5">
                                                         <div className="col-6 d-flex justify-content-end">
-                                                            <NavLink to={"/home1"}
+                                                            <NavLink to={"/login"}
                                                                      className="btn btn-secondary me-2">Trở
                                                                 về</NavLink>
                                                         </div>

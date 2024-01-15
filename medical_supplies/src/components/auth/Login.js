@@ -26,7 +26,7 @@ export default function Login() {
 
             if (res.status === 200) {
                 localStorage.setItem('user', JSON.stringify(res.data));
-                navigate("/login")
+                navigate("/register")
                 toast.success("Đăng nhập thành công !");
 
             }

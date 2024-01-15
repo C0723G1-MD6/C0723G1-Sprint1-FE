@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom"
 import Login from "./components/auth/Login";
 import Register from "./components/register/Register";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css"
 
 function App() {
     return (
