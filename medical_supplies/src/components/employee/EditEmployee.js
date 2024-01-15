@@ -29,7 +29,7 @@ export function EditEmployee() {
             const res = await editEmployeeService(data)
             console.log(res)
             if (res.status === 200) {
-                navigate("/home2")
+                navigate("/employee")
                 toast.success("Edit successfully")
             } else if (res.status === 201) {
                 toast("edit failed")
