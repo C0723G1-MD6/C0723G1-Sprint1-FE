@@ -12,12 +12,10 @@ export default function authHeader(){
     }
 }
 export const login = async (account)=>{
-    console.log(account)
     try {
         const res = await axios.post("http://localhost:8080/api/login",account);
         return res;
     }catch (e) {
-        console.log(e)
         throw e.response;
     }
 }

@@ -2,7 +2,9 @@ import {ErrorMessage, Field, Formik, Form} from "formik";
 import * as Yup from "yup";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
-import * as authService from "../../services/auth/AuthService"
+import * as authService from "../../services/auth/AuthService";
+import Header from "../anHN/Header";
+import Footer from "../anHN/Footer";
 
 export default function Login() {
 
@@ -26,13 +28,14 @@ export default function Login() {
 
             if (res.status === 200) {
                 localStorage.setItem('user', JSON.stringify(res.data));
-                navigate("/login")
+                navigate("/home-admin")
                 toast.success("Đăng nhập thành công !");
 
             }
         } catch (e) {
-            console.log(e)
             setFieldError("password", e.data);
+            console.log(e);
+
         }
     }
     const jwtToken = JSON.parse(localStorage.getItem("user")).accessToken;
@@ -43,6 +46,7 @@ export default function Login() {
 
     return (
         <>
+            <Header/>
             <div className="container pt-lg-5 mb-5">
                 <div className="d-flex justify-content-center">
 
@@ -109,6 +113,7 @@ export default function Login() {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </>
     )
 }
