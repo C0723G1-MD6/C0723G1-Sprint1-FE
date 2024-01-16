@@ -178,7 +178,7 @@ function HomeAdmin(){
                             </div>
                             <div className="user-detail">
                                 <div className="title">Quản Lý</div>
-                                <div className="name">Nguyễn Văn A</div>
+                                <div className="name">Hồng Nhung</div>
 
                             </div>
                         </div>
@@ -237,9 +237,8 @@ function HomeAdmin(){
                         </button>
                     </nav>
                     <main className="content px-3 py-2">
-                        <div className="container-fluid">
-                            <div className="row row-home">
-                                <h2>DANH SÁCH VẬT TƯ</h2>
+                        <div className="container">
+                                <h2 style={{textAlign:"center"}}>DANH SÁCH VẬT TƯ</h2>
                                 <div className="row row-1-home">
                                     {product.map(item =>
                                         <div key={item.id} className="col-12 col-lg-4">
@@ -248,7 +247,7 @@ function HomeAdmin(){
                                                     <img className="card-img-top" src={item.mainAvatar} alt="Card image" height="280"
                                                          width="250"/>
                                                     <h5 className="card-text">{item.name}</h5>
-                                                    <p className="card-text">{item.price}</p>
+                                                    <p className="card-text">Giá: {item.price} VNĐ</p>
                                                     <a href="#" className="btn btn-primary">Xem chi tiết</a>
                                                     <a href="#" className="btn btn-danger" style={{marginLeft:"15px"}}>Chỉnh sửa</a>
                                                 </div>
@@ -256,7 +255,6 @@ function HomeAdmin(){
                                         </div>
                                     )}
                                 </div>
-                            </div>
                         </div>
                     </main>
                 </div>
