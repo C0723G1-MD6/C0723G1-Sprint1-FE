@@ -7,12 +7,20 @@ export const createAccount = async (accountDto) => {
         return res;
     } catch (e) {
         throw e.response;
-        console.log(e);
     }
 }
 export const roleList = async () => {
     try {
         const res = await axios.get(`http://localhost:8080/api/role`);
+        return res;
+    } catch (e) {
+        throw e.response;
+
+    }
+}
+export const getAllByEmployee = async (email) => {
+    try {
+        const res = await axios.get(`http://localhost:8080/api/employee/search/${email}`);
         return res;
     } catch (e) {
         throw e.response;
