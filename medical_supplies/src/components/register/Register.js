@@ -56,7 +56,7 @@ export default function Register() {
     };
 
     const handleSubmitFormRegister = async (values, setFieldError) => {
-
+        console.log(values);
         try {
             const res = await accountService.createAccount(values);
             if (res.status === 200) {
@@ -191,7 +191,7 @@ export default function Register() {
                                                                   component="p"/>
                                                     <div className="row mt-5">
                                                         <div className="col-6 d-flex justify-content-end">
-                                                            <NavLink to={"/login"}
+                                                            <NavLink to={"/home-admin"}
                                                                      className="btn btn-secondary me-2">Trở
                                                                 về</NavLink>
                                                         </div>

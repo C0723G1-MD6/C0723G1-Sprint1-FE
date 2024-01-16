@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import {Link, NavLink} from "react-router-dom";
 import Sidebar from "./Sidebar";
 import img_1 from "../img/img_1.png";
+import ModalLogout from "../auth/ModalLogout";
 
 
 
@@ -221,10 +222,11 @@ function HomeAdmin(){
                                 </NavLink>
                             </li>
                             <li className="sidebar-item" style={{paddingTop: "80%",paddingLeft: "12%"}}>
-                                <a href="#" className="sidebar-link text-dark">
+                                <NavLink role="button" className="sidebar-link text-dark">
                                     <i className="fa-solid fa-list pe-2"></i>
-                                    <button className="btn btn-outline-secondary">Đăng Xuất</button>
-                                </a>
+                                    <button className="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#logout">Đăng Xuất</button>
+                                </NavLink>
+                            <ModalLogout/>
                             </li>
                         </ul>
                     </div>
