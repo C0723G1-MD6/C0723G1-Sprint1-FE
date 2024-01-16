@@ -16,7 +16,7 @@ export function EditEmployee() {
         try {
             if (id) {
                 const res = await getEmployeeByIdService(id)
-                setEmployee(res)
+                setEmployee({...res, gender: res.gender ? 1 : 0})
             }
         } catch (e) {
             alert("error get Employee")
@@ -45,16 +45,10 @@ export function EditEmployee() {
     if (!employee) {
         return null;
     }
-
-    const initialValue = {
-        "id": employee.id,
-        "code": employee.code,
-        "name": employee && employee.name,
-        "birthday": employee && employee.birthday,
-        "phone": employee && employee.phone,
-        "address": employee && employee.address,
-        "gender": employee && employee.gender
-    }
+    // const handleGenderChange = (event) => {
+    //     const value = event.target.value
+    //     setGender(value === true)
+    // }
     const dd = new Date();
     const date18 = `${dd.getFullYear() - 18}-${dd.getMonth() + 1}-${dd.getDate()}`;
     const date65 = `${dd.getFullYear() - 65}-${dd.getMonth() + 1}-${dd.getDate()}`;
@@ -75,10 +69,15 @@ export function EditEmployee() {
         gender: Yup.string()
             .required("vui lòng chọn giới tính.")
     }
+    const handleGenderChange = (e) => {
+        setEmployee({...employee, gender: +e.target.value})
+    }
+    if (!employee) return null
     return (
         <>
-            <Formik initialValues={initialValue} onSubmit={(values, {setErrors}) => {
-                editEmployee(values, setErrors)
+            <Formik initialValues={employee} onSubmit={(values, {setErrors}) => {
+                const empObj = {...values, gender: +employee.gender === 1}
+                editEmployee(empObj, setErrors)
             }} validationSchema={Yup.object(employeeValidate)}>
                 <div className="content px-3 py-2">
                     <div className="container-fluid">
@@ -95,7 +94,7 @@ export function EditEmployee() {
                                             <div className="row py-5 mt-4 align-items-center">
                                                 {/*// <!-- For Demo Purpose -->*/}
                                                 <div className="col-md-5 pr-lg-5 mb-5 mb-md-0"
-                                                     style={{textAlign:"center"}}>
+                                                     style={{textAlign: "center"}}>
                                                     <img
                                                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTz9mo8UybQ2Uf6MdgKs-8nz-OM7SS9nKsWRArR-bcdvRvNUTlLHmIksU_onSdvZQmtcY&usqp=CAU"
                                                         alt="img"
@@ -118,69 +117,98 @@ export function EditEmployee() {
                                                                        className="form-control bg-white border-left-0 border-md"/>
 
                                                             </div>
-                                                            <p><small><ErrorMessage className="text text-danger" name="name"
+                                                            <p><small><ErrorMessage className="text text-danger"
+                                                                                    name="name"
                                                                                     component="div"/></small></p>
                                                             {/*// <!-- Address-->*/}
                                                             <div className="input-group col-lg-6 mb-4">
                             <span className="input-group-text bg-white px-4 border-md border-right-0">
-                                <FontAwesomeIcon icon="fas fa-map-marked-alt"><span style={{color: "red"}}>*</span></FontAwesomeIcon>
+                                <FontAwesomeIcon icon="fas fa-map-marked-alt"><span
+                                    style={{color: "red"}}>*</span></FontAwesomeIcon>
                             </span>
-                                                                <Field as="textarea" id="address" type="text" name="address"
+                                                                <Field as="textarea" id="address" type="text"
+                                                                       name="address"
                                                                        placeholder="Địa Chỉ*"
                                                                        className="form-control bg-white border-left-0 border-md"/>
-                                                                <ErrorMessage className="text text-danger"
-                                                                              name="address" component="div"/>
+
                                                             </div>
+                                                            <p><small><ErrorMessage className="text text-danger"
+                                                                                    name="address"
+                                                                                    component="div"/></small></p>
                                                             {/*// <!--Gender-->*/}
                                                             <div className="input-group col-lg-6 mb-4">
                             <span className="input-group-text bg-white px-4 border-md border-right-0">
-                                <FontAwesomeIcon icon="fas fa-venus-mars"><span style={{color: "red"}}>*</span></FontAwesomeIcon>
+                                <FontAwesomeIcon icon="fas fa-venus-mars"><span
+                                    style={{color: "red"}}>*</span></FontAwesomeIcon>
                             </span>
-                                                                <Field style={{marginLeft: "2%"}} type="radio"
-                                                                       name="gender"/>Nam
-                                                                <Field style={{marginLeft: "2%"}} type="radio"
-                                                                       name="gender"/> Nữ
-
+                                                                <div className="form-check form-check-inline"
+                                                                     id="gender">
+                                                                    <Field className="form-check-input"
+                                                                           style={{marginLeft: "2%"}}
+                                                                           id="gender"
+                                                                           type="radio"
+                                                                           value={0}
+                                                                           checked={employee.gender === 0}
+                                                                           onChange={handleGenderChange}
+                                                                           data-sb-validations="required"
+                                                                           name="gender"
+                                                                           />
+                                                                    <label className="form-check-label" htmlFor="nam">
+                                                                        Nam
+                                                                    </label>
+                                                                </div>
+                                                                <div className="form-check form-check-inline">
+                                                                    <Field className="form-check-input"
+                                                                           style={{marginLeft: "2%"}}
+                                                                           type="radio"
+                                                                           id="gender"
+                                                                           value={1}
+                                                                           checked={employee.gender === 1}
+                                                                           onChange={handleGenderChange}
+                                                                           data-sb-validations="required"
+                                                                           name="gender"
+                                                                    />
+                                                                    <label className="form-check-label" htmlFor="nữ">
+                                                                        Nữ
+                                                                    </label>
+                                                                </div>
                                                             </div>
-                                                            <small><ErrorMessage className="text text-danger" name="gender"
-                                                                                 component="div"/></small>
+
+
+                                                            <p><small><ErrorMessage className="text text-danger"
+                                                                                    name="gender"
+                                                                                    component="div"/></small></p>
                                                             {/*// <!-- Phone-->*/}
                                                             <div className="input-group col-lg-6 mb-4">
                             <span className="input-group-text bg-white px-4 border-md border-right-0">
-                                <FontAwesomeIcon icon="fas fa-phone-square-alt"><span style={{color: "red"}}>*</span></FontAwesomeIcon>
+                                <FontAwesomeIcon icon="fas fa-phone-square-alt"><span
+                                    style={{color: "red"}}>*</span></FontAwesomeIcon>
                             </span>
                                                                 <Field id="phone" type="text" name="phone"
                                                                        placeholder="Số Điện Thoại"
                                                                        className="form-control bg-white border-left-0 border-md"/>
-                                                                <ErrorMessage className="text text-danger" name="phone"
-                                                                              component="div"/>
+
                                                             </div>
-                                                            {/*// <!--Email-->*/}
-                                                            {/*                                <div className="input-group col-lg-6 mb-4">*/}
-                                                            {/*<span className="input-group-text bg-white px-4 border-md border-right-0">*/}
-                                                            {/*   <i className="fas fa-envelope"></i>*/}
-                                                            {/*</span>*/}
-                                                            {/*                                    <input id="email" type="email" name="email"*/}
-                                                            {/*                                           placeholder="Email"*/}
-                                                            {/*                                           value="trung@gmail.com"*/}
-                                                            {/*                                           className="form-control bg-white border-left-0 border-md"/>*/}
-                                                            {/*                                </div>*/}
-                                                            {/*// <!-- Birthday-->*/}
+                                                            <p><small><ErrorMessage className="text text-danger"
+                                                                                    name="phone"
+                                                                                    component="div"/></small></p>
                                                             <div className="input-group col-lg-6 mb-4">
                             <span className="input-group-text bg-white px-4 border-md border-right-0">
-                                <FontAwesomeIcon icon="fas fa-birthday-cake"><span style={{color: "red"}}>*</span></FontAwesomeIcon>
+                                <FontAwesomeIcon icon="fas fa-birthday-cake"><span
+                                    style={{color: "red"}}>*</span></FontAwesomeIcon>
                             </span>
                                                                 <Field id="birthday" type="date" name="birthday"
                                                                        placeholder="Ngày Sinh"
                                                                        className="form-control bg-white border-left-0 border-md"/>
-                                                                <ErrorMessage className="text text-danger"
-                                                                              name="birthday" component="div"/>
                                                             </div>
+                                                            <p><small><ErrorMessage className="text text-danger"
+                                                                                    name="birthday"
+                                                                                    component="div"/></small></p>
                                                         </div>
                                                         <div className="d-flex me-5 justify-content-center gap-3">
-                                                            <NavLink to={"../home2"}>
+                                                            <NavLink to={"../change_pass"}>
                                                                 <button className="btn btn-secondary btn-sm"><a
-                                                                   >Hủy</a>
+                                                                >Hủy</a>
                                                                 </button>
                                                             </NavLink>
                                                             <button type='submit' className="btn btn-success btn-sm">Cập
