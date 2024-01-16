@@ -10,6 +10,7 @@ import Footer from "./components/anHN/Footer";
 import Home from "./components/anHN/Home";
 import HomeAdmin from "./components/anHN/HomeAdmin";
 import Sidebar from "./components/anHN/Sidebar";
+import "react-toastify/dist/ReactToastify.css"
 
 function App() {
     return (

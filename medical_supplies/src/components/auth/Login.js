@@ -2,7 +2,9 @@ import {ErrorMessage, Field, Formik, Form} from "formik";
 import * as Yup from "yup";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
-import * as authService from "../../services/auth/AuthService"
+import * as authService from "../../services/auth/AuthService";
+import Header from "../anHN/Header";
+import Footer from "../anHN/Footer";
 
 export default function Login() {
 
@@ -21,12 +23,13 @@ export default function Login() {
     });
 
     const handleSubmitFormLogin = async (values, {setFieldError}) => {
+        console.log(values)
         try {
             const res = await authService.login(values);
 
             if (res.status === 200) {
                 localStorage.setItem('user', JSON.stringify(res.data));
-                navigate("/login")
+                navigate("/home-admin")
                 toast.success("Đăng nhập thành công !");
 
             }
@@ -35,14 +38,15 @@ export default function Login() {
             setFieldError("password", e.data);
         }
     }
-    const jwtToken = JSON.parse(localStorage.getItem("user")).accessToken;
-
-    const [, payloadBase64] = jwtToken.split('.');
-    const payload = JSON.parse(atob(payloadBase64));
-    console.log(payload)
+    // const jwtToken = JSON.parse(localStorage.getItem("user")).accessToken;
+    //
+    // const [, payloadBase64] = jwtToken.split('.');
+    // const payload = JSON.parse(atob(payloadBase64));
+    // console.log(payload)
 
     return (
         <>
+            <Header/>
             <div className="container pt-lg-5 mb-5">
                 <div className="d-flex justify-content-center">
 
@@ -109,6 +113,7 @@ export default function Login() {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </>
     )
 }

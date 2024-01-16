@@ -1,11 +1,11 @@
 import Header from "./Header";
 import Footer from "./Footer";
-import * as method from "../../services/anHN/method"
+import * as method from "../../services/anHN/ProductService"
 import React from "react";
 import {useState, useEffect} from "react";
 import "./AnHN.css";
 import { toast } from "react-toastify";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import Sidebar from "./Sidebar";
 import img_1 from "../img/img_1.png";
 
@@ -215,10 +215,10 @@ function HomeAdmin(){
                                 </ul>
                             </li>
                             <li className="sidebar-item">
-                                <a href="#" className="sidebar-link text-dark">
+                                <NavLink to="/register" className="sidebar-link text-dark">
                                     <i className="fa-solid fa-list pe-2"></i>
                                     Đăng Kí Nhân Viên
-                                </a>
+                                </NavLink>
                             </li>
                             <li className="sidebar-item" style={{paddingTop: "80%",paddingLeft: "12%"}}>
                                 <a href="#" className="sidebar-link text-dark">
@@ -245,6 +245,8 @@ function HomeAdmin(){
                                         <div key={item.id} className="col-12 col-lg-4">
                                             <div className="card" style={{width:"400px"}}>
                                                 <div className="card-body">
+                                                    <img className="card-img-top" src={item.mainAvatar} alt="Card image" height="280"
+                                                         width="250"/>
                                                     <h5 className="card-text">{item.name}</h5>
                                                     <p className="card-text">{item.price}</p>
                                                     <a href="#" className="btn btn-primary">Xem chi tiết</a>

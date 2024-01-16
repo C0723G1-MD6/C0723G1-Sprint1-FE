@@ -1,5 +1,5 @@
 import Footer from "./Footer";
-import * as method from "../../services/anHN/method"
+import * as method from "../../services/anHN/ProductService"
 import React from "react";
 import {useState, useEffect} from "react";
 import "./AnHN.css";
@@ -228,6 +228,8 @@ function HomeEmployee(){
                                     {product.map(item =>
                                         <div key={item.id} className="col-12 col-lg-4">
                                             <div className="card" style={{width:"400px"}}>
+                                                <img className="card-img-top" src={item.mainAvatar} alt="Card image" height="280"
+                                                     width="250"/>
                                                 <div className="card-body">
                                                     <h5 className="card-text">{item.name}</h5>
                                                     <p className="card-text">{item.price}</p>
