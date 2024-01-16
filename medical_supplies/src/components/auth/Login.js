@@ -34,8 +34,9 @@ export default function Login() {
 
             }
         } catch (e) {
-            console.log(e)
             setFieldError("password", e.data);
+            console.log(e);
+
         }
     }
     // const jwtToken = JSON.parse(localStorage.getItem("user")).accessToken;
