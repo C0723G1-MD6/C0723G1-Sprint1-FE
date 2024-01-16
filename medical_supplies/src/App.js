@@ -10,6 +10,8 @@ import Home from "./components/anHN/Home";
 import HomeAdmin from "./components/anHN/HomeAdmin";
 import Sidebar from "./components/anHN/Sidebar";
 import "react-toastify/dist/ReactToastify.min.css"
+import DashboardSalesman from "./components/DashboardSalesman";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
     return (
@@ -22,6 +24,7 @@ function App() {
                 <Route path="/home-admin" element={<HomeAdmin/>}/>
                 <Route path="/home-employee" element={<HomeEmployee/>}/>
                 <Route path="/sidebar" element={<Sidebar/>}/>
+                <Route path="/dashboard" element={<Dashboard/>}/>
             </Routes>
             <ToastContainer/>
         </BrowserRouter>
