@@ -5,7 +5,7 @@ import React from "react";
 import {useState, useEffect} from "react";
 import "./AnHN.css";
 import { toast } from "react-toastify";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import Sidebar from "./Sidebar";
 import img_1 from "../img/img_1.png";
 
@@ -215,10 +215,10 @@ function HomeAdmin(){
                                 </ul>
                             </li>
                             <li className="sidebar-item">
-                                <a href="#" className="sidebar-link text-dark">
+                                <NavLink to="/register" className="sidebar-link text-dark">
                                     <i className="fa-solid fa-list pe-2"></i>
                                     Đăng Kí Nhân Viên
-                                </a>
+                                </NavLink>
                             </li>
                             <li className="sidebar-item" style={{paddingTop: "80%",paddingLeft: "12%"}}>
                                 <a href="#" className="sidebar-link text-dark">

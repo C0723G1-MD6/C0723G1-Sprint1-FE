@@ -1,9 +1,12 @@
 import {ErrorMessage, Field, Formik, Form} from "formik";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import * as Yup from "yup";
 import * as accountService from "../../services/accounts/AccountService";
 import {toast} from "react-toastify";
-import {Navigate, useNavigate, NavLink} from "react-router-dom";
+import {useNavigate, NavLink} from "react-router-dom";
+import Footer from "../anHN/Footer";
+
+
 
 
 export default function Register() {
@@ -18,7 +21,7 @@ export default function Register() {
             const res = await accountService.roleList();
             setRoles(res.data)
         } catch (e) {
-            throw e.response;
+            return  e;
         }
     }
 
@@ -56,15 +59,14 @@ export default function Register() {
 
         try {
             const res = await accountService.createAccount(values);
-            console.log(res)
             if (res.status === 200) {
-                navigate("/login")
+                navigate("/register")
                 toast.success("Đăng ký thành công!");
 
             }
         } catch (e) {
-            console.log(e.data);
-            setFieldError("password", e.data);
+            setFieldError(e.data);
+            console.log(e);
 
         }
     }
@@ -72,11 +74,6 @@ export default function Register() {
     return (
         <>
             <div className="main">
-                {/*<nav className="navbar navbar-expand px-3 border-bottom">*/}
-                {/*    <button className="btn btn-sm" type="button" data-bs-theme="dark">*/}
-                {/*        <span className="navbar-toggler-icon"></span>*/}
-                {/*    </button>*/}
-                {/*</nav>*/}
                 <main className="content px-3 py-2">
                     <div className="container-fluid">
                         <div className="row content">
@@ -217,6 +214,7 @@ export default function Register() {
                     </div>
                 </main>
             </div>
+            <Footer/>
         </>
     )
 }

@@ -6,7 +6,8 @@ export const createAccount = async (accountDto) => {
         const res = await axios.post(`http://localhost:8080/api/register`, accountDto);
         return res;
     } catch (e) {
-        return e;
+        throw e.response;
+        console.log(e);
     }
 }
 export const roleList = async () => {
@@ -14,6 +15,7 @@ export const roleList = async () => {
         const res = await axios.get(`http://localhost:8080/api/role`);
         return res;
     } catch (e) {
-        return e;
+        throw e.response;
+
     }
 }
