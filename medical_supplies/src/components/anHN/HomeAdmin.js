@@ -29,6 +29,11 @@ function HomeAdmin(){
         }
     }
 
+    const VND = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
+
 
 
 
@@ -78,6 +83,7 @@ function HomeAdmin(){
                         </div>
                         <div className="col-12 col-lg-6">
                             <p className="text-header">CÙNG TẠO CƠ HỘI THÀNH CÔNG - HƯỚNG TỚI SỨC KHỎE CỘNG ĐỒNG</p>
+                            <p className="text-header">XÂY DỰNG CUỘC SỐNG TƯƠI ĐẸP</p>
                         </div>
                         <div className="button-header col-12 col-lg-2" >
 
@@ -205,12 +211,12 @@ function HomeAdmin(){
                                 <ul id="pages" className="sidebar-dropdown list-unstyled collapse"
                                     data-bs-parent="#sidebar">
                                     <li className="sidebar-item ">
-                                        <a href="#" className="sidebar-link text-dark">Chỉnh
-                                            Sửa Thông Tin</a>
+                                        <NavLink to="/employee/:id" className="sidebar-link text-dark">Chỉnh
+                                            Sửa Thông Tin</NavLink>
                                     </li>
                                     <li className="sidebar-item">
-                                        <a href="#" className="sidebar-link text-dark">Đổi
-                                            Mật Khẩu</a>
+                                        <NavLink to="/change_pass" className="sidebar-link text-dark">Đổi
+                                            Mật Khẩu</NavLink>
                                     </li>
                                 </ul>
                             </li>
@@ -221,10 +227,10 @@ function HomeAdmin(){
                                 </NavLink>
                             </li>
                             <li className="sidebar-item" style={{paddingTop: "80%",paddingLeft: "12%"}}>
-                                <a href="#" className="sidebar-link text-dark">
+                                <NavLink to="/login" className="sidebar-link text-dark">
                                     <i className="fa-solid fa-list pe-2"></i>
                                     <button className="btn btn-outline-secondary">Đăng Xuất</button>
-                                </a>
+                                </NavLink>
                             </li>
                         </ul>
                     </div>
@@ -247,7 +253,7 @@ function HomeAdmin(){
                                                     <img className="card-img-top" src={item.mainAvatar} alt="Card image" height="280"
                                                          width="250"/>
                                                     <h5 className="card-text">{item.name}</h5>
-                                                    <p className="card-text">Giá: {item.price} VNĐ</p>
+                                                    <p className="card-text">Giá: {VND.format(item.price)}</p>
                                                     <a href="#" className="btn btn-primary">Xem chi tiết</a>
                                                     <a href="#" className="btn btn-danger" style={{marginLeft:"15px"}}>Chỉnh sửa</a>
                                                 </div>

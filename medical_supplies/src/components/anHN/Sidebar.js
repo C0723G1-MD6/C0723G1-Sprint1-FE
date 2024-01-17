@@ -1,4 +1,5 @@
 import "./SideBar.css";
+import {NavLink} from "react-router-dom";
 
 
 function Sidebar(){
@@ -44,12 +45,12 @@ function Sidebar(){
                             <ul id="pages" className="sidebar-dropdown list-unstyled collapse"
                                 data-bs-parent="#sidebar">
                                 <li className="sidebar-item ">
-                                    <a href="#" className="sidebar-link text-dark">Chỉnh
-                                        Sửa Thông Tin</a>
+                                    <NavLink to="/employee/:id" className="sidebar-link text-dark">Chỉnh
+                                        Sửa Thông Tin</NavLink>
                                 </li>
                                 <li className="sidebar-item">
-                                    <a href="#" className="sidebar-link text-dark">Đổi
-                                        Mật Khẩu</a>
+                                    <NavLink to="/change_pass" className="sidebar-link text-dark">Đổi
+                                        Mật Khẩu</NavLink>
                                 </li>
                             </ul>
                         </li>

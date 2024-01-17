@@ -25,8 +25,8 @@ function App() {
                 <Route path="/home-admin" element={<HomeAdmin/>}/>
                 <Route path="/home-employee" element={<HomeEmployee/>}/>
                 <Route path="/sidebar" element={<Sidebar/>}/>
-                <Route path={"/login"} element={<Login/>}></Route>
-                <Route path={"/register"} element={<Register/>}></Route>
+                <Route path="/login" element={<Login/>}></Route>
+                <Route path="/register" element={<Register/>}></Route>
                 <Route path="/employee/:id" element={<EditEmployee/>}/>
                 <Route path="/change_pass" element={<ChangePassword/>}/>
             </Routes>

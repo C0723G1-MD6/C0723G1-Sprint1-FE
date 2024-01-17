@@ -28,7 +28,10 @@ function HomeEmployee(){
         }
     }
 
-
+    const VND = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
 
 
     return (
@@ -77,6 +80,7 @@ function HomeEmployee(){
                         </div>
                         <div className="col-12 col-lg-6">
                             <p className="text-header">CÙNG TẠO CƠ HỘI THÀNH CÔNG - HƯỚNG TỚI SỨC KHỎE CỘNG ĐỒNG</p>
+                            <p className="text-header">XÂY DỰNG CUỘC SỐNG TƯƠI ĐẸP</p>
                         </div>
                         <div className="button-header col-12 col-lg-2" >
 
@@ -178,7 +182,6 @@ function HomeEmployee(){
                             <div className="user-detail">
                                 <div className="title">Quản Lý</div>
                                 <div className="name">Nguyễn Văn A</div>
-
                             </div>
                         </div>
                         <ul className="sidebar-nav">
@@ -232,7 +235,7 @@ function HomeEmployee(){
                                                      width="250"/>
                                                 <div className="card-body">
                                                     <h5 className="card-text">{item.name}</h5>
-                                                    <p className="card-text">{item.price}</p>
+                                                    <p className="card-text">Giá: {VND.format(item.price)} </p>
                                                     <a href="#" className="btn btn-primary">Xem chi tiết</a>
                                                 </div>
                                             </div>

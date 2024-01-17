@@ -9,6 +9,7 @@ import {useEffect} from "react";
 
 
 function Dashboard() {
+
     const user = JSON.parse(localStorage.getItem('user'));
     const employeeInfo = useSelector((store) => store.employee);
     const dispatch = useDispatch();
