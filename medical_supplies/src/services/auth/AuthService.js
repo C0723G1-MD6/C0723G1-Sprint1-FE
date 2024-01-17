@@ -1,6 +1,10 @@
 import axios from "axios";
 
-export default function authHeader(){
+export  function authHeader(){
+
+}
+
+export default function authToken(){
     const user = JSON.parse(localStorage.getItem(`user`));
 
     if (user!==null ){
@@ -9,16 +13,11 @@ export default function authHeader(){
         const payload = JSON.parse(atob(payloadBase64));
         console.log(payload);
         return payload;
-        // return{
-        //     "Authorization": 'Bearer ' + user.accessToken,
-        //     "Content-Type": 'application/json'
-        // }
+
     } else {
         return {};
     }
 }
-
-
 export const login = async (account)=>{
     try {
         const res = await axios.post("http://localhost:8080/api/login",account);

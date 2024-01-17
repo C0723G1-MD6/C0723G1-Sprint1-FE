@@ -11,7 +11,6 @@ import HomeAdmin from "./components/anHN/HomeAdmin";
 import SidebarAdmin from "./components/anHN/SidebarAdmin";
 
 import "react-toastify/dist/ReactToastify.min.css"
-import DashboardSalesman from "./components/DashboardSalesman";
 import Dashboard from "./pages/Dashboard";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -35,7 +34,7 @@ function App() {
 
                 <Route path={"/login"} element={<Login/>}></Route>
                 <Route path={"/register"} element={<Register/>}></Route>
-                <Route path="/employee/:id" element={<EditEmployee/>}/>
+                <Route path="/employee" element={<EditEmployee/>}/>
                 <Route path="/change_pass" element={<ChangePassword/>}/>
             </Routes>
             <ToastContainer/>

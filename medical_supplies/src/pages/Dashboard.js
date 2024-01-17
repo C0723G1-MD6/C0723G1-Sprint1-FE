@@ -1,13 +1,14 @@
 // import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect,useState} from "react";
-import authHeader from "../services/auth/AuthService";
+import React, {useEffect,useState} from "react";
+import authToken from "../services/auth/AuthService";
 import * as accountService from "../services/accounts/AccountService";
 import Home from "../components/anHN/Home";
 import DashboardAdmin from "../components/DashboardAdmin";
 import DashboardAccountant from "../components/DashboardAccountant";
 import DashboardSalesman from "../components/DashboardSalesman";
 
+import HomeAdmin from "../components/anHN/HomeAdmin";
 
 
 function Dashboard() {
@@ -46,6 +47,7 @@ function Dashboard() {
     return <>
         <div>
             {renderDashboardContent()}
+
         </div>
     </>;
 }
