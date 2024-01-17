@@ -9,36 +9,39 @@ import {useEffect} from "react";
 
 
 function Dashboard() {
-
-    const user = JSON.parse(localStorage.getItem('user'));
-    const employeeInfo = useSelector((store) => store.employee);
-    const dispatch = useDispatch();
-
+    const [employee, setEmployee] = useState({});
+    const role = authHeader().roles[0].authority;
+    const email = authHeader().sub;
     useEffect(() => {
-        if (user) {
+        if (email.length>0) {
             getInfoEmployee();
         }
     }, []);
 
 
     const getInfoEmployee = async () => {
-        await dispatch(getInfoByIdAccount(user.id));
+        try {
+            const res = await accountService.getAllByEmployee(email);
+            setEmployee(res.data);
+        } catch (e) {
+            throw e.response;
+        }
     };
 
     const renderDashboardContent = () => {
-        if (!user) {
-            return <AccessDenied/>;
-        } else if (user.roles.includes("ROLE_MANAGER")) {
-            return <DashboardManager employee={employeeInfo}/>;
-        } else if (user.roles.includes("ROLE_ACCOUNTANT")) {
-            return <DashboardWarehouse employee={employeeInfo}/>;
-        } else if (user.roles.includes("ROLE_SALESMAN")) {
-            return <DashboardSale employee={employeeInfo}/>;
+        if (!email) {
+            return <Home/>;
+        } else if (role.includes("ROLE_ADMIN")) {
+            return <DashboardAdmin employee={employee}/>;
+        } else if (role.includes("ROLE_ACCOUNTANT")) {
+            return <DashboardAccountant employee={employee}/>;
+        } else if (role.includes("ROLE_SALESMAN")) {
+            return <DashboardSalesman employee={employee}/>;
         }
     };
 
     return <>
-        <div id="truong">
+        <div>
             {renderDashboardContent()}
         </div>
     </>;

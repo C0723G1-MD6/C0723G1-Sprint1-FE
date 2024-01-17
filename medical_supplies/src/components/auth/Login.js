@@ -23,13 +23,12 @@ export default function Login() {
     });
 
     const handleSubmitFormLogin = async (values, {setFieldError}) => {
-        console.log(values)
         try {
             const res = await authService.login(values);
 
             if (res.status === 200) {
                 localStorage.setItem('user', JSON.stringify(res.data));
-                navigate("/home-admin")
+                navigate("/dashboard")
                 toast.success("Đăng nhập thành công !");
 
             }
@@ -39,11 +38,11 @@ export default function Login() {
 
         }
     }
-    // const jwtToken = JSON.parse(localStorage.getItem("user")).accessToken;
-    //
-    // const [, payloadBase64] = jwtToken.split('.');
-    // const payload = JSON.parse(atob(payloadBase64));
-    // console.log(payload)
+    const jwtToken = JSON.parse(localStorage.getItem("user")).accessToken;
+
+    const [, payloadBase64] = jwtToken.split('.');
+    const payload = JSON.parse(atob(payloadBase64));
+    console.log(payload)
 
     return (
         <>
@@ -54,11 +53,15 @@ export default function Login() {
                     <div className="col-8">
                         <div className="form-control shadow rounded-0 p-4"
                              style={{backgroundImage: "url('/image/yte4.png')"}}>
-                            <div className="row py-5 mt-4 align-items-center">
+                            <div className="text-center mt-1">
+                                <h2>ĐĂNG NHẬP</h2>
+                            </div>
+                            <div className="row py-5 mt-2 align-items-center">
+
                                 <div className="col-md-6 col-lg-6 pr-lg-5 mb-5 mb-md-0 mp"
                                      style={{textAlign: `center`}}>
                                     <img
-                                        src="https://caodangyduocsaigon.com/images/files/caodangyduocsaigon.com/bieu-tuong-nganh-y-te.jpg"
+                                        src="https://thuonghieusaigon.vn/uploads/shops/thumb/vina.gif"
                                         alt="img"
                                         className="img-fluid mb-3 d-none d-md-block rounded-5"/>
                                 </div>

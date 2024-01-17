@@ -4,9 +4,10 @@ import React from "react";
 import {useState, useEffect} from "react";
 import "./AnHN.css";
 import { toast } from "react-toastify";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import Sidebar from "./Sidebar";
 import img_1 from "../img/img_1.png";
+import ModalLogout from "../auth/ModalLogout";
 
 
 
@@ -208,11 +209,12 @@ function HomeEmployee(){
                                 </ul>
                             </li>
                             <li className="sidebar-item" style={{paddingTop: "80%",paddingLeft: "12%"}}>
-                                <a href="#" className="sidebar-link text-dark">
+                                <NavLink role="button" className="sidebar-link text-dark">
                                     <i className="fa-solid fa-list pe-2"></i>
-                                    <button className="btn btn-outline-secondary">Đăng Xuất</button>
-                                </a>
+                                    <button className="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#logout">Đăng Xuất</button>
+                                </NavLink>
                             </li>
+                            <ModalLogout/>
                         </ul>
                     </div>
                 </aside>
