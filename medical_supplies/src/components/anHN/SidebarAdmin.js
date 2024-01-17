@@ -24,17 +24,25 @@ function SidebarAdmin(){
                     </div>
                     <ul className="sidebar-nav">
                         <li className="sidebar-header text-dark">
-                            Vật Tư
+                            <div style={{fontSize:20}}>
+                                Vật Tư
+                            </div>
                         </li>
                         <li className="sidebar-item">
-                            <a href="#" className="sidebar-link text-dark">
+                            <NavLink href="#" className="sidebar-link text-dark">
                                 <i className="fa-solid fa-list pe-2"></i>
                                 Thêm Vật Tư
-                            </a>
+                            </NavLink>
                         </li>
-                        <li className="sidebar-header text-dark">
-                            Chức Năng
+                        <li className="sidebar-item">
+                            <NavLink href="#" className="sidebar-link text-dark">
+                                <i className="fa-solid fa-list pe-2"></i>
+                                Chỉnh sửa vật tư
+                            </NavLink>
                         </li>
+                        <div style={{fontSize:20, paddingLeft:"25px"}}>
+                            Chức năng
+                        </div>
                         <li className="sidebar-item">
                             <a href="#" className="sidebar-link collapsed text-dark" data-bs-toggle="collapse"
                                data-bs-target="#pages"
