@@ -1,5 +1,6 @@
 import img_1 from "../img/img_1.png";
 import {Link} from "react-router-dom";
+import admin from "../img/admin.png";
 
 
 
@@ -47,15 +48,8 @@ function HeaderAdmin() {
                             <p className="text-header">CÙNG TẠO CƠ HỘI THÀNH CÔNG - HƯỚNG TỚI SỨC KHỎE CỘNG ĐỒNG</p>
                             <p className="text-header">XÂY DỰNG CUỘC SỐNG TƯƠI ĐẸP</p>
                         </div>
-                        <div className="button-header col-12 col-lg-2" >
-                            <div className="button-header col-12 col-lg-2">
-                                <button type="button" className="btn btn-success">
-                                    <Link to="#" style={{color: "white", textDecoration: "none"}}>
-                                        QUẢN TRỊ VIÊN
-                                    </Link>
-                                </button>
-                            </div>
-
+                        <div className="button-header col-12 col-lg-2"  >
+                                <img className="logo-header" src={admin} style={{width:"150px", height:"130px"}}/>
                         </div>
                         <div className="col-12 col-lg-1">
 

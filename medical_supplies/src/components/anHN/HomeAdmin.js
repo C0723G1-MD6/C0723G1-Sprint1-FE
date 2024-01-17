@@ -6,8 +6,6 @@ import ReactPaginate from "react-paginate";
 
 function HomeAdmin() {
 
-
-
     const [nameSearch, setNameSearch] = useState([])
 
     const [product, setProduct] = useState([]);
