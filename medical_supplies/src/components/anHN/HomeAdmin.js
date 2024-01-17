@@ -206,12 +206,12 @@ function HomeAdmin(){
                                 <ul id="pages" className="sidebar-dropdown list-unstyled collapse"
                                     data-bs-parent="#sidebar">
                                     <li className="sidebar-item ">
-                                        <a href="#" className="sidebar-link text-dark">Chỉnh
-                                            Sửa Thông Tin</a>
+                                        <NavLink to={"/employee"} className="sidebar-link text-dark">Chỉnh
+                                            Sửa Thông Tin</NavLink>
                                     </li>
                                     <li className="sidebar-item">
-                                        <a href="#" className="sidebar-link text-dark">Đổi
-                                            Mật Khẩu</a>
+                                        <NavLink to={"/change_pass"} className="sidebar-link text-dark">Đổi
+                                            Mật Khẩu</NavLink>
                                     </li>
                                 </ul>
                             </li>
@@ -246,6 +246,8 @@ function HomeAdmin(){
                                     {product.map(item =>
                                         <div key={item.id} className="col-12 col-lg-4">
                                             <div className="card" style={{width:"400px"}}>
+                                                <img className="card-img-top" src={item.mainAvatar} alt="Card image" height="280"
+                                                     width="250"/>
                                                 <div className="card-body">
                                                     <h5 className="card-text">{item.name}</h5>
                                                     <p className="card-text">{item.price}</p>

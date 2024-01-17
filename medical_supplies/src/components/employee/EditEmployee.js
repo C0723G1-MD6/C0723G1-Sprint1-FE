@@ -5,23 +5,34 @@ import {toast} from "react-toastify";
 import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import authToken from "../../services/auth/AuthService";
+import * as employeeSevice from "../../services/employee/employeeService";
+
 
 export function EditEmployee() {
-    const [employee, setEmployee] = useState();
     const navigate = useNavigate();
     const {id} = useParams();
-
-
-    const getEmployee = async (id) => {
-        try {
-            if (id) {
-                const res = await getEmployeeByIdService(id)
-                setEmployee({...res, gender: res.gender ? 1 : 0})
-            }
-        } catch (e) {
-            alert("error get Employee")
+    const [employee, setEmployee] = useState();
+    const email = authToken().sub;
+    useEffect(() => {
+        if (email) {
+            getInfoEmployee();
         }
-    }
+    }, []);
+
+
+    const getInfoEmployee = async () => {
+        try {
+            const res = await employeeSevice.getAllByEmployee(email);
+            setEmployee({...res.data,gender:res.gender ? 1:0});
+        } catch (e) {
+            throw e.response;
+        }
+    };
+    console.log(employee)
+
+
+
     const editEmployee = async (data, setErrors) => {
         console.log("Ok")
         try {
@@ -29,7 +40,7 @@ export function EditEmployee() {
             const res = await editEmployeeService(data)
             console.log(res)
             if (res.status === 200) {
-                navigate("/employee")
+                navigate("/dashboard")
                 toast.success("Edit successfully")
             } else if (res.status === 201) {
                 toast("edit failed")
@@ -39,16 +50,7 @@ export function EditEmployee() {
             alert("Error edit")
         }
     }
-    useEffect(() => {
-        id && getEmployee(id)
-    }, [id]);
-    if (!employee) {
-        return null;
-    }
-    // const handleGenderChange = (event) => {
-    //     const value = event.target.value
-    //     setGender(value === true)
-    // }
+
     const dd = new Date();
     const date18 = `${dd.getFullYear() - 18}-${dd.getMonth() + 1}-${dd.getDate()}`;
     const date65 = `${dd.getFullYear() - 65}-${dd.getMonth() + 1}-${dd.getDate()}`;
@@ -75,10 +77,14 @@ export function EditEmployee() {
     if (!employee) return null
     return (
         <>
-            <Formik initialValues={employee} onSubmit={(values, {setErrors}) => {
-                const empObj = {...values, gender: +employee.gender === 1}
-                editEmployee(empObj, setErrors)
-            }} validationSchema={Yup.object(employeeValidate)}>
+            <Formik
+                initialValues={employee}
+                onSubmit={(values, {setErrors}) => {
+                    const empObj = {...values, gender: +employee.gender === 1}
+                    editEmployee(empObj, setErrors)
+                }}
+                validationSchema={Yup.object(employeeValidate)}
+            >
                 <div className="content px-3 py-2">
                     <div className="container-fluid">
                         <div className="row content">
@@ -152,7 +158,7 @@ export function EditEmployee() {
                                                                            onChange={handleGenderChange}
                                                                            data-sb-validations="required"
                                                                            name="gender"
-                                                                           />
+                                                                    />
                                                                     <label className="form-check-label" htmlFor="nam">
                                                                         Nam
                                                                     </label>
@@ -206,7 +212,7 @@ export function EditEmployee() {
                                                                                     component="div"/></small></p>
                                                         </div>
                                                         <div className="d-flex me-5 justify-content-center gap-3">
-                                                            <NavLink to={"../change_pass"}>
+                                                            <NavLink to={"../dashboard"}>
                                                                 <button className="btn btn-secondary btn-sm"><a
                                                                 >Hủy</a>
                                                                 </button>

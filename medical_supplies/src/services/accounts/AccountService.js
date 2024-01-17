@@ -19,13 +19,3 @@ export const roleList = async () => {
 
     }
 }
-export const getAllByEmployee = async (email) => {
-    try {
-        const res = await axios.get(`http://localhost:8080/api/employee/search/${email}`);
-        console.log(res)
-        return res;
-    } catch (e) {
-        throw e.response;
-
-    }
-}

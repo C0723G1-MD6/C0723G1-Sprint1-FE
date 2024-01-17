@@ -35,7 +35,7 @@ function App() {
 
                 <Route path={"/login"} element={<Login/>}></Route>
                 <Route path={"/register"} element={<Register/>}></Route>
-                <Route path="/employee/:id" element={<EditEmployee/>}/>
+                <Route path="/employee" element={<EditEmployee/>}/>
                 <Route path="/change_pass" element={<ChangePassword/>}/>
 
             </Routes>

@@ -1,7 +1,8 @@
 import "./SideBar.css";
+import React from "react";
 
 
-function Sidebar(){
+function Sidebar() {
 
 
     return (
@@ -11,7 +12,7 @@ function Sidebar(){
                 <div className="h-100">
                     <div className="sidebar-logo">
                         <div className="user-img">
-                            <img style={{height: "4rem",width: "4rem",borderRadius: "50%"}}
+                            <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
                                  src="https://a0.anyrgb.com/pngimg/16/486/user-profile-user-experience-user-interface-design-avatar-user-interface-ico-person-user-man-computer-software-thumbnail.png"
                                  alt=""/>
                         </div>
@@ -59,7 +60,7 @@ function Sidebar(){
                                 Đăng Kí Nhân Viên
                             </a>
                         </li>
-                        <li className="sidebar-item" style={{paddingTop: "80%",paddingLeft: "12%"}}>
+                        <li className="sidebar-item" style={{paddingTop: "80%", paddingLeft: "12%"}}>
                             <a href="#" className="sidebar-link text-dark">
                                 <i className="fa-solid fa-list pe-2"></i>
                                 <button className="btn btn-outline-secondary">Đăng Xuất</button>
