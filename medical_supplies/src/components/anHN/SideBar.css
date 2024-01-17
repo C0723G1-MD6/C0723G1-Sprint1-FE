@@ -46,7 +46,7 @@ li {
     z-index: 1111;
 }
 
-/* Sidebar collapse */
+/* SidebarAdmin collapse */
 
 #sidebar.collapsed {
     margin-left: -264px;

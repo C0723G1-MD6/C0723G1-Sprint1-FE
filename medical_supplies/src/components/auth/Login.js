@@ -38,12 +38,6 @@ export default function Login() {
 
         }
     }
-    const jwtToken = JSON.parse(localStorage.getItem("user")).accessToken;
-
-    const [, payloadBase64] = jwtToken.split('.');
-    const payload = JSON.parse(atob(payloadBase64));
-    console.log(payload)
-
     return (
         <>
             <Header/>

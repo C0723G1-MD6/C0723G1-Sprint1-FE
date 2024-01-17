@@ -5,7 +5,7 @@ import {useState, useEffect} from "react";
 import "./AnHN.css";
 import { toast } from "react-toastify";
 import {Link, NavLink} from "react-router-dom";
-import Sidebar from "./Sidebar";
+import SidebarAdmin from "./SidebarAdmin";
 import img_1 from "../img/img_1.png";
 import ModalLogout from "../auth/ModalLogout";
 

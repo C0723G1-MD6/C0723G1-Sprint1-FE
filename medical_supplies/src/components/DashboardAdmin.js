@@ -1,10 +1,19 @@
 import React from 'react';
+import SidebarAdmin from "./anHN/SidebarAdmin";
+import HeaderAdmin from "./anHN/HeaderAdmin";
+import Footer from "./anHN/Footer";
+import HomeAdmin from "./anHN/HomeAdmin";
 
 // Trang Admin
 function DashboardAdmin() {
     return (
         <>
-          <h1>Đây là trang admin</h1>
+            <HeaderAdmin/>
+            <div className="container-fluid wrapper">
+            <SidebarAdmin/>
+            <HomeAdmin/>
+            </div>
+            <Footer/>
         </>
     );
 }

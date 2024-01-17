@@ -2,12 +2,12 @@ import "./SideBar.css";
 import {NavLink} from "react-router-dom";
 
 
-function Sidebar(){
+function SidebarAdmin(){
+
+
 
 
     return (
-        <div className="container-fluid wrapper">
-
             <aside id="sidebar">
                 <div className="h-100">
                     <div className="sidebar-logo">
@@ -70,20 +70,7 @@ function Sidebar(){
                 </div>
             </aside>
 
-            <div className="main">
-                <nav className="navbar navbar-expand px-3 border-bottom">
-                    <button className="btn btn-sm" type="button" data-bs-theme="dark">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                </nav>
-                <main className="content px-3 py-2">
-                    <div className="container-fluid">
-
-                    </div>
-                </main>
-            </div>
-        </div>
     )
 }
 
-export default Sidebar;
+export default SidebarAdmin;
