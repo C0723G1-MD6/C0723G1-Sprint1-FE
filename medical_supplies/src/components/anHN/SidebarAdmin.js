@@ -1,11 +1,30 @@
 import "./SideBar.css";
 import {NavLink} from "react-router-dom";
+import ModalLogout from "../auth/ModalLogout";
+import React, {useEffect, useState} from "react";
+import authHeader from "../../services/auth/AuthService";
+import * as employeeService from "../../services/employee/employeeService";
 
 
 function SidebarAdmin(){
+    const [employee, setEmployee] = useState({});
+    const role = authHeader().roles[0].authority;
+    const email = authHeader().sub;
+    useEffect(() => {
+        if (email.length>0) {
+            getInfoEmployee();
+        }
+    }, []);
 
 
-
+    const getInfoEmployee = async () => {
+        try {
+            const res = await employeeService.getAllByEmployee(email);
+            setEmployee(res.data);
+        } catch (e) {
+            throw e.response;
+        }
+    };
 
     return (
             <aside id="sidebar">
@@ -17,9 +36,12 @@ function SidebarAdmin(){
                                  alt=""/>
                         </div>
                         <div className="user-detail">
-                            <div className="title">Quản Lý</div>
-                            <div className="name">Nguyễn Văn A</div>
-
+                            <div className="title">
+                                {role.idRole === 1 ?
+                                    "Admin" : role.idRole === 2 ?
+                                        "Kế toán" : "Bán hàng"}
+                            </div>
+                            <div className="name fw-bold">{employee.name}</div>
                         </div>
                     </div>
                     <ul className="sidebar-nav">
@@ -60,12 +82,15 @@ function SidebarAdmin(){
                                 Đăng Kí Nhân Viên
                             </NavLink>
                         </li>
-                        <li className="sidebar-item" style={{paddingTop: "80%",paddingLeft: "12%"}}>
-                            <a href="#" className="sidebar-link text-dark">
+                        <li className="sidebar-item" style={{paddingTop: "80%", paddingLeft: "12%"}}>
+                            <NavLink role="button" className="sidebar-link text-dark">
                                 <i className="fa-solid fa-list pe-2"></i>
-                                <button className="btn btn-outline-secondary">Đăng Xuất</button>
-                            </a>
+                                <button className="btn btn-outline-secondary" data-bs-toggle="modal"
+                                        data-bs-target="#logout">Đăng Xuất
+                                </button>
+                            </NavLink>
                         </li>
+                        <ModalLogout/>
                     </ul>
                 </div>
             </aside>
