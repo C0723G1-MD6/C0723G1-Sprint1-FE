@@ -7,8 +7,6 @@ import {useNavigate, NavLink} from "react-router-dom";
 import Footer from "../anHN/Footer";
 
 
-
-
 export default function Register() {
     const [roles, setRoles] = useState([]);
     const navigate = useNavigate();
@@ -21,7 +19,7 @@ export default function Register() {
             const res = await accountService.roleList();
             setRoles(res.data)
         } catch (e) {
-            return  e;
+            return e;
         }
     }
 
@@ -55,9 +53,9 @@ export default function Register() {
             .required("Vui lòng chọn chức vụ.")
     };
 
-    const handleSubmitFormRegister = async (values, setFieldError) => {
-        console.log(values);
+    const handleSubmitFormRegister = async (values, {setErrors}) => {
         try {
+            console.log(values);
             const res = await accountService.createAccount(values);
             if (res.status === 200) {
                 navigate("/register")
@@ -65,9 +63,7 @@ export default function Register() {
 
             }
         } catch (e) {
-            setFieldError(e.data);
-            console.log(e);
-
+            setErrors(e.data);
         }
     }
     if (!roles) return null;
@@ -84,7 +80,7 @@ export default function Register() {
                                              style={{backgroundImage: "url('/imgage/yte4.png')"}}>
                                             <h2 className="text-center">Tạo Tài Khoản</h2>
                                             <Formik initialValues={initValues}
-                                                    onSubmit={(values, {setFieldError}) => handleSubmitFormRegister(values, {setFieldError})}
+                                                    onSubmit={(values, {setErrors}) => handleSubmitFormRegister(values, {setErrors})}
                                                     validationSchema={Yup.object(validateFormRegister)}
                                             >
                                                 <Form className="mt-3">
@@ -113,7 +109,7 @@ export default function Register() {
                                                             vụ<span
                                                                 className="text-danger">(*)</span></label>
                                                         < Field as="select" className="form-select" name="idRole">
-                                                            <option>-----Chọn nghiệp vụ-----</option>
+                                                            <option value="">-----Chọn nghiệp vụ-----</option>
                                                             {
                                                                 roles.map(role => (
                                                                     <option key={role.idRole} value={role.idRole}>
@@ -154,8 +150,8 @@ export default function Register() {
                                                                    name="gender"
                                                                    id="nam" value="true"
                                                                    data-sb-validations="required"
-                                                                   />
-                                                            <label className="form-check-label" htmlFor="nam">
+                                                            />
+                                                            <label className="form-check-label me-3 ms-1" htmlFor="nam">
                                                                 Nam
                                                             </label>
 
@@ -164,7 +160,7 @@ export default function Register() {
                                                                    id="nu" value="false"
                                                                    data-sb-validations="required"
                                                             />
-                                                            <label className="form-check-label" htmlFor="nu">
+                                                            <label className="form-check-label ms-1" htmlFor="nu">
                                                                 Nữ
                                                             </label>
                                                         </div>
