@@ -1,6 +1,6 @@
 import React from 'react';
 import SidebarAdmin from "./anHN/SidebarAdmin";
-import HeaderAdmin from "./anHN/HeaderAdmin";
+// import HeaderAdmin from "./anHN/HeaderAdmin";
 import Footer from "./anHN/Footer";
 import HomeAdmin from "./anHN/HomeAdmin";
 
@@ -8,7 +8,7 @@ import HomeAdmin from "./anHN/HomeAdmin";
 function DashboardAdmin() {
     return (
         <>
-            <HeaderAdmin/>
+            {/*<HeaderAdmin/>*/}
             <div className="container-fluid wrapper">
             <SidebarAdmin/>
             <HomeAdmin/>
