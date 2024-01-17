@@ -1,42 +1,12 @@
-import Footer from "./Footer";
-import * as method from "../../services/anHN/ProductService"
-import React from "react";
-import {useState, useEffect} from "react";
-import "./AnHN.css";
-import { toast } from "react-toastify";
-import {Link, NavLink} from "react-router-dom";
-import SidebarAdmin from "./SidebarAdmin";
 import img_1 from "../img/img_1.png";
-import ModalLogout from "../auth/ModalLogout";
+import {Link} from "react-router-dom";
 
 
 
-function HomeEmployee(){
-
-
-    const [product, setProduct] = useState([]);
-
-    useEffect(() => {
-        getAll();
-    }, []);
-
-    const getAll = async () => {
-        try {
-            let data = await method.getAllProduct();
-            setProduct(data);
-        } catch (e) {
-            console.log("error")
-        }
-    }
-
-    const VND = new Intl.NumberFormat('vi-VN', {
-        style: 'currency',
-        currency: 'VND',
-    });
-
+function HeaderAdmin() {
 
     return (
-        <div>
+        <>
             <div className="container-fluid">
                 <header>
                     <div className="row row-header-1">
@@ -58,14 +28,8 @@ function HomeEmployee(){
                             <hr style={{height:"2px",borderWidth:0,color:"gray",backgroundColor:"black"}}/>
                         </div>
                         <div className="col-12 col-lg-3">
-                            <div className="input-group">
-                                <input type="text" className="form-control" placeholder="Tìm kiếm" aria-label="Recipient's username with two button addons"/>
-                                <button className="btn btn-outline-secondary" type="button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                                    </svg>
-                                </button>
-                            </div>
+                            Cung câp thiết bị vật tư y tế
+                            <hr style={{height:"2px",borderWidth:0,color:"gray",backgroundColor:"black"}}/>
                         </div>
                         <div className="col-12 col-lg-1">
 
@@ -84,6 +48,13 @@ function HomeEmployee(){
                             <p className="text-header">XÂY DỰNG CUỘC SỐNG TƯƠI ĐẸP</p>
                         </div>
                         <div className="button-header col-12 col-lg-2" >
+                            <div className="button-header col-12 col-lg-2">
+                                <button type="button" className="btn btn-success">
+                                    <Link to="#" style={{color: "white", textDecoration: "none"}}>
+                                        QUẢN TRỊ VIÊN
+                                    </Link>
+                                </button>
+                            </div>
 
                         </div>
                         <div className="col-12 col-lg-1">
@@ -169,90 +140,8 @@ function HomeEmployee(){
                 </nav>
 
             </div>
+        </>
 
-            <div className="container-fluid wrapper">
-
-                <aside id="sidebar">
-                    <div className="h-100">
-                        <div className="sidebar-logo">
-                            <div className="user-img">
-                                <img style={{height: "4rem",width: "4rem",borderRadius: "50%"}}
-                                     src="https://a0.anyrgb.com/pngimg/16/486/user-profile-user-experience-user-interface-design-avatar-user-interface-ico-person-user-man-computer-software-thumbnail.png"
-                                     alt=""/>
-                            </div>
-                            <div className="user-detail">
-                                <div className="title">Quản Lý</div>
-                                <div className="name">Nguyễn Văn A</div>
-                            </div>
-                        </div>
-                        <ul className="sidebar-nav">
-                            <li className="sidebar-header text-dark">
-                                Chức Năng
-                            </li>
-                            <li className="sidebar-item">
-                                <a href="#" className="sidebar-link collapsed text-dark" data-bs-toggle="collapse"
-                                   data-bs-target="#pages"
-                                   aria-expanded="false" aria-controls="pages">
-                                    <i className="fa-regular fa-file-lines pe-2"></i>
-                                    Thông Tin
-                                </a>
-                                <ul id="pages" className="sidebar-dropdown list-unstyled collapse"
-                                    data-bs-parent="#sidebar">
-                                    <li className="sidebar-item ">
-                                        <a href="#" className="sidebar-link text-dark">Chỉnh
-                                            Sửa Thông Tin</a>
-                                    </li>
-                                    <li className="sidebar-item">
-                                        <a href="#" className="sidebar-link text-dark">Đổi
-                                            Mật Khẩu</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li className="sidebar-item" style={{paddingTop: "80%",paddingLeft: "12%"}}>
-                                <NavLink role="button" className="sidebar-link text-dark">
-                                    <i className="fa-solid fa-list pe-2"></i>
-                                    <button className="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#logout">Đăng Xuất</button>
-                                </NavLink>
-                            </li>
-                            <ModalLogout/>
-                        </ul>
-                    </div>
-                </aside>
-
-                <div className="main">
-                    <nav className="navbar navbar-expand px-3 border-bottom">
-                        <button className="btn btn-sm" type="button" data-bs-theme="dark">
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
-                    </nav>
-                    <main className="content px-3 py-2">
-                        <div className="container-fluid">
-                            <div className="row row-home">
-                                <h2>DANH SÁCH VẬT TƯ</h2>
-                                <div className="row row-1-home">
-                                    {product.map(item =>
-                                        <div key={item.id} className="col-12 col-lg-4">
-                                            <div className="card" style={{width:"400px"}}>
-                                                <img className="card-img-top" src={item.mainAvatar} alt="Card image" height="280"
-                                                     width="250"/>
-                                                <div className="card-body">
-                                                    <h5 className="card-text">{item.name}</h5>
-                                                    <p className="card-text">Giá: {VND.format(item.price)} </p>
-                                                    <a href="#" className="btn btn-primary">Xem chi tiết</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </main>
-                </div>
-            </div>
-            <Footer/>
-        </div>
     )
-
 }
-
-export default  HomeEmployee;
+export default HeaderAdmin;

@@ -11,6 +11,7 @@ export default function authToken(){
         const jwtToken = user.accessToken;
         const [, payloadBase64] = jwtToken.split('.');
         const payload = JSON.parse(atob(payloadBase64));
+        console.log(payload);
         return payload;
 
     } else {

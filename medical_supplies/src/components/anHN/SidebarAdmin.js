@@ -1,18 +1,18 @@
 import "./SideBar.css";
-import React from "react";
+import {NavLink} from "react-router-dom";
 
 
-function Sidebar() {
+function SidebarAdmin(){
+
+
 
 
     return (
-        <div className="container-fluid wrapper">
-
             <aside id="sidebar">
                 <div className="h-100">
                     <div className="sidebar-logo">
                         <div className="user-img">
-                            <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
+                            <img style={{height: "4rem",width: "4rem",borderRadius: "50%"}}
                                  src="https://a0.anyrgb.com/pngimg/16/486/user-profile-user-experience-user-interface-design-avatar-user-interface-ico-person-user-man-computer-software-thumbnail.png"
                                  alt=""/>
                         </div>
@@ -45,12 +45,12 @@ function Sidebar() {
                             <ul id="pages" className="sidebar-dropdown list-unstyled collapse"
                                 data-bs-parent="#sidebar">
                                 <li className="sidebar-item ">
-                                    <a href="#" className="sidebar-link text-dark">Chỉnh
-                                        Sửa Thông Tin</a>
+                                    <NavLink to="/employee/:id" className="sidebar-link text-dark">Chỉnh
+                                        Sửa Thông Tin</NavLink>
                                 </li>
                                 <li className="sidebar-item">
-                                    <a href="#" className="sidebar-link text-dark">Đổi
-                                        Mật Khẩu</a>
+                                    <NavLink to="/change_pass" className="sidebar-link text-dark">Đổi
+                                        Mật Khẩu</NavLink>
                                 </li>
                             </ul>
                         </li>
@@ -60,7 +60,7 @@ function Sidebar() {
                                 Đăng Kí Nhân Viên
                             </a>
                         </li>
-                        <li className="sidebar-item" style={{paddingTop: "80%", paddingLeft: "12%"}}>
+                        <li className="sidebar-item" style={{paddingTop: "80%",paddingLeft: "12%"}}>
                             <a href="#" className="sidebar-link text-dark">
                                 <i className="fa-solid fa-list pe-2"></i>
                                 <button className="btn btn-outline-secondary">Đăng Xuất</button>
@@ -69,21 +69,7 @@ function Sidebar() {
                     </ul>
                 </div>
             </aside>
-
-            <div className="main">
-                <nav className="navbar navbar-expand px-3 border-bottom">
-                    <button className="btn btn-sm" type="button" data-bs-theme="dark">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                </nav>
-                <main className="content px-3 py-2">
-                    <div className="container-fluid">
-
-                    </div>
-                </main>
-            </div>
-        </div>
     )
 }
 
-export default Sidebar;
+export default SidebarAdmin;
