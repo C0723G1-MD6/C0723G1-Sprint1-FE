@@ -8,7 +8,7 @@ import Header from "./components/anHN/Header";
 import Footer from "./components/anHN/Footer";
 import Home from "./components/anHN/Home";
 import HomeAdmin from "./components/anHN/HomeAdmin";
-import Sidebar from "./components/anHN/Sidebar";
+import SidebarAdmin from "./components/anHN/SidebarAdmin";
 
 import "react-toastify/dist/ReactToastify.min.css"
 import DashboardSalesman from "./components/DashboardSalesman";
@@ -17,7 +17,6 @@ import Dashboard from "./pages/Dashboard";
 import "react-toastify/dist/ReactToastify.css";
 import {EditEmployee} from "./components/employee/EditEmployee";
 import ChangePassword from "./components/changePassword/ChangePassword";
-
 
 
 function App() {
@@ -30,7 +29,7 @@ function App() {
                 <Route path="/" element={<Home/>}/>
                 <Route path="/home-admin" element={<HomeAdmin/>}/>
                 <Route path="/home-employee" element={<HomeEmployee/>}/>
-                <Route path="/sidebar" element={<Sidebar/>}/>
+                <Route path="/sidebar" element={<SidebarAdmin/>}/>
 
                 <Route path="/dashboard" element={<Dashboard/>}/>
 
@@ -38,7 +37,6 @@ function App() {
                 <Route path={"/register"} element={<Register/>}></Route>
                 <Route path="/employee/:id" element={<EditEmployee/>}/>
                 <Route path="/change_pass" element={<ChangePassword/>}/>
-
             </Routes>
             <ToastContainer/>
         </BrowserRouter>

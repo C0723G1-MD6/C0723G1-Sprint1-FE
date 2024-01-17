@@ -69,6 +69,7 @@ footer{
 }
 .row-home{
     text-align: center;
+    margin-left: 70px;
 }
 
 .row-1-home{
@@ -89,8 +90,15 @@ footer{
 
 .center{
     padding-left: 500px;
+    padding-bottom: 30px;
 }
 .card-home {
     padding: 15px;
     margin: 30px;
+}
+.card {
+    margin-bottom: 30px;
+}
+.page{
+    padding-left: 500px;
 }
