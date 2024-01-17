@@ -16,6 +16,10 @@ import Dashboard from "./pages/Dashboard";
 import "react-toastify/dist/ReactToastify.css";
 import {EditEmployee} from "./components/employee/EditEmployee";
 import ChangePassword from "./components/changePassword/ChangePassword";
+import DashboardAdmin from "./components/DashboardAdmin";
+import DashboardAccountant from "./components/DashboardAccountant";
+import DashboardSalesman from "./components/DashboardSalesman";
+
 
 
 function App() {
@@ -31,11 +35,15 @@ function App() {
                 <Route path="/sidebar" element={<SidebarAdmin/>}/>
 
                 <Route path="/dashboard" element={<Dashboard/>}/>
+                <Route path="/dashboard-admin" element={<DashboardAdmin/>}/>
+                <Route path="/dashboard-accountant" element={<DashboardAccountant/>}/>
+                <Route path="/dashboard-salesman" element={<DashboardSalesman/>}/>
 
                 <Route path={"/login"} element={<Login/>}></Route>
                 <Route path={"/register"} element={<Register/>}></Route>
                 <Route path="/employee" element={<EditEmployee/>}/>
                 <Route path="/change_pass" element={<ChangePassword/>}/>
+
             </Routes>
             <ToastContainer/>
         </BrowserRouter>

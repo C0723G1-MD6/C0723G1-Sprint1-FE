@@ -1,37 +1,34 @@
 // import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect,useState} from "react";
-import authToken from "../services/auth/AuthService";
-import * as accountService from "../services/accounts/AccountService";
+import authToken from "../services/units/UserToken";
+import * as employeeService from "../services/employee/employeeService";
 import Home from "../components/anHN/Home";
 import DashboardAdmin from "../components/DashboardAdmin";
 import DashboardAccountant from "../components/DashboardAccountant";
 import DashboardSalesman from "../components/DashboardSalesman";
 
-import HomeAdmin from "../components/anHN/HomeAdmin";
 
 
 function Dashboard() {
     const [employee, setEmployee] = useState({});
-    const role = authHeader().roles[0].authority;
-    const email = authHeader().sub;
+    const role = authToken().roles[0].authority;
+    const email = authToken().sub;
     useEffect(() => {
         if (email.length>0) {
             getInfoEmployee();
         }
     }, []);
 
-    console.log(role);
-    console.log(email);
+
     const getInfoEmployee = async () => {
         try {
-            const res = await accountService.getAllByEmployee(email);
+            const res = await employeeService.getAllByEmployee(email);
             setEmployee(res.data);
-
         } catch (e) {
             throw e.response;
         }
     };
+
     const renderDashboardContent = () => {
         if (!email) {
             return <Home/>;
@@ -47,7 +44,6 @@ function Dashboard() {
     return <>
         <div>
             {renderDashboardContent()}
-
         </div>
     </>;
 }
