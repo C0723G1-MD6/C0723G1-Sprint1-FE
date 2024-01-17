@@ -54,8 +54,8 @@ function Home() {
         <>
             <div>
                 <Header/>
-                <div className="row container row-home">
-                    <div id="carouselExample" className="carousel slide" style={{paddingBottom:"30px", paddingLeft:"30px"}}>
+                <div className="container-fluid">
+                    <div id="carouselExample" className="carousel slide" style={{paddingBottom:"30px"}} >
                         <div className="carousel-inner">
                             <div className="carousel-item active">
                                 <img src={home} className="d-block w-100" alt="..." width="1000" height="500" />
@@ -75,6 +75,8 @@ function Home() {
                             <span className="visually-hidden">Next</span>
                         </button>
                     </div>
+                </div>
+                <div className="row container row-home">
                     <h2>DANH SÁCH VẬT TƯ</h2>
                     <div className="input-group w-25">
                         <input type="text" className="form-control " placeholder="Tìm kiếm theo tên sản phẩm" style={{marginLeft:"23px"}}
