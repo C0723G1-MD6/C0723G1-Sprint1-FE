@@ -1,9 +1,10 @@
 import {ErrorMessage, Field, Formik, Form} from "formik";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import * as Yup from "yup";
 import * as accountService from "../../services/accounts/AccountService";
 import {toast} from "react-toastify";
-import {Navigate, useNavigate, NavLink} from "react-router-dom";
+import {useNavigate, NavLink} from "react-router-dom";
+import Footer from "../anHN/Footer";
 
 
 export default function Register() {
@@ -18,7 +19,7 @@ export default function Register() {
             const res = await accountService.roleList();
             setRoles(res.data)
         } catch (e) {
-            throw e.response;
+            return e;
         }
     }
 
@@ -44,37 +45,31 @@ export default function Register() {
             .required("Vui lòng nhập ngày sinh."),
         phone: Yup.string()
             .required("Vui lòng nhập số điện thoại."),
+        gender: Yup.string()
+            .required("Vui lòng cho giới tính."),
         address: Yup.string()
             .required("Vui lòng nhập địa chỉ."),
         idRole: Yup.string()
             .required("Vui lòng chọn chức vụ.")
     };
 
-    const handleSubmitFormRegister = async (values, setFieldError) => {
-        console.log(values);
+    const handleSubmitFormRegister = async (values, {setErrors}) => {
         try {
+            console.log(values);
             const res = await accountService.createAccount(values);
             if (res.status === 200) {
                 navigate("/register")
-                toast.success("Đăng ký thành công !");
+                toast.success("Đăng ký thành công!");
 
             }
         } catch (e) {
-            console.log(e)
-            setFieldError("password", e.data);
-
+            setErrors(e.data);
         }
     }
     if (!roles) return null;
     return (
         <>
-
             <div className="main">
-                <nav className="navbar navbar-expand px-3 border-bottom">
-                    <button className="btn btn-sm" type="button" data-bs-theme="dark">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                </nav>
                 <main className="content px-3 py-2">
                     <div className="container-fluid">
                         <div className="row content">
@@ -85,7 +80,7 @@ export default function Register() {
                                              style={{backgroundImage: "url('/imgage/yte4.png')"}}>
                                             <h2 className="text-center">Tạo Tài Khoản</h2>
                                             <Formik initialValues={initValues}
-                                                    onSubmit={(values, {setFieldError}) => handleSubmitFormRegister(values, {setFieldError})}
+                                                    onSubmit={(values, {setErrors}) => handleSubmitFormRegister(values, {setErrors})}
                                                     validationSchema={Yup.object(validateFormRegister)}
                                             >
                                                 <Form className="mt-3">
@@ -114,7 +109,7 @@ export default function Register() {
                                                             vụ<span
                                                                 className="text-danger">(*)</span></label>
                                                         < Field as="select" className="form-select" name="idRole">
-                                                            <option>-----Chọn nghiệp vụ-----</option>
+                                                            <option value="">-----Chọn nghiệp vụ-----</option>
                                                             {
                                                                 roles.map(role => (
                                                                     <option key={role.idRole} value={role.idRole}>
@@ -153,20 +148,25 @@ export default function Register() {
                                                         <div>
                                                             <Field className="form-check-input" type="radio"
                                                                    name="gender"
-                                                                   id="nam" value={true}
-                                                                   checked/>
-                                                            <label className="form-check-label" htmlFor="nam">
+                                                                   id="nam" value="true"
+                                                                   data-sb-validations="required"
+                                                            />
+                                                            <label className="form-check-label me-3 ms-1" htmlFor="nam">
                                                                 Nam
                                                             </label>
 
                                                             <Field className="form-check-input" type="radio"
                                                                    name="gender"
-                                                                   id="nu" value={false}/>
-                                                            <label className="form-check-label" htmlFor="nu">
+                                                                   id="nu" value="false"
+                                                                   data-sb-validations="required"
+                                                            />
+                                                            <label className="form-check-label ms-1" htmlFor="nu">
                                                                 Nữ
                                                             </label>
                                                         </div>
                                                     </div>
+                                                    <ErrorMessage name="gender" className="text-danger"
+                                                                  component="p"/>
                                                     <div className="mb-3">
                                                         <label htmlFor="address" className="form-label fw-bold">Địa
                                                             chỉ<span
@@ -180,14 +180,14 @@ export default function Register() {
                                                         <label htmlFor="phone" className="form-label fw-bold">
                                                             Số điện thoại
                                                             <span className="text-danger">(*)</span></label>
-                                                        <Field type="number" className="form-control" id="phone"
+                                                        <Field type="text" className="form-control" id="phone"
                                                                name="phone"/>
                                                     </div>
                                                     <ErrorMessage name="phone" className="text-danger"
                                                                   component="p"/>
                                                     <div className="row mt-5">
                                                         <div className="col-6 d-flex justify-content-end">
-                                                            <NavLink to={"/home1"}
+                                                            <NavLink to={"/home-admin"}
                                                                      className="btn btn-secondary me-2">Trở
                                                                 về</NavLink>
                                                         </div>
@@ -210,6 +210,7 @@ export default function Register() {
                     </div>
                 </main>
             </div>
+            <Footer/>
         </>
     )
 }

@@ -1,0 +1,96 @@
+.row-header-2{
+    padding-top: 20px;
+}
+
+.row-header-1{
+    text-align: left;
+}
+.logo-header{
+    width: 70%;
+    height: 70%;
+}
+.text-header{
+    color: green;
+    font-size: larger;
+    text-align: center;
+    padding-top: 15px;
+}
+.button-header{
+    padding-left: 70px;
+    padding-top: 15px;
+}
+.row-footer-1{
+    background-color: seagreen;
+    color: white;
+    padding-top: 30px;
+}
+.row-footer-2{
+    background-color: seagreen;
+    text-align: justify;
+    color: white;
+    padding-bottom: 20px;
+}
+.row-footer-3{
+    background-color: forestgreen;
+}
+.text-footer{
+    font-size: larger;
+    text-align: left;
+}
+.home {
+    padding: 30px;
+}
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
+nav{
+    margin-bottom: 30px;
+}
+footer{
+    margin-top: 30px;
+}
+.left-footer{
+    padding-left: 70px;
+}
+.row-home{
+    text-align: center;
+}
+
+.row-1-home{
+    padding-top: 30px;
+    text-align: center;
+    margin: 10px;
+    padding-bottom: 30px;
+}
+.row-2-home{
+    text-align: center;
+    margin: 10px;
+}
+.row-3-home{
+    padding-bottom: 30px;
+    text-align: center;
+    margin: 10px;
+}
+
+.center{
+    padding-left: 500px;
+}
+.card-home {
+    padding: 15px;
+    margin: 30px;
+}

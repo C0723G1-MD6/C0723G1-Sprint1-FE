@@ -2,7 +2,9 @@ import {ErrorMessage, Field, Formik, Form} from "formik";
 import * as Yup from "yup";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
-import * as authService from "../../services/auth/AuthService"
+import * as authService from "../../services/auth/AuthService";
+import Header from "../anHN/Header";
+import Footer from "../anHN/Footer";
 
 export default function Login() {
 
@@ -26,34 +28,32 @@ export default function Login() {
 
             if (res.status === 200) {
                 localStorage.setItem('user', JSON.stringify(res.data));
-                navigate("/login")
+                navigate("/dashboard")
                 toast.success("Đăng nhập thành công !");
-
             }
         } catch (e) {
-            console.log(e)
             setFieldError("password", e.data);
         }
     }
-    const jwtToken = JSON.parse(localStorage.getItem("user")).accessToken;
-
-    const [, payloadBase64] = jwtToken.split('.');
-    const payload = JSON.parse(atob(payloadBase64));
-    console.log(payload)
 
     return (
         <>
+            <Header/>
             <div className="container pt-lg-5 mb-5">
                 <div className="d-flex justify-content-center">
 
                     <div className="col-8">
                         <div className="form-control shadow rounded-0 p-4"
                              style={{backgroundImage: "url('/image/yte4.png')"}}>
-                            <div className="row py-5 mt-4 align-items-center">
+                            <div className="text-center mt-1">
+                                <h2>ĐĂNG NHẬP</h2>
+                            </div>
+                            <div className="row py-5 mt-2 align-items-center">
+
                                 <div className="col-md-6 col-lg-6 pr-lg-5 mb-5 mb-md-0 mp"
                                      style={{textAlign: `center`}}>
                                     <img
-                                        src="https://caodangyduocsaigon.com/images/files/caodangyduocsaigon.com/bieu-tuong-nganh-y-te.jpg"
+                                        src="https://thuonghieusaigon.vn/uploads/shops/thumb/vina.gif"
                                         alt="img"
                                         className="img-fluid mb-3 d-none d-md-block rounded-5"/>
                                 </div>
@@ -109,6 +109,7 @@ export default function Login() {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </>
     )
 }
