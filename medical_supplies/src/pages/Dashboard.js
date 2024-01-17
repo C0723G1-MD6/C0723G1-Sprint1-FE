@@ -5,6 +5,8 @@ import authToken from "../services/auth/AuthService";
 import * as accountService from "../services/accounts/AccountService";
 import Home from "../components/anHN/Home";
 import DashboardAdmin from "../components/DashboardAdmin";
+import DashboardAccountant from "../components/DashboardAccountant";
+import DashboardSalesman from "../components/DashboardSalesman";
 
 import HomeAdmin from "../components/anHN/HomeAdmin";
 
@@ -36,9 +38,9 @@ function Dashboard() {
         } else if (role.includes("ROLE_ADMIN")) {
             return <DashboardAdmin employee={employee}/>;
         } else if (role.includes("ROLE_ACCOUNTANT")) {
-            return <DashboardAdmin employee={employee}/>;
+            return <DashboardAccountant employee={employee}/>;
         } else if (role.includes("ROLE_SALESMAN")) {
-            return <DashboardAdmin employee={employee}/>;
+            return <DashboardSalesman employee={employee}/>;
         }
     };
 
