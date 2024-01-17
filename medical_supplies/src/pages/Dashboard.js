@@ -1,11 +1,8 @@
 import {useEffect, useState} from "react";
 import authHeader from "../services/auth/AuthService";
-import * as accountService from "../services/accounts/AccountService";
-import DashboardAdmin from "../components/DashboardAdmin";
-import DashboardAccountant from "../components/DashboardAccountant";
-import DashboardSalesman from "../components/DashboardSalesman";
+import * as employeeService from "../services/employee/employeeService";
 import Home from "../components/anHN/Home";
-
+import HomeAdmin from "../components/anHN/HomeAdmin";
 
 function Dashboard() {
     const [employee, setEmployee] = useState({});
@@ -20,8 +17,9 @@ function Dashboard() {
 
     const getInfoEmployee = async () => {
         try {
-            const res = await accountService.getAllByEmployee(email);
+            const res = await employeeService.getAllByEmployee(email);
             setEmployee(res.data);
+            console.log(res)
         } catch (e) {
             throw e.response;
         }
@@ -31,11 +29,11 @@ function Dashboard() {
         if (!email) {
             return <Home/>;
         } else if (role.includes("ROLE_ADMIN")) {
-            return <DashboardAdmin employee={employee}/>;
+            return <HomeAdmin employee={employee}/>;
         } else if (role.includes("ROLE_ACCOUNTANT")) {
-            return <DashboardAccountant employee={employee}/>;
+            return <HomeAdmin employee={employee}/>;
         } else if (role.includes("ROLE_SALESMAN")) {
-            return <DashboardSalesman employee={employee}/>;
+            return <HomeAdmin employee={employee}/>;
         }
     };
 

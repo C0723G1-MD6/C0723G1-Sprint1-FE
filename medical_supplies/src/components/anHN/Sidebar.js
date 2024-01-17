@@ -1,11 +1,12 @@
 import "./SideBar.css";
+import {NavLink} from "react-router-dom";
 
 
 function Sidebar(){
 
 
     return (
-        <div className="container-fluid wrapper">
+        <div >
 
             <aside id="sidebar">
                 <div className="h-100">
@@ -54,10 +55,10 @@ function Sidebar(){
                             </ul>
                         </li>
                         <li className="sidebar-item">
-                            <a href="#" className="sidebar-link text-dark">
+                            <NavLink to="/register" className="sidebar-link text-dark">
                                 <i className="fa-solid fa-list pe-2"></i>
                                 Đăng Kí Nhân Viên
-                            </a>
+                            </NavLink>
                         </li>
                         <li className="sidebar-item" style={{paddingTop: "80%",paddingLeft: "12%"}}>
                             <a href="#" className="sidebar-link text-dark">
@@ -69,18 +70,18 @@ function Sidebar(){
                 </div>
             </aside>
 
-            <div className="main">
-                <nav className="navbar navbar-expand px-3 border-bottom">
-                    <button className="btn btn-sm" type="button" data-bs-theme="dark">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                </nav>
-                <main className="content px-3 py-2">
-                    <div className="container-fluid">
+            {/*<div className="main">*/}
+            {/*    <nav className="navbar navbar-expand px-3 border-bottom">*/}
+            {/*        <button className="btn btn-sm" type="button" data-bs-theme="dark">*/}
+            {/*            <span className="navbar-toggler-icon"></span>*/}
+            {/*        </button>*/}
+            {/*    </nav>*/}
+            {/*    <main className="content px-3 py-2">*/}
+            {/*        <div className="container-fluid">*/}
 
-                    </div>
-                </main>
-            </div>
+            {/*        </div>*/}
+            {/*    </main>*/}
+            {/*</div>*/}
         </div>
     )
 }

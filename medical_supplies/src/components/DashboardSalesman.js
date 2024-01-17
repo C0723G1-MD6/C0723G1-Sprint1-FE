@@ -1,10 +1,12 @@
 import React from 'react';
+import HomeEmployee from "./anHN/HomeEmployee";
+import Sidebar from "./anHN/Sidebar";
 
 
 function DashboardSalesman() {
     return (
         <>
-           <h1>Đây là trang người bán hàng </h1>
+            <h2>Trang nguoi ban hang</h2>
         </>
     );
 }

@@ -14,8 +14,9 @@ import ModalLogout from "../auth/ModalLogout";
 
 function HomeAdmin(){
 
-
     const [product, setProduct] = useState([]);
+
+
 
     useEffect(() => {
         getAll();
