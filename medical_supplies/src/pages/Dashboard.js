@@ -1,10 +1,11 @@
-import {useEffect, useState} from "react";
+// import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect,useState} from "react";
 import authHeader from "../services/auth/AuthService";
 import * as accountService from "../services/accounts/AccountService";
-import DashboardAdmin from "../components/DashboardAdmin";
-import DashboardAccountant from "../components/DashboardAccountant";
-import DashboardSalesman from "../components/DashboardSalesman";
 import Home from "../components/anHN/Home";
+import DashboardAdmin from "../components/DashboardAdmin";
+
 
 
 function Dashboard() {
@@ -17,25 +18,26 @@ function Dashboard() {
         }
     }, []);
 
-
+    console.log(role);
+    console.log(email);
     const getInfoEmployee = async () => {
         try {
             const res = await accountService.getAllByEmployee(email);
             setEmployee(res.data);
+
         } catch (e) {
             throw e.response;
         }
     };
-
     const renderDashboardContent = () => {
         if (!email) {
             return <Home/>;
         } else if (role.includes("ROLE_ADMIN")) {
             return <DashboardAdmin employee={employee}/>;
         } else if (role.includes("ROLE_ACCOUNTANT")) {
-            return <DashboardAccountant employee={employee}/>;
+            return <DashboardAdmin employee={employee}/>;
         } else if (role.includes("ROLE_SALESMAN")) {
-            return <DashboardSalesman employee={employee}/>;
+            return <DashboardAdmin employee={employee}/>;
         }
     };
 

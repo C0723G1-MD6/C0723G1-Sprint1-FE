@@ -1,11 +1,11 @@
 import Footer from "./Footer";
-import * as method from "../../services/anHN/method"
+import * as method from "../../services/anHN/ProductService"
 import React from "react";
 import {useState, useEffect} from "react";
 import "./AnHN.css";
 import { toast } from "react-toastify";
 import {Link, NavLink} from "react-router-dom";
-import Sidebar from "./Sidebar";
+import SidebarAdmin from "./SidebarAdmin";
 import img_1 from "../img/img_1.png";
 import ModalLogout from "../auth/ModalLogout";
 
@@ -29,7 +29,10 @@ function HomeEmployee(){
         }
     }
 
-
+    const VND = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
 
 
     return (
@@ -78,6 +81,7 @@ function HomeEmployee(){
                         </div>
                         <div className="col-12 col-lg-6">
                             <p className="text-header">CÙNG TẠO CƠ HỘI THÀNH CÔNG - HƯỚNG TỚI SỨC KHỎE CỘNG ĐỒNG</p>
+                            <p className="text-header">XÂY DỰNG CUỘC SỐNG TƯƠI ĐẸP</p>
                         </div>
                         <div className="button-header col-12 col-lg-2" >
 
@@ -179,7 +183,6 @@ function HomeEmployee(){
                             <div className="user-detail">
                                 <div className="title">Quản Lý</div>
                                 <div className="name">Nguyễn Văn A</div>
-
                             </div>
                         </div>
                         <ul className="sidebar-nav">
@@ -230,9 +233,11 @@ function HomeEmployee(){
                                     {product.map(item =>
                                         <div key={item.id} className="col-12 col-lg-4">
                                             <div className="card" style={{width:"400px"}}>
+                                                <img className="card-img-top" src={item.mainAvatar} alt="Card image" height="280"
+                                                     width="250"/>
                                                 <div className="card-body">
                                                     <h5 className="card-text">{item.name}</h5>
-                                                    <p className="card-text">{item.price}</p>
+                                                    <p className="card-text">Giá: {VND.format(item.price)} </p>
                                                     <a href="#" className="btn btn-primary">Xem chi tiết</a>
                                                 </div>
                                             </div>
