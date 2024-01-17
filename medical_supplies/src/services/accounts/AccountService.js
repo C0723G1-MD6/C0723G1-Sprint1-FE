@@ -7,6 +7,7 @@ export const createAccount = async (accountDto) => {
         return res;
     } catch (e) {
         throw e.response;
+
     }
 }
 export const roleList = async () => {
