@@ -11,7 +11,6 @@ import HomeAdmin from "./components/anHN/HomeAdmin";
 import Sidebar from "./components/anHN/Sidebar";
 
 import "react-toastify/dist/ReactToastify.min.css"
-import DashboardSalesman from "./components/DashboardSalesman";
 import Dashboard from "./pages/Dashboard";
 
 import "react-toastify/dist/ReactToastify.css";

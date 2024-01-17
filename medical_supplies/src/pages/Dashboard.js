@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
 import authHeader from "../services/auth/AuthService";
 import * as accountService from "../services/accounts/AccountService";
-import DashboardAdmin from "../components/DashboardAdmin";
-import DashboardAccountant from "../components/DashboardAccountant";
-import DashboardSalesman from "../components/DashboardSalesman";
-import Home from "../components/anHN/Home";
+// import DashboardAdmin from "../components/DashboardAdmin";
+// import DashboardAccountant from "../components/DashboardAccountant";
+// import DashboardSalesman from "../components/DashboardSalesman";
+// import Home from "../components/anHN/Home";
 
 
 function Dashboard() {
@@ -28,20 +28,21 @@ function Dashboard() {
     };
 
     const renderDashboardContent = () => {
-        if (!email) {
-            return <Home/>;
-        } else if (role.includes("ROLE_ADMIN")) {
-            return <DashboardAdmin employee={employee}/>;
-        } else if (role.includes("ROLE_ACCOUNTANT")) {
-            return <DashboardAccountant employee={employee}/>;
-        } else if (role.includes("ROLE_SALESMAN")) {
-            return <DashboardSalesman employee={employee}/>;
-        }
+        // if (!email) {
+        //     return <Home/>;
+        // } else if (role.includes("ROLE_ADMIN")) {
+        //     return <DashboardAdmin employee={employee}/>;
+        // } else if (role.includes("ROLE_ACCOUNTANT")) {
+        //     return <DashboardAccountant employee={employee}/>;
+        // } else if (role.includes("ROLE_SALESMAN")) {
+        //     return <DashboardSalesman employee={employee}/>;
+        // }
     };
 
     return <>
         <div>
-            {renderDashboardContent()}
+            {/*{renderDashboardContent()}*/}
+            <p>hello</p>
         </div>
     </>;
 }
