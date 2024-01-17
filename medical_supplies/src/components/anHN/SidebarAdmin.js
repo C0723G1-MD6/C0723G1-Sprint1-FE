@@ -2,12 +2,12 @@ import "./SideBar.css";
 import {NavLink} from "react-router-dom";
 
 
-function Sidebar(){
+function SidebarAdmin(){
+
+
 
 
     return (
-        <div >
-
             <aside id="sidebar">
                 <div className="h-100">
                     <div className="sidebar-logo">
@@ -45,12 +45,12 @@ function Sidebar(){
                             <ul id="pages" className="sidebar-dropdown list-unstyled collapse"
                                 data-bs-parent="#sidebar">
                                 <li className="sidebar-item ">
-                                    <a href="#" className="sidebar-link text-dark">Chỉnh
-                                        Sửa Thông Tin</a>
+                                    <NavLink to="/employee/:id" className="sidebar-link text-dark">Chỉnh
+                                        Sửa Thông Tin</NavLink>
                                 </li>
                                 <li className="sidebar-item">
-                                    <a href="#" className="sidebar-link text-dark">Đổi
-                                        Mật Khẩu</a>
+                                    <NavLink to="/change_pass" className="sidebar-link text-dark">Đổi
+                                        Mật Khẩu</NavLink>
                                 </li>
                             </ul>
                         </li>
@@ -70,20 +70,7 @@ function Sidebar(){
                 </div>
             </aside>
 
-            {/*<div className="main">*/}
-            {/*    <nav className="navbar navbar-expand px-3 border-bottom">*/}
-            {/*        <button className="btn btn-sm" type="button" data-bs-theme="dark">*/}
-            {/*            <span className="navbar-toggler-icon"></span>*/}
-            {/*        </button>*/}
-            {/*    </nav>*/}
-            {/*    <main className="content px-3 py-2">*/}
-            {/*        <div className="container-fluid">*/}
-
-            {/*        </div>*/}
-            {/*    </main>*/}
-            {/*</div>*/}
-        </div>
     )
 }
 
-export default Sidebar;
+export default SidebarAdmin;

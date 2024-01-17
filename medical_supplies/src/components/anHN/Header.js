@@ -48,6 +48,7 @@ function Header () {
                     </div>
                     <div className="col-12 col-lg-6">
                         <p className="text-header">CÙNG TẠO CƠ HỘI THÀNH CÔNG - HƯỚNG TỚI SỨC KHỎE CỘNG ĐỒNG</p>
+                        <p className="text-header">XÂY DỰNG CUỘC SỐNG TƯƠI ĐẸP</p>
                     </div>
                     <div className="button-header col-12 col-lg-2" >
                         <button type="button" className="btn btn-success">

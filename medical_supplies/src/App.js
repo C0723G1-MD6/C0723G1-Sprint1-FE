@@ -8,7 +8,7 @@ import Header from "./components/anHN/Header";
 import Footer from "./components/anHN/Footer";
 import Home from "./components/anHN/Home";
 import HomeAdmin from "./components/anHN/HomeAdmin";
-import Sidebar from "./components/anHN/Sidebar";
+import SidebarAdmin from "./components/anHN/SidebarAdmin";
 
 import "react-toastify/dist/ReactToastify.min.css"
 import DashboardSalesman from "./components/DashboardSalesman";
@@ -23,18 +23,22 @@ import ChangePassword from "./components/changePassword/ChangePassword";
 function App() {
     return (
         <BrowserRouter>
+
             <Routes>
                 <Route path="/login" element={<Login/>}></Route>
                 <Route path="/register" element={<Register/>}></Route>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/home-admin" element={<HomeAdmin/>}/>
                 <Route path="/home-employee" element={<HomeEmployee/>}/>
-                <Route path="/sidebar" element={<Sidebar/>}/>
+                <Route path="/sidebar" element={<SidebarAdmin/>}/>
+
                 <Route path="/dashboard" element={<Dashboard/>}/>
+
                 <Route path={"/login"} element={<Login/>}></Route>
                 <Route path={"/register"} element={<Register/>}></Route>
                 <Route path="/employee/:id" element={<EditEmployee/>}/>
                 <Route path="/change_pass" element={<ChangePassword/>}/>
+
             </Routes>
             <ToastContainer/>
         </BrowserRouter>

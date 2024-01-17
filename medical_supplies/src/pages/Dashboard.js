@@ -1,8 +1,11 @@
 import {useEffect, useState} from "react";
 import authHeader from "../services/auth/AuthService";
+import * as accountService from "../services/accounts/AccountService";
 import * as employeeService from "../services/employee/employeeService";
 import Home from "../components/anHN/Home";
-import HomeAdmin from "../components/anHN/HomeAdmin";
+import DashboardAdmin from "../components/DashboardAdmin";
+
+
 
 function Dashboard() {
     const [employee, setEmployee] = useState({});
@@ -19,7 +22,6 @@ function Dashboard() {
         try {
             const res = await employeeService.getAllByEmployee(email);
             setEmployee(res.data);
-            console.log(res)
         } catch (e) {
             throw e.response;
         }
@@ -29,11 +31,11 @@ function Dashboard() {
         if (!email) {
             return <Home/>;
         } else if (role.includes("ROLE_ADMIN")) {
-            return <HomeAdmin employee={employee}/>;
+            return <DashboardAdmin employee={employee}/>;
         } else if (role.includes("ROLE_ACCOUNTANT")) {
-            return <HomeAdmin employee={employee}/>;
+            return <DashboardAdmin employee={employee}/>;
         } else if (role.includes("ROLE_SALESMAN")) {
-            return <HomeAdmin employee={employee}/>;
+            return <DashboardAdmin employee={employee}/>;
         }
     };
 

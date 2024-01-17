@@ -38,12 +38,14 @@ export default function Login() {
                 localStorage.setItem('user', JSON.stringify(res.data));
                 navigate("/dashboard")
                 toast.success("Đăng nhập thành công !");
+
             }
         } catch (e) {
             setFieldError("password", e.data);
+            console.log(e);
+
         }
     }
-
     return (
         <>
             <Header/>
