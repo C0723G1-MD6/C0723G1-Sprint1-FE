@@ -1,5 +1,6 @@
 import axios from "axios";
 const URL_EMPLOYEE =`http://localhost:8080/api/employee`;
+
 export const editEmployeeService = async (value) => {
     try {
         const res = await axios.patch(URL_EMPLOYEE + `/${value.id}`,value)
