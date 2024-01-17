@@ -55,7 +55,7 @@ function HomeAdmin() {
                     <div className="container">
                         <h2 style={{textAlign: "center"}}>DANH SÁCH VẬT TƯ</h2>
                         <div className="input-group w-25">
-                            <input type="text" className="form-control " placeholder="Tìm kiếm"
+                            <input type="text" className="form-control " placeholder="Tìm kiếm theo tên sản phẩm" style={{marginLeft:"23px"}}
                                    aria-label="Recipient's username with two button addons"
                                    onChange={event => setNameSearch(event.target.value)}/>
                             <button className="btn btn-outline-secondary" type="button">
