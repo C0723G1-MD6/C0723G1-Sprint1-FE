@@ -21,10 +21,9 @@ function SidebarEmployee() {
                     </div>
                 </div>
                 <ul className="sidebar-nav">
-
-                    <li className="sidebar-header text-dark">
-                        Chức Năng
-                    </li>
+                    <div style={{fontSize:20, paddingLeft:"25px"}}>
+                        Chức năng
+                    </div>
                     <li className="sidebar-item">
                         <a href="#" className="sidebar-link collapsed text-dark" data-bs-toggle="collapse"
                            data-bs-target="#pages"
@@ -35,7 +34,7 @@ function SidebarEmployee() {
                         <ul id="pages" className="sidebar-dropdown list-unstyled collapse"
                             data-bs-parent="#sidebar">
                             <li className="sidebar-item ">
-                                <NavLink to="/employee/:id" className="sidebar-link text-dark">Chỉnh
+                                <NavLink to="/employee" className="sidebar-link text-dark">Chỉnh
                                     Sửa Thông Tin</NavLink>
                             </li>
                             <li className="sidebar-item">

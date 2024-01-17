@@ -2,20 +2,19 @@ import "./SideBar.css";
 import {NavLink} from "react-router-dom";
 import ModalLogout from "../auth/ModalLogout";
 import React, {useEffect, useState} from "react";
-import authHeader from "../../services/auth/AuthService";
+import authToken from "../../services/units/UserToken";
 import * as employeeService from "../../services/employee/employeeService";
 
 
 function SidebarAdmin(){
     const [employee, setEmployee] = useState({});
-    const role = authHeader().roles[0].authority;
-    const email = authHeader().sub;
+    const role = authToken().roles[0].authority;
+    const email = authToken().sub;
     useEffect(() => {
         if (email.length>0) {
             getInfoEmployee();
         }
     }, []);
-
 
     const getInfoEmployee = async () => {
         try {
@@ -37,8 +36,8 @@ function SidebarAdmin(){
                         </div>
                         <div className="user-detail">
                             <div className="title">
-                                {role.idRole === 1 ?
-                                    "Admin" : role.idRole === 2 ?
+                                {role === "ROLE_ADMIN" ?
+                                    "Admin" : role === "ROLE_ACCOUNTANT" ?
                                         "Kế toán" : "Bán hàng"}
                             </div>
                             <div className="name fw-bold">{employee.name}</div>
@@ -67,7 +66,7 @@ function SidebarAdmin(){
                             <ul id="pages" className="sidebar-dropdown list-unstyled collapse"
                                 data-bs-parent="#sidebar">
                                 <li className="sidebar-item ">
-                                    <NavLink to="/employee/:id" className="sidebar-link text-dark">Chỉnh
+                                    <NavLink to="/employee" className="sidebar-link text-dark">Chỉnh
                                         Sửa Thông Tin</NavLink>
                                 </li>
                                 <li className="sidebar-item">

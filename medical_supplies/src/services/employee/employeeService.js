@@ -1,4 +1,5 @@
 import axios from "axios";
+import authHeader from "../auth/AuthService";
 const URL_EMPLOYEE =`http://localhost:8080/api/employee`;
 
 export const editEmployeeService = async (value) => {
@@ -19,10 +20,11 @@ export const getEmployeeByIdService = async (id) => {
     }
 
 }
+// Lấy dữ liệu employee bằng email
 export const getAllByEmployee = async (email) => {
     try {
         const res = await axios.get(`http://localhost:8080/api/employee/search/${email}`);
-        console.log(res);
+        console.log(res)
         return res;
     } catch (e) {
         throw e.response;

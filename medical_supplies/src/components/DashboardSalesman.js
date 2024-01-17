@@ -1,11 +1,19 @@
 import React from 'react';
-
+import Footer from "./anHN/Footer";
+import HeaderEmployee from "./anHN/HeaderEmployee";
+import SidebarEmployee from "./anHN/SidebarEmployee";
+import HomeEmployee from "./anHN/HomeEmployee";
 
 
 function DashboardSalesman() {
     return (
         <>
-            <h2>Trang nguoi ban hang</h2>
+            <HeaderEmployee/>
+            <div className="container-fluid wrapper">
+                <SidebarEmployee/>
+                <HomeEmployee/>
+            </div>
+            <Footer/>
         </>
     );
 }

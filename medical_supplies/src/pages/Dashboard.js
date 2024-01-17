@@ -1,6 +1,6 @@
-import {useEffect, useState} from "react";
-import authHeader from "../services/auth/AuthService";
-import * as accountService from "../services/accounts/AccountService";
+// import React, {useEffect} from 'react';
+import React, {useEffect,useState} from "react";
+import authToken from "../services/units/UserToken";
 import * as employeeService from "../services/employee/employeeService";
 import Home from "../components/anHN/Home";
 import DashboardAdmin from "../components/DashboardAdmin";
@@ -11,8 +11,8 @@ import DashboardSalesman from "../components/DashboardSalesman";
 
 function Dashboard() {
     const [employee, setEmployee] = useState({});
-    const role = authHeader().roles[0].authority;
-    const email = authHeader().sub;
+    const role = authToken().roles[0].authority;
+    const email = authToken().sub;
     useEffect(() => {
         if (email.length>0) {
             getInfoEmployee();

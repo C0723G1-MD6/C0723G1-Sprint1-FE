@@ -11,7 +11,6 @@ import HomeAdmin from "./components/anHN/HomeAdmin";
 import SidebarAdmin from "./components/anHN/SidebarAdmin";
 
 import "react-toastify/dist/ReactToastify.min.css"
-import DashboardSalesman from "./components/DashboardSalesman";
 import Dashboard from "./pages/Dashboard";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -19,6 +18,7 @@ import {EditEmployee} from "./components/employee/EditEmployee";
 import ChangePassword from "./components/changePassword/ChangePassword";
 import DashboardAdmin from "./components/DashboardAdmin";
 import DashboardAccountant from "./components/DashboardAccountant";
+import DashboardSalesman from "./components/DashboardSalesman";
 
 
 
@@ -41,7 +41,7 @@ function App() {
 
                 <Route path={"/login"} element={<Login/>}></Route>
                 <Route path={"/register"} element={<Register/>}></Route>
-                <Route path="/employee/:id" element={<EditEmployee/>}/>
+                <Route path="/employee" element={<EditEmployee/>}/>
                 <Route path="/change_pass" element={<ChangePassword/>}/>
 
             </Routes>
