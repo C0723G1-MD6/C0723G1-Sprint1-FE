@@ -5,9 +5,13 @@ import React, {useEffect, useState} from "react";
 import "./AnHN.css";
 import ReactPaginate from 'react-paginate';
 import home from "../img/home.png"
-import home1 from "../img/home1.png"
+import img from "../img/img.png"
+import {useNavigate} from "react-router-dom";
 
 function Home() {
+
+    const navigate = useNavigate();
+
 
     const [nameSearch, setNameSearch] = useState([])
 
@@ -27,7 +31,7 @@ function Home() {
             let data = await method.getAllProduct(page,nameSearch);
             setProduct(data);
         }catch (e) {
-            console.log("error")
+            navigate("/Error");
         }
     }
 
@@ -36,7 +40,7 @@ function Home() {
             let data = await method.getAllProductPage();
             setTotalPages(data.totalPages)
         } catch (e) {
-            console.log("error")
+            navigate("/Error");
         }
     }
 
@@ -50,6 +54,7 @@ function Home() {
         getAll(event.selected, nameSearch)
     }
 
+
     return (
         <>
             <div>
@@ -58,10 +63,10 @@ function Home() {
                     <div id="carouselExample" className="carousel slide" style={{paddingBottom:"30px"}} >
                         <div className="carousel-inner">
                             <div className="carousel-item active">
-                                <img src={home} className="d-block w-100" alt="..." width="1000" height="500" />
+                                <img src={img} className="d-block w-100" alt="..." width="1000" height="500" />
                             </div>
                             <div className="carousel-item">
-                                <img src={home1} className="d-block w-100" alt="..." width="1000" height="500" />
+                                <img src={home} className="d-block w-100" alt="..." width="1000" height="500" />
                             </div>
                         </div>
                         <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample"

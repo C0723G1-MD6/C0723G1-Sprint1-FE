@@ -4,7 +4,7 @@ import React from "react";
 import {useState, useEffect} from "react";
 import "./AnHN.css";
 import { toast } from "react-toastify";
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import SidebarAdmin from "./SidebarAdmin";
 import img_1 from "../img/img_1.png";
 import ModalLogout from "../auth/ModalLogout";
@@ -13,6 +13,8 @@ import ReactPaginate from "react-paginate";
 
 
 function HomeEmployee(){
+
+    const navigate = useNavigate();
 
     const [nameSearch, setNameSearch] = useState([])
 
@@ -32,7 +34,7 @@ function HomeEmployee(){
             setProduct(data);
 
         } catch (e) {
-            console.log("error")
+            navigate("/Error");
         }
     }
     const getAllProduct = async () => {
@@ -40,10 +42,9 @@ function HomeEmployee(){
             let data = await method.getAllProductPage();
             setTotalPages(data.totalPages)
         } catch (e) {
-            console.log("error")
+            navigate("/Error");
         }
     }
-    console.log(product)
     const VND = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND',
