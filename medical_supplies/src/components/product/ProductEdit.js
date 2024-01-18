@@ -33,6 +33,7 @@ export default function ProductEdit() {
     }
     const getAllTypeProduct = async () => {
         const dataTypeProduct = await getListTypeProduct();
+        console.log(dataTypeProduct)
         setTypeProducts(dataTypeProduct);
     }
     const getAllProduction = async () => {

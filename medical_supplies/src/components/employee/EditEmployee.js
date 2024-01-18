@@ -31,6 +31,9 @@ export function EditEmployee() {
             setEmployee({...res.data, gender: res.gender ? 1 : 0});
         } catch (e) {
             throw e.response;
+            if (e.status===403){
+                navigate("/error");
+            }
         }
     };
 
@@ -39,8 +42,7 @@ export function EditEmployee() {
 
         try {
             console.log(data)
-            const res = await editEmployeeService(data)
-            console.log(res)
+            const res = await editEmployeeService(data);
             if (res.status === 200) {
                 navigate("/dashboard")
                 toast.success("Chỉnh sửa thông tin thành công.")
@@ -49,7 +51,9 @@ export function EditEmployee() {
                 setErrors(res.data)
             }
         } catch (e) {
-            alert("Error edit")
+            if (e.status===403){
+                navigate("/error");
+            }
         }
     }
 
