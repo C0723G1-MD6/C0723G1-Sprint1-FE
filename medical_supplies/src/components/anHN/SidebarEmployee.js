@@ -8,7 +8,7 @@ function SidebarEmployee() {
     return (
         <aside id="sidebar">
             <div className="h-100">
-                <div className="sidebar-logo">
+                <div className="sidebar-logo" style={{paddingLeft:"100px"}}>
                     <div className="user-img">
                         <img style={{height: "4rem",width: "4rem",borderRadius: "50%"}}
                              src="https://a0.anyrgb.com/pngimg/16/486/user-profile-user-experience-user-interface-design-avatar-user-interface-ico-person-user-man-computer-software-thumbnail.png"
