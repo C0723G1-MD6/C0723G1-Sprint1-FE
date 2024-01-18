@@ -10,7 +10,6 @@ import {useEffect} from "react";
 export default function Login() {
     const user = JSON.parse(localStorage.getItem(`user`));
     const navigate = useNavigate();
-    console.log(user);
 
     useEffect(() => {
         if (user) {
@@ -42,7 +41,7 @@ export default function Login() {
             }
         } catch (e) {
             setFieldError("password", e.data);
-            console.log(e);
+
 
         }
     }

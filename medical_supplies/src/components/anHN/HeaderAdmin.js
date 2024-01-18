@@ -62,7 +62,7 @@ function HeaderAdmin() {
                         <div className="align-items-center justify-content-center justify-content-lg-start">
                             <ul className="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                                 <li>
-                                    <Link to="/" className="nav-link text-white">
+                                    <Link to="/dashboard" className="nav-link text-white">
                                         <svg className="bi d-block mx-auto mb-1" width="5" height="7">
                                             <use xlinkHref="#home"></use>
                                         </svg>
