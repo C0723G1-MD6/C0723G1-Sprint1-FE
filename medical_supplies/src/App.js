@@ -20,6 +20,7 @@ import DashboardAdmin from "./components/DashboardAdmin";
 import DashboardAccountant from "./components/DashboardAccountant";
 import DashboardSalesman from "./components/DashboardSalesman";
 import {NotFound} from "./components/NotFound";
+import React from "react";
 
 
 
@@ -28,7 +29,7 @@ function App() {
         <BrowserRouter>
 
             <Routes>
-                <Route path="/login" element={<Login/>}></Route>
+                <Route path="/login" element={<Login/>}/>
                 <Route path="/register" element={<Register/>}></Route>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/home-admin" element={<HomeAdmin/>}/>

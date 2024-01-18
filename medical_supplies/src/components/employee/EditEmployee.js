@@ -11,20 +11,40 @@ import HeaderAdmin from "../anHN/HeaderAdmin";
 import SidebarAdmin from "../anHN/SidebarAdmin";
 import Footer from "../anHN/Footer";
 import SidebarEmployee from "../anHN/SidebarEmployee";
-
+import {storage} from "../../services/employee/firebaseConfig";
+import {ref, uploadBytes, getDownloadURL} from "firebase/storage";
 
 export function EditEmployee() {
     const navigate = useNavigate();
     const [employee, setEmployee] = useState();
     const email = authToken().sub;
     const role = authToken().roles[0].authority;
+    const [image, setImage] = useState(null);
+    const [url, setUrl] = useState(null);
     useEffect(() => {
         if (email) {
             getInfoEmployee();
         }
     }, []);
 
-
+    const handleImageChange = (e) => {
+        if (e.target.file) {
+            setImage(e.target.file);
+        }
+    }
+    const handleSubmitAvatar = () => {
+        const imageRef = ref(storage, "image");
+        uploadBytes(imageRef, image).then(() => {
+            getDownloadURL(imageRef).then((url) => {
+                setUrl(url)
+            })
+                .catch((error) => {
+                    console.log(error.message, "lỗi url image")
+                });
+        }).catch((error) => {
+            console.log(error.message)
+        })
+    }
     const getInfoEmployee = async () => {
         try {
             const res = await employeeSevice.getAllByEmployee(email);
@@ -39,6 +59,7 @@ export function EditEmployee() {
 
         try {
             console.log(data)
+            data = {...data,image:url.toString()};
             const res = await editEmployeeService(data)
             console.log(res)
             if (res.status === 200) {
@@ -62,7 +83,7 @@ export function EditEmployee() {
             .required("Vui lòng nhập tên")
             .matches(/^[AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+ [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+(?: [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]*)*$/, "Chứa kí tự đặc biệt, hoặc số."),
         birthday: Yup.date()
-            .required("vui lòng nhập tuổi.")
+            .required("vui lòng nhập ngày tháng năm sinh.")
             .max(date18, "Vui lòng nhập lớn hơn 18 tuổi.")
             .min(date65, "Vui lòng nhập bé hơn 65 tuổi."),
         phone: Yup.string()
@@ -113,11 +134,12 @@ export function EditEmployee() {
                                                         <div className="col-md-5 pr-lg-5 mb-5 mb-md-0"
                                                              style={{textAlign: "center"}}>
                                                             <img
-                                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTz9mo8UybQ2Uf6MdgKs-8nz-OM7SS9nKsWRArR-bcdvRvNUTlLHmIksU_onSdvZQmtcY&usqp=CAU"
+                                                                src={url}
                                                                 alt="img"
                                                                 className="img-fluid mb-3 d-none d-md-block rounded-0"
                                                                 style={{paddingLeft: "18%"}}/>
-                                                            <button className="btn btn-success btn-sm">Thay Đổi</button>
+                                                            <input type="file" onChange={handleImageChange}/>
+                                                            <button className="btn btn-success btn-sm" onClick={handleSubmitAvatar}>Đăng</button>
                                                         </div>
 
                                                         {/*--Form--*/}
@@ -239,6 +261,9 @@ export function EditEmployee() {
                                                                     <button type='submit'
                                                                             className="btn btn-success btn-sm">Cập
                                                                         nhật
+                                                                    </button>
+                                                                    <button type='reset'
+                                                                            className="btn btn-warning">Reset
                                                                     </button>
                                                                 </div>
                                                             </Form>
