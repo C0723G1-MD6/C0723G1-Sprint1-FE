@@ -2,9 +2,12 @@ import * as method from "../../services/anHN/ProductService"
 import React, {useEffect, useState} from "react";
 import "./AnHN.css";
 import ReactPaginate from "react-paginate";
+import {useNavigate} from "react-router-dom";
 
 
 function HomeAdmin() {
+
+    const navigate = useNavigate();
 
     const [nameSearch, setNameSearch] = useState([])
 
@@ -24,7 +27,7 @@ function HomeAdmin() {
             setProduct(data);
 
         } catch (e) {
-            console.log("error")
+            navigate("/Error");
         }
     }
     const getAllProduct = async () => {
@@ -32,7 +35,7 @@ function HomeAdmin() {
             let data = await method.getAllProductPage();
             setTotalPages(data.totalPages)
         } catch (e) {
-            console.log("error")
+            navigate("/Error");
         }
     }
     console.log(product)
