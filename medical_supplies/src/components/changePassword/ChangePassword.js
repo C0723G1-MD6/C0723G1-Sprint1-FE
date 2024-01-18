@@ -6,9 +6,9 @@ import {changePassword} from "../../services/changePassword/ChangePasswordServic
 import {Field, Formik, Form, ErrorMessage} from "formik";
 import authToken from "../../services/units/UserToken";
 import HeaderAdmin from "../anHN/HeaderAdmin";
-import SidebarAdmin from "../anHN/SidebarAdmin";
+import Sidebar from "../anHN/Sidebar";
 import Footer from "../anHN/Footer";
-import SidebarEmployee from "../anHN/SidebarEmployee";
+
 
 
 export default function ChangePassword() {
@@ -51,8 +51,8 @@ export default function ChangePassword() {
             <HeaderAdmin/>
             <div className="container-fluid wrapper">
                 {role === "ROLE_ADMIN" ?
-                    <SidebarAdmin/> : role === "ROLE_ACCOUNTANT" ?
-                        "Kế toán" : <SidebarEmployee/>
+                    <Sidebar/> : role === "ROLE_ACCOUNTANT" ?
+                        "Kế toán" : <Sidebar/>
                 }
 
                 <div className="row my-5">

@@ -8,9 +8,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import authToken from "../../services/units/UserToken";
 import * as employeeSevice from "../../services/employee/employeeService";
 import HeaderAdmin from "../anHN/HeaderAdmin";
-import SidebarAdmin from "../anHN/SidebarAdmin";
+import Sidebar from "../anHN/Sidebar";
 import Footer from "../anHN/Footer";
-import SidebarEmployee from "../anHN/SidebarEmployee";
+
 
 
 export function EditEmployee() {
@@ -82,10 +82,7 @@ export function EditEmployee() {
             <HeaderAdmin/>
             {/*cho anh An them sidebarAccountant*/}
             <div className="container-fluid wrapper">
-                {role === "ROLE_ADMIN" ?
-                    <SidebarAdmin/> : role === "ROLE_ACCOUNTANT" ?
-                        "Kế toán" : <SidebarEmployee/>
-                }
+                <Sidebar/>
 
                 <div className="main">
                     <Formik
