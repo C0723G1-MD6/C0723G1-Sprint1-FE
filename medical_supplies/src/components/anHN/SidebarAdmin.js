@@ -1,5 +1,5 @@
 import "./SideBar.css";
-import {NavLink} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 
 function SidebarAdmin(){
@@ -8,7 +8,9 @@ function SidebarAdmin(){
 
 
     return (
-            <aside id="sidebar">
+            <aside id="sidebar" style={{
+                height : "100%"
+            }}>
                 <div className="h-100">
                     <div className="sidebar-logo">
                         <div className="user-img">
@@ -27,10 +29,9 @@ function SidebarAdmin(){
                             Vật Tư
                         </li>
                         <li className="sidebar-item">
-                            <a href="#" className="sidebar-link text-dark">
-                                <i className="fa-solid fa-list pe-2"></i>
-                                Thêm Vật Tư
-                            </a>
+                            <NavLink to="/product/create" className="sidebar-link text-dark">
+                                Thêm Mới Vật Tư
+                            </NavLink>
                         </li>
                         <li className="sidebar-header text-dark">
                             Chức Năng

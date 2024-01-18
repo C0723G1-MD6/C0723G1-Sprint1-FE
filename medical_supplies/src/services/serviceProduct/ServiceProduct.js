@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import {toast} from "react-toastify";
 
 export const createProduct= async (productDTO) =>{
   try {
@@ -45,4 +45,28 @@ export const getListProduction = async () =>{
     }catch (e){
         return false;
     }
+}
+
+export const listProducts = async () => {
+    try {
+        const products = await axios.get('http://localhost:8080/api/products/list');
+        return products.data
+        console.log(products.data);
+    }catch (e){
+        return false;
+    }
+}
+
+export function showMsgWarning(msg) {
+    toast.warning(msg, {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000,
+    });
+}
+
+export function showMsg(msg) {
+    toast.success(msg, {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000,
+    });
 }
