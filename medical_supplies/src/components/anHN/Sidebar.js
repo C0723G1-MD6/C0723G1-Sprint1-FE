@@ -49,9 +49,9 @@ function Sidebar(){
                             </div>
                         </li>
                         <li className="sidebar-item">
-                            <NavLink href="#" className="sidebar-link text-dark">
+                            <NavLink to="/product/create" className="sidebar-link text-dark">
                                 <i className="fa-solid fa-list pe-2"></i>
-                                Thêm Vật Tư
+                                Thêm mới vật tư
                             </NavLink>
                         </li>
                         <li className="sidebar-item">

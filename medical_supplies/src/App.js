@@ -12,6 +12,8 @@ import Dashboard from "./pages/Dashboard";
 import "react-toastify/dist/ReactToastify.css";
 import {EditEmployee} from "./components/employee/EditEmployee";
 import ChangePassword from "./components/changePassword/ChangePassword";
+import ProductCreate from "./components/product/ProductCreate";
+import ProductEdit from "./components/product/ProductEdit";
 import DashboardAdmin from "./components/DashboardAdmin";
 import DashboardAccountant from "./components/DashboardAccountant";
 import DashboardSalesman from "./components/DashboardSalesman";
@@ -39,6 +41,8 @@ function App() {
                 <Route path={"/register"} element={<Register/>}></Route>
                 <Route path="/employee" element={<EditEmployee/>}/>
                 <Route path="/change_pass" element={<ChangePassword/>}/>
+                <Route path="product/create" element={<ProductCreate/>}/>
+                <Route path="product/edit/:id" element={<ProductEdit/>}/>
                 <Route path="/error" element={<Error403/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
