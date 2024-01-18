@@ -16,6 +16,7 @@ import DashboardAdmin from "./components/DashboardAdmin";
 import DashboardAccountant from "./components/DashboardAccountant";
 import DashboardSalesman from "./components/DashboardSalesman";
 import {NotFound} from "./components/NotFound";
+import Error403 from "./components/auth/Error403";
 
 
 
@@ -38,6 +39,7 @@ function App() {
                 <Route path={"/register"} element={<Register/>}></Route>
                 <Route path="/employee" element={<EditEmployee/>}/>
                 <Route path="/change_pass" element={<ChangePassword/>}/>
+                <Route path="/error" element={<Error403/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
             <ToastContainer/>

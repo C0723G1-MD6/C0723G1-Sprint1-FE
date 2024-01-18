@@ -98,7 +98,7 @@ export default function Login() {
                                                     <div className="form-check">
                                                         <Field className="form-check-input" type="checkbox" value=""
                                                                id="form1Example3"
-                                                               checked/>
+                                                               />
                                                         <label className="form-check-label" htmlFor="form1Example3">
                                                             Ghi nhớ</label>
                                                     </div>

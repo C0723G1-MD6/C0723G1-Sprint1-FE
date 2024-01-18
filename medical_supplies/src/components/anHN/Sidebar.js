@@ -111,7 +111,7 @@ function Sidebar(){
                             </div>
                             <div className="user-detail">
                                 <div className="title">Kế toán</div>
-                                <div className="name">{employee.name}</div>
+                                <div className="name fw-bold">{employee.name}</div>
                             </div>
                         </div>
                         <ul className="sidebar-nav">
@@ -161,7 +161,7 @@ function Sidebar(){
                             </div>
                             <div className="user-detail">
                                 <div className="title">Bán hàng</div>
-                                <div className="name">{employee.name}</div>
+                                <div className="name fw-bold">{employee.name}</div>
                             </div>
                         </div>
                         <ul className="sidebar-nav">
