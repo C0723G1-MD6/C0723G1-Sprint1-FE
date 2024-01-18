@@ -1,5 +1,4 @@
 import axios from "axios";
-import authHeader from "../auth/AuthService";
 
 export const createAccount = async (accountDto) => {
     try {
