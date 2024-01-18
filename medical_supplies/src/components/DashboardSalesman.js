@@ -1,7 +1,4 @@
 import React from 'react';
-import HeaderAdmin from "./anHN/HeaderAdmin";
-import SidebarAdmin from "./anHN/SidebarAdmin";
-import HomeAdmin from "./anHN/HomeAdmin";
 import Footer from "./anHN/Footer";
 import HeaderEmployee from "./anHN/HeaderEmployee";
 import SidebarEmployee from "./anHN/SidebarEmployee";

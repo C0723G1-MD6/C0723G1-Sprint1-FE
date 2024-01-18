@@ -1,11 +1,29 @@
 import "./SideBar.css";
 import {NavLink} from "react-router-dom";
+import ModalLogout from "../auth/ModalLogout";
+import React, {useEffect, useState} from "react";
+import authToken from "../../services/units/UserToken";
+import * as employeeService from "../../services/employee/employeeService";
 
 
 function SidebarAdmin(){
+    const [employee, setEmployee] = useState({});
+    const role = authToken().roles[0].authority;
+    const email = authToken().sub;
+    useEffect(() => {
+        if (email.length>0) {
+            getInfoEmployee();
+        }
+    }, []);
 
-
-
+    const getInfoEmployee = async () => {
+        try {
+            const res = await employeeService.getAllByEmployee(email);
+            setEmployee(res.data);
+        } catch (e) {
+            throw e.response;
+        }
+    };
 
     return (
             <aside id="sidebar">
@@ -17,24 +35,35 @@ function SidebarAdmin(){
                                  alt=""/>
                         </div>
                         <div className="user-detail">
-                            <div className="title">Quản Lý</div>
-                            <div className="name">Nguyễn Văn A</div>
-
+                            <div className="title">
+                                {role === "ROLE_ADMIN" ?
+                                    "Admin" : role === "ROLE_ACCOUNTANT" ?
+                                        "Kế toán" : "Bán hàng"}
+                            </div>
+                            <div className="name fw-bold">{employee.name}</div>
                         </div>
                     </div>
                     <ul className="sidebar-nav">
                         <li className="sidebar-header text-dark">
-                            Vật Tư
+                            <div style={{fontSize:20}}>
+                                Vật Tư
+                            </div>
                         </li>
                         <li className="sidebar-item">
-                            <a href="#" className="sidebar-link text-dark">
+                            <NavLink href="#" className="sidebar-link text-dark">
                                 <i className="fa-solid fa-list pe-2"></i>
                                 Thêm Vật Tư
-                            </a>
+                            </NavLink>
                         </li>
-                        <li className="sidebar-header text-dark">
-                            Chức Năng
+                        <li className="sidebar-item">
+                            <NavLink href="#" className="sidebar-link text-dark">
+                                <i className="fa-solid fa-list pe-2"></i>
+                                Chỉnh sửa vật tư
+                            </NavLink>
                         </li>
+                        <div style={{fontSize:20, paddingLeft:"25px"}}>
+                            Chức năng
+                        </div>
                         <li className="sidebar-item">
                             <a href="#" className="sidebar-link collapsed text-dark" data-bs-toggle="collapse"
                                data-bs-target="#pages"
@@ -45,7 +74,7 @@ function SidebarAdmin(){
                             <ul id="pages" className="sidebar-dropdown list-unstyled collapse"
                                 data-bs-parent="#sidebar">
                                 <li className="sidebar-item ">
-                                    <NavLink to="/employee/:id" className="sidebar-link text-dark">Chỉnh
+                                    <NavLink to="/employee" className="sidebar-link text-dark">Chỉnh
                                         Sửa Thông Tin</NavLink>
                                 </li>
                                 <li className="sidebar-item">
@@ -55,17 +84,20 @@ function SidebarAdmin(){
                             </ul>
                         </li>
                         <li className="sidebar-item">
-                            <a href="#" className="sidebar-link text-dark">
+                            <NavLink to="/register" className="sidebar-link text-dark">
                                 <i className="fa-solid fa-list pe-2"></i>
                                 Đăng Kí Nhân Viên
-                            </a>
+                            </NavLink>
                         </li>
-                        <li className="sidebar-item" style={{paddingTop: "80%",paddingLeft: "12%"}}>
-                            <a href="#" className="sidebar-link text-dark">
+                        <li className="sidebar-item" style={{paddingTop: "80%", paddingLeft: "12%"}}>
+                            <NavLink role="button" className="sidebar-link text-dark">
                                 <i className="fa-solid fa-list pe-2"></i>
-                                <button className="btn btn-outline-secondary">Đăng Xuất</button>
-                            </a>
+                                <button className="btn btn-outline-secondary" data-bs-toggle="modal"
+                                        data-bs-target="#logout">Đăng Xuất
+                                </button>
+                            </NavLink>
                         </li>
+                        <ModalLogout/>
                     </ul>
                 </div>
             </aside>

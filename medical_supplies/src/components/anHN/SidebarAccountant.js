@@ -1,9 +1,7 @@
 import {NavLink} from "react-router-dom";
-import "./SideBar.css";
 
 
-
-function SidebarEmployee() {
+function sidebarAccountant(){
 
     return (
         <aside id="sidebar">
@@ -34,7 +32,7 @@ function SidebarEmployee() {
                         <ul id="pages" className="sidebar-dropdown list-unstyled collapse"
                             data-bs-parent="#sidebar">
                             <li className="sidebar-item ">
-                                <NavLink to="/employee" className="sidebar-link text-dark">Chỉnh
+                                <NavLink to="/employee/:id" className="sidebar-link text-dark">Chỉnh
                                     Sửa Thông Tin</NavLink>
                             </li>
                             <li className="sidebar-item">
@@ -56,5 +54,4 @@ function SidebarEmployee() {
 
     )
 }
-
-export default SidebarEmployee;
+export default sidebarAccountant()
