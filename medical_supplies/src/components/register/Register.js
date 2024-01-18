@@ -6,7 +6,7 @@ import {toast} from "react-toastify";
 import {useNavigate, NavLink} from "react-router-dom";
 import Footer from "../anHN/Footer";
 import HeaderAdmin from "../anHN/HeaderAdmin";
-import SidebarAdmin from "../anHN/SidebarAdmin";
+import Sidebar from "../anHN/Sidebar";
 
 
 export default function Register() {
@@ -48,7 +48,7 @@ export default function Register() {
         phone: Yup.string()
             .required("Vui lòng nhập số điện thoại."),
         gender: Yup.string()
-            .required("Vui lòng cho giới tính."),
+            .required("Vui lòng chọn giới tính."),
         address: Yup.string()
             .required("Vui lòng nhập địa chỉ."),
         idRole: Yup.string()
@@ -73,7 +73,7 @@ export default function Register() {
         <>
             <HeaderAdmin/>
             <div className="container-fluid wrapper">
-                <SidebarAdmin/>
+                <Sidebar/>
                 <div className="main">
                     <main className="content px-3 py-2">
                         <div className="container-fluid">
