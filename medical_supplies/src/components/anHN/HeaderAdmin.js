@@ -1,9 +1,11 @@
 import img_1 from "../img/img_1.png";
 import {Link} from "react-router-dom";
+import admin1 from "../img/admin.png";
 
 
 
 function HeaderAdmin() {
+
 
     return (
         <>
@@ -47,15 +49,8 @@ function HeaderAdmin() {
                             <p className="text-header">CÙNG TẠO CƠ HỘI THÀNH CÔNG - HƯỚNG TỚI SỨC KHỎE CỘNG ĐỒNG</p>
                             <p className="text-header">XÂY DỰNG CUỘC SỐNG TƯƠI ĐẸP</p>
                         </div>
-                        <div className="button-header col-12 col-lg-2" >
-                            <div className="button-header col-12 col-lg-2">
-                                <button type="button" className="btn btn-success">
-                                    <Link to="#" style={{color: "white", textDecoration: "none"}}>
-                                        QUẢN TRỊ VIÊN
-                                    </Link>
-                                </button>
-                            </div>
-
+                        <div className="button-header col-12 col-lg-2"  >
+                                <img className="logo-header" src={admin1} style={{width:"150px", height:"130px"}}/>
                         </div>
                         <div className="col-12 col-lg-1">
 
@@ -67,7 +62,7 @@ function HeaderAdmin() {
                         <div className="align-items-center justify-content-center justify-content-lg-start">
                             <ul className="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                                 <li>
-                                    <Link to="/" className="nav-link text-white">
+                                    <Link to="/dashboard" className="nav-link text-white">
                                         <svg className="bi d-block mx-auto mb-1" width="5" height="7">
                                             <use xlinkHref="#home"></use>
                                         </svg>

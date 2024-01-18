@@ -1,14 +1,21 @@
 import {ErrorMessage, Field, Formik, Form} from "formik";
 import * as Yup from "yup";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import * as authService from "../../services/auth/AuthService";
 import Header from "../anHN/Header";
 import Footer from "../anHN/Footer";
+import {useEffect} from "react";
 
 export default function Login() {
-
+    const user = JSON.parse(localStorage.getItem(`user`));
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user) {
+            navigate(`/dashboard`);
+        }
+    }, []);
 
 
     const initValues = {
@@ -34,7 +41,7 @@ export default function Login() {
             }
         } catch (e) {
             setFieldError("password", e.data);
-            console.log(e);
+
 
         }
     }
@@ -79,7 +86,7 @@ export default function Login() {
                                                 <div className="input-group col-lg-6 mb-4">
                                                     <label htmlFor="password"
                                                            className="input-group-text bg-white px-4 border-md border-right-0">
-                                                        <i className="fas fa-map-marked-alt"></i>
+                                                        <i className="fas fa-lock"></i>
                                                     </label>
                                                     <Field id="password" type="password" name="password"
                                                            placeholder="Mật khẩu"
@@ -114,4 +121,5 @@ export default function Login() {
             <Footer/>
         </>
     )
+
 }
