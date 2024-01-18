@@ -11,9 +11,10 @@ import {
 import {Link, NavLink, useNavigate} from "react-router-dom";
 import ProductImage from "./ProductImage";
 import Header from "../anHN/Header";
-import SidebarAdmin from "../anHN/SidebarAdmin";
+import Sidebar from "../anHN/Sidebar";
 import Footer from "../anHN/Footer";
 import {forEach} from "react-bootstrap/ElementChildren";
+import Swal from "sweetalert2";
 
 export default function ProductCreate() {
     const [typeProducts, setTypePrudcts] = useState([]);
@@ -67,7 +68,19 @@ export default function ProductCreate() {
                 mainAvatar: urlImages.toString(),
 
             };
-            await createProduct(values);
+            await createProduct(values).then(() => {
+                    Swal.fire({
+                        title: "Success",
+                        text: 'The Prodoct has been edited successfully',
+                        icon: 'success',
+                        timer: 2000
+                    })
+                },
+                navigate("/dashboard")
+            )
+                .catch(() => {
+                    navigate(`/product/create`);
+                });
             await navigate("/dashboard");
         }else {
 
@@ -102,7 +115,7 @@ export default function ProductCreate() {
                 </div>
                 <div className="row">
                     <div className="col-3">
-                        <SidebarAdmin/>
+                        <Sidebar/>
                     </div>
 
                     <div className="col-9">

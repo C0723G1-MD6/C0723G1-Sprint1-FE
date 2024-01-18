@@ -11,7 +11,7 @@ import {
 import logoImage from "../../img/yte4.png";
 import {useNavigate, Link} from "react-router-dom";
 import Swal from "sweetalert2";
-import SidebarAdmin from "../anHN/SidebarAdmin";
+import Sidebar from "../anHN/Sidebar";
 import {Navbar} from "react-bootstrap";
 import Header from "../anHN/Header";
 import Footer from "../anHN/Footer";
@@ -73,7 +73,7 @@ export default function ProductEdit() {
                 </div>
                 <div className="row">
                     <div className="col-3">
-                        <SidebarAdmin/>
+                        <Sidebar/>
                     </div>
                     <div className="col-9">
                         {product.id && (
