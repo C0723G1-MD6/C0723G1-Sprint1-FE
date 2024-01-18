@@ -4,6 +4,7 @@ import "./AnHN.css";
 import ReactPaginate from "react-paginate";
 import {useNavigate} from "react-router-dom";
 
+import {NavLink} from "react-router-dom";
 
 function HomeAdmin() {
 
@@ -72,7 +73,9 @@ function HomeAdmin() {
                                                 <p className="card-text">Giá: {VND.format(item.price)}
                                                 </p>
                                                 <a href="#" className="btn btn-primary">Xem chi tiết</a>
-                                                <a href="#" className="btn btn-danger" style={{marginLeft:"15px"}}>Chỉnh sửa</a>
+                                                <NavLink to={`/product/edit/${item.id}`}>
+                                                    <button className="btn btn-danger">Chỉnh sửa</button>
+                                                </NavLink>
                                             </div>
                                         </div>
                                     </div>

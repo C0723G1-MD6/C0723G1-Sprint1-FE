@@ -1,5 +1,5 @@
 import React from 'react';
-import SidebarAdmin from "./anHN/SidebarAdmin";
+import Sidebar from "./anHN/Sidebar";
 import HeaderAdmin from "./anHN/HeaderAdmin";
 import Footer from "./anHN/Footer";
 import HomeAdmin from "./anHN/HomeAdmin";
@@ -10,7 +10,7 @@ function DashboardAdmin() {
         <>
             <HeaderAdmin/>
             <div className="container-fluid wrapper">
-            <SidebarAdmin/>
+            <Sidebar/>
             <HomeAdmin/>
             </div>
             <Footer/>

@@ -5,7 +5,7 @@ import {useState, useEffect} from "react";
 import "./AnHN.css";
 import { toast } from "react-toastify";
 import {Link, NavLink, useNavigate} from "react-router-dom";
-import SidebarAdmin from "./SidebarAdmin";
+import Sidebar from "./Sidebar";
 import img_1 from "../img/img_1.png";
 import ModalLogout from "../auth/ModalLogout";
 import ReactPaginate from "react-paginate";

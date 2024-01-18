@@ -1,9 +1,8 @@
 import axios from "axios";
-import authHeader from "../auth/AuthService";
 
 export const createAccount = async (accountDto) => {
     try {
-        const res = await axios.post(`http://localhost:8080/api/register`, accountDto);
+        const res = await axios.post(`http://localhost:8080/api/register`, accountDto,{headers:authHeader()});
         return res;
     } catch (e) {
         throw e.response;
