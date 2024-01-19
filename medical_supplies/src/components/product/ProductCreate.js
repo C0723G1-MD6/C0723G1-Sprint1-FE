@@ -15,6 +15,7 @@ import Sidebar from "../anHN/Sidebar";
 import Footer from "../anHN/Footer";
 import {forEach} from "react-bootstrap/ElementChildren";
 import Swal from "sweetalert2";
+import HeaderAdmin from "../anHN/HeaderAdmin";
 
 export default function ProductCreate() {
     const [typeProducts, setTypePrudcts] = useState([]);
@@ -111,7 +112,7 @@ export default function ProductCreate() {
         <>
             <div className="container-fluid">
                 <div>
-                    <Header/>
+                    <HeaderAdmin/>
                 </div>
                 <div className="row">
                     <div className="col-3">

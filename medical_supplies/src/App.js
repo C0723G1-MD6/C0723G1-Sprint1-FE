@@ -32,6 +32,7 @@ function App() {
     } else {
         role = authToken().roles[0].authority;
     }
+    console.log(role)
 
     return (
         <BrowserRouter>
@@ -40,8 +41,11 @@ function App() {
                 <Route path="/login" element={<Login/>}></Route>
                 {
                     role.includes("ROLE_ADMIN") ?
-                        <Route path="/register" element={<Register/>}/> ||
-                        <Route path="/home-admin" element={<HomeAdmin/>}/>
+                        <>
+                            <Route path="/register" element={<Register/>}/>
+                            <Route path="/home-admin" element={<HomeAdmin/>}/>
+                        </>
+
                         : role.includes("ROLE_SALESMAN") ?
                             <Route path="/home-employee" element={<HomeEmployee/>}/> :
                         <Route path="/error" element={<Error403/>}/>
@@ -50,18 +54,25 @@ function App() {
                 {
                     role.includes("ROLE_SALESMAN") || role.includes("ROLE_ADMIN") || role.includes("ROLE_ACCOUNTANT")
                         ?
-                        <Route path="/employee" element={<EditEmployee/>}/> ||
-                        <Route path="/change_pass" element={<ChangePassword/>}/>
+                        <>
+                            <Route path="/employee" element={<EditEmployee/>}/>
+                            <Route path="/change_pass" element={<ChangePassword/>}/>
+                        </>
+
                         : <Route path="/error" element={<Error403/>}/>
                 }
                 {
                     role.includes("ROLE_SALESMAN") || role.includes("ROLE_ADMIN")
                         ?
-                        <Route path="product/create" element={<ProductCreate/>}/> ||
-                        <Route path="product/edit/:id" element={<ProductEdit/>}/>
+                        <>
+                            <Route path="product/create" element={<ProductCreate/>}/>
+                            <Route path="product/edit/:id" element={<ProductEdit/>}/>
+                        </>
+
                         : <Route path="/error" element={<Error403/>}/>
                 }
-
+                <Route path="/register" element={<Register/>}/>
+                <Route path="/home-admin" element={<HomeAdmin/>}/>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/sidebar" element={<Sidebar/>}/>
                 <Route path="/dashboard" element={<Dashboard/>}/>
@@ -70,6 +81,7 @@ function App() {
                 <Route path="/dashboard-salesman" element={<DashboardSalesman/>}/>
                 <Route path={"/login"} element={<Login/>}></Route>
                 <Route path="*" element={<NotFound/>}/>
+                <Route path="/error" element={<Error403/>}/>
             </Routes>
             <ToastContainer/>
         </BrowserRouter>
