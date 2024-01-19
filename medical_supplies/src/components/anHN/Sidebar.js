@@ -1,5 +1,5 @@
 import "./SideBar.css";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import ModalLogout from "../auth/ModalLogout";
 import React, {useEffect, useState} from "react";
 import authToken from "../../services/units/UserToken";
@@ -7,9 +7,18 @@ import * as employeeService from "../../services/employee/employeeService";
 
 
 function Sidebar(){
+    let role;
+    let email;
+    const navigate = useNavigate();
     const [employee, setEmployee] = useState({});
-    const role = authToken().roles[0].authority;
-    const email = authToken().sub;
+    console.log(authToken())
+    if (!authToken()){
+       navigate("/error")
+    } else {
+         role = authToken().roles[0].authority;
+        email = authToken().sub;
+    }
+
     useEffect(() => {
         if (email) {
             getInfoEmployee();
