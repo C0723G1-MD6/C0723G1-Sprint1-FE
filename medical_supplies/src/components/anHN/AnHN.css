@@ -102,3 +102,6 @@ footer{
 .page{
     padding-left: 500px;
 }
+.err-name{
+    color: red;
+}
