@@ -19,8 +19,8 @@ function HomeAdmin() {
 
     useEffect(() => {
         getAll(0,nameSearch);
-        getAllProduct()
-    }, [nameSearch]);
+        getAllProductPage()
+    }, []);
 
     const getAll = async (page,nameSearch) => {
         try {
@@ -31,7 +31,7 @@ function HomeAdmin() {
             navigate("/Error");
         }
     }
-    const getAllProduct = async () => {
+    const getAllProductPage = async () => {
         try {
             let data = await method.getAllProductPage();
             setTotalPages(data.totalPages)
@@ -45,6 +45,15 @@ function HomeAdmin() {
         currency: 'VND',
     });
 
+    const handleNameSearch = (value) =>{
+        setNameSearch(value);
+    }
+
+    const submitSearch = async () =>{
+        let res = await method.getAllProduct(0,nameSearch);
+        setProduct(res);
+    }
+
     const handlePageClick = (event) => {
         getAll(event.selected, nameSearch)
     }
@@ -56,10 +65,17 @@ function HomeAdmin() {
                 <main className="content px-3 py-2">
                     <div className="container">
                         <h2 style={{textAlign: "center"}}>DANH SÁCH VẬT TƯ</h2>
-                        <div className="input-group ">
-                            <input type="text" className="form-control " placeholder="Tìm kiếm theo tên sản phẩm" style={{marginLeft:"400px", marginRight:"400px"}}
-                                   aria-label="Recipient's username with two button addons"
-                                   onChange={event => setNameSearch(event.target.value)}/>
+                        <div className="input-group" style={{marginLeft:"400px"}}>
+                            <div className="row m-2">
+                                <div className="col-auto">
+                                    <input type="text" name="name" className="form-control"  onChange={(event => handleNameSearch(event.target.value))} id="name" placeholder="Tìm kiếm theo tên "/>
+                                </div>
+                                <div className="col-auto">
+                                    <button type="submit" className="btn btn-outline-secondary" onClick={()=>submitSearch()}>
+                                        Tìm kiếm
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <div className="row row-1-home">
                             {product ?(
@@ -72,16 +88,18 @@ function HomeAdmin() {
                                                 <h5 className="card-text">{item.name}</h5>
                                                 <p className="card-text">Giá: {VND.format(item.price)}
                                                 </p>
-                                                <a href="#" className="btn btn-primary">Xem chi tiết</a>
-                                                <NavLink to={`/product/edit/${item.id}`}>
-                                                    <button className="btn btn-danger">Chỉnh sửa</button>
+                                                <NavLink to={"#"} >
+                                                    <button className="btn btn-primary" >Xem chi tiết</button>
+                                                </NavLink>
+                                                <NavLink to={`/product/edit/${item.id}`} >
+                                                    <button className="btn btn-danger"  style={{marginLeft:"15px"}}>Chỉnh sửa</button>
                                                 </NavLink>
                                             </div>
                                         </div>
                                     </div>
                                 )
                             ):(
-                                <h5>Không có dữ liệu</h5>
+                                <h5 style={{color: "red"}}>Không tìm thấy dữ liệu</h5>
                             )}
                         </div>
                     </div>

@@ -38,7 +38,7 @@ function Sidebar(){
         role === "ROLE_ADMIN" ?
             <aside id="sidebar">
                 <div className="h-100">
-                    <div className="sidebar-logo">
+                    <div className="sidebar-logo" style={{textAlign:"center"}}>
                         <div className="user-img">
                             <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
                                  src="https://a0.anyrgb.com/pngimg/16/486/user-profile-user-experience-user-interface-design-avatar-user-interface-ico-person-user-man-computer-software-thumbnail.png"
@@ -63,12 +63,6 @@ function Sidebar(){
                                 Thêm mới vật tư
                             </NavLink>
                         </li>
-                        <li className="sidebar-item">
-                            <NavLink href="#" className="sidebar-link text-dark">
-                                <i className="fa-solid fa-list pe-2"></i>
-                                Chỉnh sửa vật tư
-                            </NavLink>
-                        </li>
                         <div style={{fontSize: 20, paddingLeft: "25px"}}>
                             Chức năng
                         </div>
@@ -79,15 +73,21 @@ function Sidebar(){
                                 <i className="fa-regular fa-file-lines pe-2"></i>
                                 Thông Tin
                             </a>
-                            <ul id="pages" className="sidebar-dropdown list-unstyled collapse"
+                            <ul id="pages" className="sidebar-dropdown collapse"
                                 data-bs-parent="#sidebar">
                                 <li className="sidebar-item ">
-                                    <NavLink to="/employee" className="sidebar-link text-dark">Chỉnh
-                                        Sửa Thông Tin</NavLink>
+                                    <NavLink to="/employee" className="sidebar-link text-dark" >
+                                        <div style={{fontSize: 14}} >
+                                            Chỉnh Sửa Thông Tin
+                                        </div>
+                                    </NavLink>
                                 </li>
                                 <li className="sidebar-item">
-                                    <NavLink to="/change_pass" className="sidebar-link text-dark">Đổi
-                                        Mật Khẩu</NavLink>
+                                    <NavLink to="/change_pass" className="sidebar-link text-dark" >
+                                        <div style={{fontSize: 14}}>
+                                            Đổi Mật Khẩu
+                                        </div>
+                                    </NavLink>
                                 </li>
                             </ul>
                         </li>
@@ -112,7 +112,7 @@ function Sidebar(){
             : role === "ROLE_ACCOUNTANT" ?
                 <aside id="sidebar">
                     <div className="h-100">
-                        <div className="sidebar-logo">
+                        <div className="sidebar-logo" style={{textAlign:"center"}}>
                             <div className="user-img">
                                 <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
                                      src="https://a0.anyrgb.com/pngimg/16/486/user-profile-user-experience-user-interface-design-avatar-user-interface-ico-person-user-man-computer-software-thumbnail.png"
@@ -134,15 +134,17 @@ function Sidebar(){
                                     <i className="fa-regular fa-file-lines pe-2"></i>
                                     Thông Tin
                                 </a>
-                                <ul id="pages" className="sidebar-dropdown list-unstyled collapse"
+                                <ul id="pages" className="sidebar-dropdown  collapse"
                                     data-bs-parent="#sidebar">
                                     <li className="sidebar-item ">
-                                        <NavLink to="/employee" className="sidebar-link text-dark">Chỉnh
-                                            Sửa Thông Tin</NavLink>
+                                        <NavLink to="/employee" className="sidebar-link text-dark">
+                                            <p style={{fontSize: 14}}>Chỉnh Sửa Thông Tin</p>
+                                        </NavLink>
                                     </li>
                                     <li className="sidebar-item">
-                                        <NavLink to="/change_pass" className="sidebar-link text-dark">Đổi
-                                            Mật Khẩu</NavLink>
+                                        <NavLink to="/change_pass" className="sidebar-link text-dark">
+                                            <p style={{fontSize: 14}}>Đổi Mật Khẩu</p>
+                                        </NavLink>
                                     </li>
                                 </ul>
                             </li>
@@ -162,7 +164,7 @@ function Sidebar(){
                 :
                 <aside id="sidebar">
                     <div className="h-100">
-                        <div className="sidebar-logo">
+                        <div className="sidebar-logo" style={{textAlign:"center"}}>
                             <div className="user-img">
                                 <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
                                      src="https://a0.anyrgb.com/pngimg/16/486/user-profile-user-experience-user-interface-design-avatar-user-interface-ico-person-user-man-computer-software-thumbnail.png"
@@ -184,15 +186,17 @@ function Sidebar(){
                                     <i className="fa-regular fa-file-lines pe-2"></i>
                                     Thông Tin
                                 </a>
-                                <ul id="pages" className="sidebar-dropdown list-unstyled collapse"
+                                <ul id="pages" className="sidebar-dropdown collapse"
                                     data-bs-parent="#sidebar">
                                     <li className="sidebar-item ">
-                                        <NavLink to="/employee" className="sidebar-link text-dark">Chỉnh
-                                            Sửa Thông Tin</NavLink>
+                                        <NavLink to="/employee" className="sidebar-link text-dark">
+                                            <p style={{fontSize: 14}}>Chỉnh Sửa Thông Tin</p>
+                                        </NavLink>
                                     </li>
                                     <li className="sidebar-item">
-                                        <NavLink to="/change_pass" className="sidebar-link text-dark">Đổi
-                                            Mật Khẩu</NavLink>
+                                        <NavLink to="/change_pass" className="sidebar-link text-dark">
+                                            <p style={{fontSize: 14}}>Đổi Mật Khẩu</p>
+                                        </NavLink>
                                     </li>
                                 </ul>
                             </li>

@@ -1,4 +1,4 @@
-import img_1 from "../img/img_1.png";
+import logo from "../img/logo.png";
 import {Link} from "react-router-dom";
 import admin1 from "../img/admin.png";
 
@@ -43,7 +43,7 @@ function HeaderAdmin() {
 
                         </div>
                         <div className="col-12 col-lg-2">
-                            <img className="logo-header" src={img_1}/>
+                            <img className="logo-header" src={logo}/>
                         </div>
                         <div className="col-12 col-lg-6">
                             <p className="text-header">CÙNG TẠO CƠ HỘI THÀNH CÔNG - HƯỚNG TỚI SỨC KHỎE CỘNG ĐỒNG</p>
@@ -78,22 +78,12 @@ function HeaderAdmin() {
                                     </a>
                                 </li>
                                 <li>
-                                    <div className="nav-link text-white">
-                                        <svg className="bi d-block mx-auto mb-1" width="5" height="0">
+                                    <a href="#" className="nav-link text-white">
+                                        <svg className="bi d-block mx-auto mb-1" width="5" height="7">
                                             <use xlinkHref="#speedometer2"></use>
                                         </svg>
-                                        <div className="dropdown">
-                                            <button className="btn btn-success dropdown-toggle" type="button"
-                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                SẢN PHẨM
-                                            </button>
-                                            <ul className="dropdown-menu">
-                                                <li><a className="dropdown-item" href="#">Sản phẩm 1</a></li>
-                                                <li><a className="dropdown-item" href="#">Sản phẩm 2</a></li>
-                                                <li><a className="dropdown-item" href="#">Sản phẩm 3</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                        SẢN PHẨM
+                                    </a>
                                 </li>
                                 <li>
                                     <a href="#" className="nav-link text-white">
