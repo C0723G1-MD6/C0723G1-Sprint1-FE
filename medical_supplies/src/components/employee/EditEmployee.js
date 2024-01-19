@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {NavLink, useNavigate, useParams} from "react-router-dom";
-import {editEmployeeService, getEmployeeByIdService} from "../../services/employee/employeeService";
+import {editEmployeeService} from "../../services/employee/employeeService";
 import {toast} from "react-toastify";
 import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
@@ -10,7 +10,7 @@ import * as employeeSevice from "../../services/employee/employeeService";
 import HeaderAdmin from "../anHN/HeaderAdmin";
 import Sidebar from "../anHN/Sidebar";
 import Footer from "../anHN/Footer";
-
+import {getDownloadURL, refImage, storage, uploadBytes} from "../../services/firebase/firebaseConfig";
 
 
 export function EditEmployee() {
@@ -18,6 +18,8 @@ export function EditEmployee() {
     const [employee, setEmployee] = useState();
     const email = authToken().sub;
     const role = authToken().roles[0].authority;
+    const [avatar, setAvatar] = useState("");
+    const inputImg = useRef();
     useEffect(() => {
         if (email) {
             getInfoEmployee();
@@ -27,18 +29,35 @@ export function EditEmployee() {
 
     const getInfoEmployee = async () => {
         try {
-            const res = await employeeSevice.getAllByEmployee(email);
-            setEmployee({...res.data, gender: res.gender ? 1 : 0});
+            if (email) {
+                const res = await employeeSevice.getAllByEmployee(email);
+                setEmployee({...res.data, gender: res.data.gender ? "true" : "false"});
+                setAvatar({...res.data,avatar:res.data.avatar});
+            }
         } catch (e) {
             throw e.response;
         }
     };
 
 
-    const editEmployee = async (data, setErrors) => {
+    const handleImageUpload = async (event) => {
+        const files = event.target.files;
+        try {
+            let file = files[0];
+            let storageRef = refImage(storage, `image-avatar/` + file.name);
+            let snapshot = await uploadBytes(storageRef, file);
+            let downloadURL = await getDownloadURL(snapshot.ref);
+            console.log(downloadURL);
+            setAvatar(downloadURL);
+        } catch (e) {
+            console.log(e);
+        }
+    };
 
+    const editEmployee = async (data, setErrors) => {
         try {
             console.log(data)
+            data.gender = data.gender == "true" ? true : false;
             const res = await editEmployeeService(data)
             console.log(res)
             if (res.status === 200) {
@@ -73,9 +92,7 @@ export function EditEmployee() {
         gender: Yup.string()
             .required("vui lòng chọn giới tính.")
     }
-    const handleGenderChange = (e) => {
-        setEmployee({...employee, gender: +e.target.value})
-    }
+
     if (!employee) return null
     return (
         <>
@@ -88,8 +105,7 @@ export function EditEmployee() {
                     <Formik
                         initialValues={employee}
                         onSubmit={(values, {setErrors}) => {
-                            const empObj = {...values, gender: +employee.gender === 1}
-                            editEmployee(empObj, setErrors)
+                            editEmployee(values, setErrors)
                         }}
                         validationSchema={Yup.object(employeeValidate)}
                     >
@@ -107,19 +123,48 @@ export function EditEmployee() {
                                                     </h2>
                                                     <div className="row py-5 mt-4 align-items-center">
                                                         {/*// <!-- For Demo Purpose -->*/}
-                                                        <div className="col-md-5 pr-lg-5 mb-5 mb-md-0"
-                                                             style={{textAlign: "center"}}>
-                                                            <img
-                                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTz9mo8UybQ2Uf6MdgKs-8nz-OM7SS9nKsWRArR-bcdvRvNUTlLHmIksU_onSdvZQmtcY&usqp=CAU"
-                                                                alt="img"
-                                                                className="img-fluid mb-3 d-none d-md-block rounded-0"
-                                                                style={{paddingLeft: "18%"}}/>
-                                                            <button className="btn btn-success btn-sm">Thay Đổi</button>
-                                                        </div>
+                                                        {/*<div className="col-md-5 pr-lg-5 mb-5 mb-md-0"*/}
+                                                        {/*     style={{textAlign: "center"}}>*/}
+                                                        {/*    <img*/}
+                                                        {/*        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTz9mo8UybQ2Uf6MdgKs-8nz-OM7SS9nKsWRArR-bcdvRvNUTlLHmIksU_onSdvZQmtcY&usqp=CAU"*/}
+                                                        {/*        alt="img"*/}
+                                                        {/*        className="img-fluid mb-3 d-none d-md-block rounded-0"*/}
+                                                        {/*        style={{paddingLeft: "18%"}}/>*/}
+                                                        {/*    <button className="btn btn-success btn-sm">Thay Đổi</button>*/}
+                                                        {/*</div>*/}
 
                                                         {/*--Form--*/}
                                                         <div className="col-md-7 col-lg-6 ml-auto">
                                                             <Form className="trungnd-form">
+                                                                <div className="mb-3">
+                                                                    <label>Ảnh</label>
+                                                                    <input ref={inputImg} type={"file"}
+                                                                           onChange={(e) => {
+                                                                               handleImageUpload(e)
+                                                                           }} className="form-control"
+                                                                           hidden={true}
+                                                                           name="avatar"
+                                                                           id="avatar"
+                                                                    />
+
+                                                                </div>
+                                                                <div style={
+                                                                    {
+                                                                        backgroundImage: `url(${avatar})`,
+                                                                        backgroundPosition: "center",
+                                                                        backgroundSize: "cover",
+                                                                        width: "400px",
+                                                                        aspectRatio: "16/9",
+                                                                        backgroundColor: "white",
+                                                                        border: "black 1px solid",
+                                                                        marginBottom: "10px",
+                                                                        cursor: "pointer"
+                                                                    }
+                                                                }
+                                                                     onClick={() => {
+                                                                         inputImg.current.click()
+                                                                     }}
+                                                                />
                                                                 <div className="row">
                                                                     {/* -- Name --*/}
                                                                     <div className="input-group col-lg-6 mb-4">
@@ -161,33 +206,27 @@ export function EditEmployee() {
                                                                              id="gender">
                                                                             <Field className="form-check-input"
                                                                                    style={{marginLeft: "2%"}}
-                                                                                   id="gender"
                                                                                    type="radio"
-                                                                                   value={0}
-                                                                                   checked={employee.gender === 0}
-                                                                                   onChange={handleGenderChange}
+                                                                                   value="false"
                                                                                    data-sb-validations="required"
                                                                                    name="gender"
                                                                             />
                                                                             <label className="form-check-label"
                                                                                    htmlFor="nam">
-                                                                                Nam
+                                                                                Nữ
                                                                             </label>
                                                                         </div>
                                                                         <div className="form-check form-check-inline">
                                                                             <Field className="form-check-input"
                                                                                    style={{marginLeft: "2%"}}
                                                                                    type="radio"
-                                                                                   id="gender"
-                                                                                   value={1}
-                                                                                   checked={employee.gender === 1}
-                                                                                   onChange={handleGenderChange}
+                                                                                   value="true"
                                                                                    data-sb-validations="required"
                                                                                    name="gender"
                                                                             />
                                                                             <label className="form-check-label"
                                                                                    htmlFor="nữ">
-                                                                                Nữ
+                                                                                Nam
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -248,7 +287,6 @@ export function EditEmployee() {
                                 </div>
                             </div>
                         </div>
-
                     </Formik>
                 </div>
             </div>

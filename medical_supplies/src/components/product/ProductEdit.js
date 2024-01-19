@@ -55,7 +55,7 @@ export default function ProductEdit() {
                     icon: 'success',
                     timer: 2000
                 })
-            },
+            }, await  setProduct(product),
             navigate("/dashboard")
             )
             .catch(() => {

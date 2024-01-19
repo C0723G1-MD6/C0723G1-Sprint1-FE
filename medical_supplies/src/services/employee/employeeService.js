@@ -11,15 +11,6 @@ export const editEmployeeService = async (value) => {
     }
 }
 
-export const getEmployeeByIdService = async (id) => {
-    try {
-        const res = await axios.get(`http://localhost:8080/api/employee/${id}`)
-        return res.data
-    } catch (e) {
-        alert("err get employee")
-    }
-
-}
 // Lấy dữ liệu employee bằng email
 export const getAllByEmployee = async (email) => {
     try {

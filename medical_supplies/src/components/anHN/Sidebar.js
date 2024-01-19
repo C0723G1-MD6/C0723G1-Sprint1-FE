@@ -178,7 +178,7 @@ function Sidebar(){
                                 <ul id="pages" className="sidebar-dropdown list-unstyled collapse"
                                     data-bs-parent="#sidebar">
                                     <li className="sidebar-item ">
-                                        <NavLink to="/employee/:id" className="sidebar-link text-dark">Chỉnh
+                                        <NavLink to="/employee" className="sidebar-link text-dark">Chỉnh
                                             Sửa Thông Tin</NavLink>
                                     </li>
                                     <li className="sidebar-item">
