@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {NavLink, useNavigate, useParams} from "react-router-dom";
-import {editEmployeeService, getEmployeeByIdService} from "../../services/employee/employeeService";
+import {editEmployeeService} from "../../services/employee/employeeService";
 import {toast} from "react-toastify";
 import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
@@ -10,7 +10,7 @@ import * as employeeSevice from "../../services/employee/employeeService";
 import HeaderAdmin from "../anHN/HeaderAdmin";
 import Sidebar from "../anHN/Sidebar";
 import Footer from "../anHN/Footer";
-
+import {getDownloadURL, refImage, storage, uploadBytes} from "../../services/firebase/firebaseConfig";
 
 
 export function EditEmployee() {
@@ -18,6 +18,8 @@ export function EditEmployee() {
     const [employee, setEmployee] = useState();
     const email = authToken().sub;
     const role = authToken().roles[0].authority;
+    const [avatar, setAvatar] = useState("");
+    const inputImg = useRef();
     useEffect(() => {
         if (email) {
             getInfoEmployee();
@@ -27,8 +29,11 @@ export function EditEmployee() {
 
     const getInfoEmployee = async () => {
         try {
-            const res = await employeeSevice.getAllByEmployee(email);
-            setEmployee({...res.data, gender: res.gender ? 1 : 0});
+            if (email) {
+                const res = await employeeSevice.getAllByEmployee(email);
+                setEmployee({...res.data, gender: res.data.gender ? "true" : "false"});
+                setAvatar({...res.data,avatar:res.data.avatar});
+            }
         } catch (e) {
             throw e.response;
             if (e.status===403){
@@ -39,10 +44,11 @@ export function EditEmployee() {
 
 
     const editEmployee = async (data, setErrors) => {
-
         try {
             console.log(data)
-            const res = await editEmployeeService(data);
+            data.gender = data.gender == "true" ? true : false;
+            const res = await editEmployeeService(data)
+            console.log(res)
             if (res.status === 200) {
                 navigate("/dashboard")
                 toast.success("Chỉnh sửa thông tin thành công.")
@@ -66,7 +72,7 @@ export function EditEmployee() {
             .required("Vui lòng nhập tên")
             .matches(/^[AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+ [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+(?: [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]*)*$/, "Chứa kí tự đặc biệt, hoặc số."),
         birthday: Yup.date()
-            .required("vui lòng nhập tuổi.")
+            .required("vui lòng nhập ngày sinh.")
             .max(date18, "Vui lòng nhập lớn hơn 18 tuổi.")
             .min(date65, "Vui lòng nhập bé hơn 65 tuổi."),
         phone: Yup.string()
@@ -77,9 +83,7 @@ export function EditEmployee() {
         gender: Yup.string()
             .required("vui lòng chọn giới tính.")
     }
-    const handleGenderChange = (e) => {
-        setEmployee({...employee, gender: +e.target.value})
-    }
+
     if (!employee) return null
     return (
         <>
@@ -92,8 +96,7 @@ export function EditEmployee() {
                     <Formik
                         initialValues={employee}
                         onSubmit={(values, {setErrors}) => {
-                            const empObj = {...values, gender: +employee.gender === 1}
-                            editEmployee(empObj, setErrors)
+                            editEmployee(values, setErrors)
                         }}
                         validationSchema={Yup.object(employeeValidate)}
                     >
@@ -165,33 +168,27 @@ export function EditEmployee() {
                                                                              id="gender">
                                                                             <Field className="form-check-input"
                                                                                    style={{marginLeft: "2%"}}
-                                                                                   id="gender"
                                                                                    type="radio"
-                                                                                   value={0}
-                                                                                   checked={employee.gender === 0}
-                                                                                   onChange={handleGenderChange}
+                                                                                   value="false"
                                                                                    data-sb-validations="required"
                                                                                    name="gender"
                                                                             />
                                                                             <label className="form-check-label"
                                                                                    htmlFor="nam">
-                                                                                Nam
+                                                                                Nữ
                                                                             </label>
                                                                         </div>
                                                                         <div className="form-check form-check-inline">
                                                                             <Field className="form-check-input"
                                                                                    style={{marginLeft: "2%"}}
                                                                                    type="radio"
-                                                                                   id="gender"
-                                                                                   value={1}
-                                                                                   checked={employee.gender === 1}
-                                                                                   onChange={handleGenderChange}
+                                                                                   value="true"
                                                                                    data-sb-validations="required"
                                                                                    name="gender"
                                                                             />
                                                                             <label className="form-check-label"
                                                                                    htmlFor="nữ">
-                                                                                Nữ
+                                                                                Nam
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -252,7 +249,6 @@ export function EditEmployee() {
                                 </div>
                             </div>
                         </div>
-
                     </Formik>
                 </div>
             </div>

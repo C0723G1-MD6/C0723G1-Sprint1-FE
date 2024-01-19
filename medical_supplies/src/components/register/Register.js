@@ -50,7 +50,7 @@ export default function Register() {
         phone: Yup.string()
             .required("Vui lòng nhập số điện thoại."),
         gender: Yup.string()
-            .required("Vui lòng cho giới tính."),
+            .required("Vui lòng chọn giới tính."),
         address: Yup.string()
             .required("Vui lòng nhập địa chỉ."),
         idRole: Yup.string()
