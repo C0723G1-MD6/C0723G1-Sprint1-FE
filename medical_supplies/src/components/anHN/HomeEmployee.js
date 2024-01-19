@@ -1,13 +1,10 @@
-import Footer from "./Footer";
+
 import * as method from "../../services/anHN/ProductService"
 import React from "react";
 import {useState, useEffect} from "react";
 import "./AnHN.css";
-import { toast } from "react-toastify";
 import {Link, NavLink, useNavigate} from "react-router-dom";
-import Sidebar from "./Sidebar";
-import img_1 from "../img/img_1.png";
-import ModalLogout from "../auth/ModalLogout";
+
 import ReactPaginate from "react-paginate";
 
 
@@ -25,8 +22,8 @@ function HomeEmployee(){
 
     useEffect(() => {
         getAll(0,nameSearch);
-        getAllProduct()
-    }, [nameSearch]);
+        getAllProductPage()
+    }, []);
 
     const getAll = async (page,nameSearch) => {
         try {
@@ -37,7 +34,7 @@ function HomeEmployee(){
             navigate("/Error");
         }
     }
-    const getAllProduct = async () => {
+    const getAllProductPage = async () => {
         try {
             let data = await method.getAllProductPage();
             setTotalPages(data.totalPages)
@@ -45,6 +42,16 @@ function HomeEmployee(){
             navigate("/Error");
         }
     }
+
+    const handleNameSearch = (value) =>{
+        setNameSearch(value);
+    }
+
+    const submitSearch = async () =>{
+        let res = await method.getAllProduct(0,nameSearch);
+        setProduct(res);
+    }
+
     const VND = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND',
@@ -60,10 +67,18 @@ function HomeEmployee(){
                 <main className="content px-3 py-2">
                     <div className="container">
                         <h2 style={{textAlign: "center"}}>DANH SÁCH VẬT TƯ</h2>
-                        <div className="input-group w-25">
-                            <input type="text" className="form-control " placeholder="Tìm kiếm theo tên sản phẩm" style={{marginLeft:"400px", marginRight:"400px"}}
-                                   aria-label="Recipient's username with two button addons"
-                                   onChange={event => setNameSearch(event.target.value)}/>
+                        <div className="input-group" style={{marginLeft:"400px"}}>
+                            <div className="row m-2">
+                                <div className="col-auto">
+                                    <input type="text" name="name" className="form-control"  onChange={(event => handleNameSearch(event.target.value))} id="name" placeholder="Tìm kiếm theo tên "/>
+                                </div>
+                                <div className="col-auto">
+                                    <button type="submit" className="btn btn-outline-secondary" onClick={()=>submitSearch()}>
+                                        Tìm kiếm
+                                    </button>
+                                </div>
+
+                            </div>
                         </div>
                         <div className="row row-1-home">
                             {product ?(
@@ -76,13 +91,15 @@ function HomeEmployee(){
                                                 <h5 className="card-text">{item.name}</h5>
                                                 <p className="card-text">Giá: {VND.format(item.price)}
                                                 </p>
-                                                <a href="#" className="btn btn-primary">Xem chi tiết</a>
+                                                <NavLink to={"#"} >
+                                                    <button className="btn btn-primary" >Xem chi tiết</button>
+                                                </NavLink>
                                             </div>
                                         </div>
                                     </div>
                                 )
                             ):(
-                                <h5>Không có dữ liệu</h5>
+                                <h5 style={{color: "red"}}>Không tìm thấy dữ liệu</h5>
                             )}
                         </div>
                     </div>

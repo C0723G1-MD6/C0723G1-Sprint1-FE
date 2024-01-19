@@ -10,7 +10,7 @@ export function NotFound() {
                     <p className="lead">
                         Trang bạn đang tìm kiếm không tồn tại.
                     </p>
-                    <NavLink to="/" className="btn btn-outline-primary rounded-0">Quay lại trang chủ</NavLink>
+                    <NavLink to="/" className="btn btn-outline-primary rounded-0">Quay lại </NavLink>
                 </div>
             </div>
         </>
