@@ -59,6 +59,7 @@ export function EditEmployee() {
     };
 
 
+
     const editEmployee = async (data, setErrors) => {
         try {
             data.avatar = urlImages.toString();
