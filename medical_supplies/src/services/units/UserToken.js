@@ -8,6 +8,6 @@ export default function authToken(){
         return payload;
 
     } else {
-        return {};
+        return undefined;
     }
 }
