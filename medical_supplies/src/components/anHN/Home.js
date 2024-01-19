@@ -8,6 +8,8 @@ import home from "../img/home.png"
 import home1 from "../img/home1.png"
 import {NavLink, useNavigate} from "react-router-dom";
 
+import authToken from "../../services/units/UserToken";
+
 function Home() {
 
     const navigate = useNavigate();
@@ -66,7 +68,9 @@ function Home() {
         getAll(event.selected, nameSearch)
     }
 
-
+    if (authToken()){
+        return navigate("/dashboard");
+    }
     return (
         <>
             <div>
