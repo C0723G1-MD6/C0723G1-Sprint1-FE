@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useNavigate,NavLink} from "react-router-dom";
 import * as Yup from "yup";
 import {toast} from "react-toastify";
 import {changePassword} from "../../services/changePassword/ChangePasswordService";
@@ -15,6 +15,7 @@ export default function ChangePassword() {
     const navigate = useNavigate();
     const email = authToken().sub;
     const role = authToken().roles[0].authority;
+
     const handleSubmitFormChangePassword = async (values, {setErrors}) => {
         try {
             const res = await changePassword(values);
@@ -115,7 +116,12 @@ export default function ChangePassword() {
                                                                             className="text-danger"
                                                                             component="p"/></small></p>
                                                     <div className="d-flex me-5 justify-content-center gap-3">
-                                                        <button type="submit" className="btn btn-success">Cập nhật
+                                                        <NavLink to={"../dashboard"}>
+                                                            <button className="btn btn-secondary btn-sm"><a
+                                                            >Hủy</a>
+                                                            </button>
+                                                        </NavLink>
+                                                        <button type="submit" className="btn btn-success btn-sm">Cập nhật
                                                         </button>
                                                     </div>
                                                 </div>
