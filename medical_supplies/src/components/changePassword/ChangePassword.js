@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useNavigate,NavLink} from "react-router-dom";
 import * as Yup from "yup";
 import {toast} from "react-toastify";
 import {changePassword} from "../../services/changePassword/ChangePasswordService";
@@ -15,11 +15,13 @@ export default function ChangePassword() {
     const navigate = useNavigate();
     const email = authToken().sub;
     const role = authToken().roles[0].authority;
+
     const handleSubmitFormChangePassword = async (values, {setErrors}) => {
         try {
             const res = await changePassword(values);
             if (res.status === 200) {
-                navigate("/dashboard");
+                await localStorage.removeItem('user');
+                navigate("/login");
                 toast.success("Đổi mật khẩu thành công, vui lòng đăng nhập lại để tiếp tục !")
             }
         } catch (e) {
@@ -71,15 +73,15 @@ export default function ChangePassword() {
                                         <h2 className="text-secondary fw-bolder text-center" style={{paddingTop: "3%"}}>
                                             Đổi Mật Khẩu
                                         </h2>
-                                        {/*<div className="row py-5 mt-4 align-items-center">*/}
-                                        {/*    /!*For Demo Purpose *!/*/}
-                                        {/*    <div className="col-md-5 pr-lg-5 mb-5 mb-md-0"*/}
-                                        {/*         style={{textAlign: "center"}}>*/}
-                                        {/*        <img*/}
-                                        {/*            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTz9mo8UybQ2Uf6MdgKs-8nz-OM7SS9nKsWRArR-bcdvRvNUTlLHmIksU_onSdvZQmtcY&usqp=CAU"*/}
-                                        {/*            alt="img"*/}
-                                        {/*            className="img-fluid mb-3 d-none d-md-block rounded-5"/>*/}
-                                        {/*    </div>*/}
+                                        <div className="row py-5 mt-4 align-items-center">
+                                            {/*For Demo Purpose */}
+                                            <div className="col-md-5 pr-lg-5 mb-5 mb-md-0"
+                                                 style={{textAlign: "center"}}>
+                                                <img
+                                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTz9mo8UybQ2Uf6MdgKs-8nz-OM7SS9nKsWRArR-bcdvRvNUTlLHmIksU_onSdvZQmtcY&usqp=CAU"
+                                                    alt="img"
+                                                    className="img-fluid mb-3 d-none d-md-block rounded-5"/>
+                                            </div>
 
                                         {/*// <!--Form -->*/}
                                         <div className="col-md-7 col-lg-6 ml-auto">
@@ -114,7 +116,12 @@ export default function ChangePassword() {
                                                                             className="text-danger"
                                                                             component="p"/></small></p>
                                                     <div className="d-flex me-5 justify-content-center gap-3">
-                                                        <button type="submit" className="btn btn-success">Cập nhật
+                                                        <NavLink to={"../dashboard"}>
+                                                            <button className="btn btn-secondary btn-sm"><a
+                                                            >Hủy</a>
+                                                            </button>
+                                                        </NavLink>
+                                                        <button type="submit" className="btn btn-success btn-sm">Cập nhật
                                                         </button>
                                                     </div>
                                                 </div>
@@ -122,7 +129,7 @@ export default function ChangePassword() {
                                         </div>
                                     </div>
                                 </div>
-                                {/*</div>*/}
+                                </div>
                             </div>
                         </Formik>
                     </div>

@@ -8,7 +8,7 @@ export default function authHeader(){
             "Content-Type": 'application/json'
         };
     } else {
-        return {};
+        return undefined;
     }
 }
 

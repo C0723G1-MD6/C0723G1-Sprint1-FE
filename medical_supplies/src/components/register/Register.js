@@ -21,7 +21,9 @@ export default function Register() {
             const res = await accountService.roleList();
             setRoles(res.data)
         } catch (e) {
-            return e;
+            if (e.status===403){
+                navigate("/error");
+            }
         }
     }
 
@@ -48,7 +50,7 @@ export default function Register() {
         phone: Yup.string()
             .required("Vui lòng nhập số điện thoại."),
         gender: Yup.string()
-            .required("Vui lòng cho giới tính."),
+            .required("Vui lòng chọn giới tính."),
         address: Yup.string()
             .required("Vui lòng nhập địa chỉ."),
         idRole: Yup.string()
@@ -57,7 +59,6 @@ export default function Register() {
 
     const handleSubmitFormRegister = async (values, {setErrors}) => {
         try {
-            console.log(values);
             const res = await accountService.createAccount(values);
             if (res.status === 200) {
                 navigate("/register")
