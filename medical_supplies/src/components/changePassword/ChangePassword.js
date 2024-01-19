@@ -19,7 +19,8 @@ export default function ChangePassword() {
         try {
             const res = await changePassword(values);
             if (res.status === 200) {
-                navigate("/dashboard");
+                await localStorage.removeItem('user');
+                navigate("/login");
                 toast.success("Đổi mật khẩu thành công, vui lòng đăng nhập lại để tiếp tục !")
             }
         } catch (e) {
@@ -71,15 +72,15 @@ export default function ChangePassword() {
                                         <h2 className="text-secondary fw-bolder text-center" style={{paddingTop: "3%"}}>
                                             Đổi Mật Khẩu
                                         </h2>
-                                        {/*<div className="row py-5 mt-4 align-items-center">*/}
-                                        {/*    /!*For Demo Purpose *!/*/}
-                                        {/*    <div className="col-md-5 pr-lg-5 mb-5 mb-md-0"*/}
-                                        {/*         style={{textAlign: "center"}}>*/}
-                                        {/*        <img*/}
-                                        {/*            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTz9mo8UybQ2Uf6MdgKs-8nz-OM7SS9nKsWRArR-bcdvRvNUTlLHmIksU_onSdvZQmtcY&usqp=CAU"*/}
-                                        {/*            alt="img"*/}
-                                        {/*            className="img-fluid mb-3 d-none d-md-block rounded-5"/>*/}
-                                        {/*    </div>*/}
+                                        <div className="row py-5 mt-4 align-items-center">
+                                            {/*For Demo Purpose */}
+                                            <div className="col-md-5 pr-lg-5 mb-5 mb-md-0"
+                                                 style={{textAlign: "center"}}>
+                                                <img
+                                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTz9mo8UybQ2Uf6MdgKs-8nz-OM7SS9nKsWRArR-bcdvRvNUTlLHmIksU_onSdvZQmtcY&usqp=CAU"
+                                                    alt="img"
+                                                    className="img-fluid mb-3 d-none d-md-block rounded-5"/>
+                                            </div>
 
                                         {/*// <!--Form -->*/}
                                         <div className="col-md-7 col-lg-6 ml-auto">
@@ -122,7 +123,7 @@ export default function ChangePassword() {
                                         </div>
                                     </div>
                                 </div>
-                                {/*</div>*/}
+                                </div>
                             </div>
                         </Formik>
                     </div>
