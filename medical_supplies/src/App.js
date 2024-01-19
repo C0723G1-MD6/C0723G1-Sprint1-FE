@@ -23,7 +23,6 @@ import authToken from "./services/units/UserToken";
 import React from "react";
 
 
-
 function App() {
     const user = JSON.parse(localStorage.getItem('user'));
     let role;
@@ -44,11 +43,18 @@ function App() {
                         <>
                             <Route path="/register" element={<Register/>}/>
                             <Route path="/home-admin" element={<HomeAdmin/>}/>
+                            <Route path="/dashboard-admin" element={<DashboardAdmin/>}/>
                         </>
 
                         : role.includes("ROLE_SALESMAN") ?
-                            <Route path="/home-employee" element={<HomeEmployee/>}/> :
-                        <Route path="/error" element={<Error403/>}/>
+                            <>
+                                <Route path="/home-employee" element={<HomeEmployee/>}/>
+                                <Route path="/dashboard-accountant" element={<DashboardAccountant/>}/>
+                            </>
+                            : role.includes("ROLE_SALESMAN") ?
+                                <Route path="/dashboard-salesman" element={<DashboardSalesman/>}/>
+                                :
+                                <Route path="/error" element={<Error403/>}/>
 
                 }
                 {
@@ -57,6 +63,7 @@ function App() {
                         <>
                             <Route path="/employee" element={<EditEmployee/>}/>
                             <Route path="/change_pass" element={<ChangePassword/>}/>
+                            <Route path="/sidebar" element={<Sidebar/>}/>
                         </>
 
                         : <Route path="/error" element={<Error403/>}/>
@@ -71,14 +78,9 @@ function App() {
 
                         : <Route path="/error" element={<Error403/>}/>
                 }
-                <Route path="/register" element={<Register/>}/>
-                <Route path="/home-admin" element={<HomeAdmin/>}/>
+
                 <Route path="/" element={<Home/>}/>
-                <Route path="/sidebar" element={<Sidebar/>}/>
                 <Route path="/dashboard" element={<Dashboard/>}/>
-                <Route path="/dashboard-admin" element={<DashboardAdmin/>}/>
-                <Route path="/dashboard-accountant" element={<DashboardAccountant/>}/>
-                <Route path="/dashboard-salesman" element={<DashboardSalesman/>}/>
                 <Route path={"/login"} element={<Login/>}></Route>
                 <Route path="*" element={<NotFound/>}/>
                 <Route path="/error" element={<Error403/>}/>

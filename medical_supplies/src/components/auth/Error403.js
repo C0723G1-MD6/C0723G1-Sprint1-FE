@@ -11,7 +11,7 @@ export default function Error403 (){
                     <p className="lead">
                         Bạn không có quyền sử dụng chức năng này!
                     </p>
-                    <NavLink to="/dashboard" className="btn btn-outline-primary rounded-0">Quay lại trang chủ</NavLink>
+                    <NavLink to="/" className="btn btn-outline-primary rounded-0">Quay lại trang chủ</NavLink>
                 </div>
             </div>
         </>

@@ -7,6 +7,7 @@ import ReactPaginate from 'react-paginate';
 import home from "../img/home.png"
 import home1 from "../img/home1.png"
 import {useNavigate} from "react-router-dom";
+import authToken from "../../services/units/UserToken";
 
 function Home() {
 
@@ -19,6 +20,7 @@ function Home() {
 
 
     const [totalPages, setTotalPages] = useState(0);
+
 
 
     useEffect(() => {
@@ -54,7 +56,9 @@ function Home() {
         getAll(event.selected, nameSearch)
     }
 
-
+    if (authToken()){
+        return navigate("/dashboard");
+    }
     return (
         <>
             <div>
