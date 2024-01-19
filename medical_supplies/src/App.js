@@ -78,7 +78,17 @@ function App() {
 
                         : <Route path="/error" element={<Error403/>}/>
                 }
-
+                <Route path="/dashboard-salesman" element={<DashboardSalesman/>}/>
+                <Route path="/home-employee" element={<HomeEmployee/>}/>
+                <Route path="/dashboard-accountant" element={<DashboardAccountant/>}/>
+                <Route path="/employee" element={<EditEmployee/>}/>
+                <Route path="/change_pass" element={<ChangePassword/>}/>
+                <Route path="/sidebar" element={<Sidebar/>}/>
+                <Route path="product/create" element={<ProductCreate/>}/>
+                <Route path="product/edit/:id" element={<ProductEdit/>}/>
+                <Route path="/register" element={<Register/>}/>
+                <Route path="/home-admin" element={<HomeAdmin/>}/>
+                <Route path="/dashboard-admin" element={<DashboardAdmin/>}/>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/dashboard" element={<Dashboard/>}/>
                 <Route path={"/login"} element={<Login/>}></Route>
