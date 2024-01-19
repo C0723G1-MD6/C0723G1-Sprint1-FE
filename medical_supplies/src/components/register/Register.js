@@ -66,9 +66,11 @@ export default function Register() {
             }
         } catch (e) {
             setErrors(e.data);
+            if (e.status===403){
+                navigate("/error");
+            }
         }
     }
-    if (!roles) return null;
     return (
         <>
             <HeaderAdmin/>

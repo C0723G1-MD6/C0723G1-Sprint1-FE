@@ -6,6 +6,7 @@ import * as authService from "../../services/auth/AuthService";
 import Header from "../anHN/Header";
 import Footer from "../anHN/Footer";
 import {useEffect} from "react";
+import logo from "./img/logo.png";
 
 export default function Login() {
     const user = JSON.parse(localStorage.getItem(`user`));
@@ -62,8 +63,7 @@ export default function Login() {
                                 <div className="col-md-6 col-lg-6 pr-lg-5 mb-5 mb-md-0 mp"
                                      style={{textAlign: `center`}}>
                                     <img
-                                        src="https://thuonghieusaigon.vn/uploads/shops/thumb/vina.gif"
-                                        alt="img"
+                                        src={logo} alt="img"
                                         className="img-fluid mb-3 d-none d-md-block rounded-5"/>
                                 </div>
 
@@ -98,7 +98,7 @@ export default function Login() {
                                                     <div className="form-check">
                                                         <Field className="form-check-input" type="checkbox" value=""
                                                                id="form1Example3"
-                                                               checked/>
+                                                               />
                                                         <label className="form-check-label" htmlFor="form1Example3">
                                                             Ghi nhớ</label>
                                                     </div>

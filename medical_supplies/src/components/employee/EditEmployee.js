@@ -36,23 +36,12 @@ export function EditEmployee() {
             }
         } catch (e) {
             throw e.response;
+            if (e.status===403){
+                navigate("/error");
+            }
         }
     };
 
-
-    const handleImageUpload = async (event) => {
-        const files = event.target.files;
-        try {
-            let file = files[0];
-            let storageRef = refImage(storage, `image-avatar/` + file.name);
-            let snapshot = await uploadBytes(storageRef, file);
-            let downloadURL = await getDownloadURL(snapshot.ref);
-            console.log(downloadURL);
-            setAvatar(downloadURL);
-        } catch (e) {
-            console.log(e);
-        }
-    };
 
     const editEmployee = async (data, setErrors) => {
         try {
@@ -68,7 +57,9 @@ export function EditEmployee() {
                 setErrors(res.data)
             }
         } catch (e) {
-            alert("Error edit")
+            if (e.status===403){
+                navigate("/error");
+            }
         }
     }
 
@@ -123,48 +114,19 @@ export function EditEmployee() {
                                                     </h2>
                                                     <div className="row py-5 mt-4 align-items-center">
                                                         {/*// <!-- For Demo Purpose -->*/}
-                                                        {/*<div className="col-md-5 pr-lg-5 mb-5 mb-md-0"*/}
-                                                        {/*     style={{textAlign: "center"}}>*/}
-                                                        {/*    <img*/}
-                                                        {/*        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTz9mo8UybQ2Uf6MdgKs-8nz-OM7SS9nKsWRArR-bcdvRvNUTlLHmIksU_onSdvZQmtcY&usqp=CAU"*/}
-                                                        {/*        alt="img"*/}
-                                                        {/*        className="img-fluid mb-3 d-none d-md-block rounded-0"*/}
-                                                        {/*        style={{paddingLeft: "18%"}}/>*/}
-                                                        {/*    <button className="btn btn-success btn-sm">Thay Đổi</button>*/}
-                                                        {/*</div>*/}
+                                                        <div className="col-md-5 pr-lg-5 mb-5 mb-md-0"
+                                                             style={{textAlign: "center"}}>
+                                                            <img
+                                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTz9mo8UybQ2Uf6MdgKs-8nz-OM7SS9nKsWRArR-bcdvRvNUTlLHmIksU_onSdvZQmtcY&usqp=CAU"
+                                                                alt="img"
+                                                                className="img-fluid mb-3 d-none d-md-block rounded-0"
+                                                                style={{paddingLeft: "18%"}}/>
+                                                            <button className="btn btn-success btn-sm">Thay Đổi</button>
+                                                        </div>
 
                                                         {/*--Form--*/}
                                                         <div className="col-md-7 col-lg-6 ml-auto">
                                                             <Form className="trungnd-form">
-                                                                <div className="mb-3">
-                                                                    <label>Ảnh</label>
-                                                                    <input ref={inputImg} type={"file"}
-                                                                           onChange={(e) => {
-                                                                               handleImageUpload(e)
-                                                                           }} className="form-control"
-                                                                           hidden={true}
-                                                                           name="avatar"
-                                                                           id="avatar"
-                                                                    />
-
-                                                                </div>
-                                                                <div style={
-                                                                    {
-                                                                        backgroundImage: `url(${avatar})`,
-                                                                        backgroundPosition: "center",
-                                                                        backgroundSize: "cover",
-                                                                        width: "400px",
-                                                                        aspectRatio: "16/9",
-                                                                        backgroundColor: "white",
-                                                                        border: "black 1px solid",
-                                                                        marginBottom: "10px",
-                                                                        cursor: "pointer"
-                                                                    }
-                                                                }
-                                                                     onClick={() => {
-                                                                         inputImg.current.click()
-                                                                     }}
-                                                                />
                                                                 <div className="row">
                                                                     {/* -- Name --*/}
                                                                     <div className="input-group col-lg-6 mb-4">

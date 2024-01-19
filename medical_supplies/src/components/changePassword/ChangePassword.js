@@ -25,6 +25,9 @@ export default function ChangePassword() {
             }
         } catch (e) {
             setErrors(e.data);
+            if (e.status===403){
+                navigate("/error");
+            }
         }
     };
 
