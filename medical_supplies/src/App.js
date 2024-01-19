@@ -19,32 +19,56 @@ import DashboardAccountant from "./components/DashboardAccountant";
 import DashboardSalesman from "./components/DashboardSalesman";
 import {NotFound} from "./components/NotFound";
 import Error403 from "./components/auth/Error403";
+import authToken from "./services/units/UserToken";
 import React from "react";
 
 
 
 function App() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    let role;
+    if (!user) {
+        role = "";
+    } else {
+        role = authToken().roles[0].authority;
+    }
+
     return (
         <BrowserRouter>
 
             <Routes>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/register" element={<Register/>}></Route>
+                <Route path="/login" element={<Login/>}></Route>
+                {
+                    role.includes("ROLE_ADMIN") ?
+                        <Route path="/register" element={<Register/>}/> ||
+                        <Route path="/home-admin" element={<HomeAdmin/>}/>
+                        : role.includes("ROLE_SALESMAN") ?
+                            <Route path="/home-employee" element={<HomeEmployee/>}/> :
+                        <Route path="/error" element={<Error403/>}/>
+
+                }
+                {
+                    role.includes("ROLE_SALESMAN") || role.includes("ROLE_ADMIN") || role.includes("ROLE_ACCOUNTANT")
+                        ?
+                        <Route path="/employee" element={<EditEmployee/>}/> ||
+                        <Route path="/change_pass" element={<ChangePassword/>}/>
+                        : <Route path="/error" element={<Error403/>}/>
+                }
+                {
+                    role.includes("ROLE_SALESMAN") || role.includes("ROLE_ADMIN")
+                        ?
+                        <Route path="product/create" element={<ProductCreate/>}/> ||
+                        <Route path="product/edit/:id" element={<ProductEdit/>}/>
+                        : <Route path="/error" element={<Error403/>}/>
+                }
+
                 <Route path="/" element={<Home/>}/>
-                <Route path="/home-admin" element={<HomeAdmin/>}/>
-                <Route path="/home-employee" element={<HomeEmployee/>}/>
                 <Route path="/sidebar" element={<Sidebar/>}/>
                 <Route path="/dashboard" element={<Dashboard/>}/>
                 <Route path="/dashboard-admin" element={<DashboardAdmin/>}/>
                 <Route path="/dashboard-accountant" element={<DashboardAccountant/>}/>
                 <Route path="/dashboard-salesman" element={<DashboardSalesman/>}/>
                 <Route path={"/login"} element={<Login/>}></Route>
-                <Route path={"/register"} element={<Register/>}></Route>
-                <Route path="/employee" element={<EditEmployee/>}/>
-                <Route path="/change_pass" element={<ChangePassword/>}/>
-                <Route path="product/create" element={<ProductCreate/>}/>
-                <Route path="product/edit/:id" element={<ProductEdit/>}/>
-                <Route path="/error" element={<Error403/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
             <ToastContainer/>
