@@ -18,6 +18,7 @@ import DashboardAdmin from "./components/DashboardAdmin";
 import DashboardAccountant from "./components/DashboardAccountant";
 import DashboardSalesman from "./components/DashboardSalesman";
 import {NotFound} from "./components/NotFound";
+import ProductDetails from "./components/product/ProductDetail";
 
 
 
@@ -42,6 +43,7 @@ function App() {
                 <Route path="/change_pass" element={<ChangePassword/>}/>
                 <Route path="product/create" element={<ProductCreate/>}/>
                 <Route path="product/edit/:id" element={<ProductEdit/>}/>
+                <Route path="product/detail/:id" element={<ProductDetails/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
             <ToastContainer/>

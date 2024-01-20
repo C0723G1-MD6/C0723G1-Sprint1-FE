@@ -54,12 +54,6 @@ function Sidebar(){
                                 Thêm mới vật tư
                             </NavLink>
                         </li>
-                        <li className="sidebar-item">
-                            <NavLink href="#" className="sidebar-link text-dark">
-                                <i className="fa-solid fa-list pe-2"></i>
-                                Chỉnh sửa vật tư
-                            </NavLink>
-                        </li>
                         <div style={{fontSize: 20, paddingLeft: "25px"}}>
                             Chức năng
                         </div>

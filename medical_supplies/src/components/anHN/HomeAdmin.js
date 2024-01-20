@@ -75,7 +75,9 @@ function HomeAdmin() {
                                                 <h5 className="card-text">{item.name}</h5>
                                                 <p className="card-text">Giá: {VND.format(item.price)}
                                                 </p>
-                                                <a href="#" className="btn btn-primary">Xem chi tiết</a>
+                                                <NavLink to={`/product/detail/${item.id}`}>
+                                                    <button className="btn btn-primary ">Xem chi tiết</button>
+                                                </NavLink>
                                                 <NavLink to={`/product/edit/${item.id}`}>
                                                     <button className="btn btn-danger">Chỉnh sửa</button>
                                                 </NavLink>
