@@ -6,7 +6,7 @@ function Footer() {
         <div className="container-fluid">
             <div className="row row-footer-1">
                 <div className="left-footer col-12 col-lg-4">
-                    <p className="text-footer">CTY TNHH TBYT - C0723G1-CODEGYM</p>
+                    <p className="text-footer">CTY TNHH AN NAM - C0723G1-CODEGYM</p>
                 </div>
                 <div className="col-12 col-lg-5">
                     <p className="text-footer">LIÊN HỆ</p>

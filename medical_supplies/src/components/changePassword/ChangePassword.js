@@ -8,6 +8,7 @@ import authToken from "../../services/units/UserToken";
 import HeaderAdmin from "../anHN/HeaderAdmin";
 import Sidebar from "../anHN/Sidebar";
 import Footer from "../anHN/Footer";
+import logoImage from "../../img/yte4.png";
 
 
 
@@ -15,6 +16,7 @@ export default function ChangePassword() {
     const navigate = useNavigate();
     const email = authToken().sub;
     const role = authToken().roles[0].authority;
+    const backgroundImage = `url(${logoImage})`;
 
     const handleSubmitFormChangePassword = async (values, {setErrors}) => {
         try {
@@ -69,7 +71,7 @@ export default function ChangePassword() {
                             <div className="d-flex justify-content-center">
                                 <div className="col-7">
                                     <div className="form-control shadow rounded-0 p-4"
-                                         style={{backgroundImage: "url('../img/yte4.png')"}}>
+                                         style={{backgroundImage}}>
                                         <h2 className="text-secondary fw-bolder text-center" style={{paddingTop: "3%"}}>
                                             Đổi Mật Khẩu
                                         </h2>
