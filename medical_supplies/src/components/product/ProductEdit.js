@@ -22,14 +22,16 @@ export default function ProductEdit() {
     const [productions, setProductions] = useState([]);
     const navigate = useNavigate();
     const param = useParams();
-    const [img,setImg] = useState("");
     console.log(param.id);
     const findByIdProduct = async () => {
-        const dataProduct = await getProductById(param.id);
-        await setProduct(dataProduct);
-        await setImg(dataProduct.mainAvatar);
-        await console.log(img);
-        await console.log(dataProduct)
+        try {
+            const dataProduct = await getProductById(param.id);
+            setProduct(dataProduct);
+        }catch (e) {
+            if (e.status === 400){
+                navigate("*");
+            }
+        }
     }
     const getAllTypeProduct = async () => {
         const dataTypeProduct = await getListTypeProduct();
@@ -45,7 +47,7 @@ export default function ProductEdit() {
         getAllTypeProduct();
         getAllProduction();
         window.scrollTo(0, 0);
-    }, [param.id]);
+    }, [param.id, product.name]);
 
     const handleCreate = async (product) => {
         await editProduct(product)
@@ -56,7 +58,7 @@ export default function ProductEdit() {
                     icon: 'success',
                     timer: 2000
                 })
-            }, await  setProduct(product),
+            },
             navigate("/dashboard")
             )
             .catch(() => {
@@ -127,7 +129,7 @@ export default function ProductEdit() {
                                                 <div className="col-md-5 pr-lg-5 mb-5 mb-md-0"
                                                      style={{textAlign: "center"}}>
                                                     <img style={{padding: "10px"}} alt="img"
-                                                         src={img}
+                                                         src={product.mainAvatar}
                                                          className="img-fluid mb-3 d-none d-md-block rounded-0"/>
                                                     <button className="btn btn-success btn-sm">Sửa ảnh</button>
                                                 </div>
