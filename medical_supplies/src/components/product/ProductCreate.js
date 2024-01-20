@@ -16,6 +16,7 @@ import Footer from "../anHN/Footer";
 import {forEach} from "react-bootstrap/ElementChildren";
 import Swal from "sweetalert2";
 import {value} from "firebase-tools/lib/deploymentTool";
+import HeaderAdmin from "../anHN/HeaderAdmin";
 
 export default function ProductCreate() {
     const [typeProducts, setTypePrudcts] = useState([]);
@@ -62,6 +63,30 @@ export default function ProductCreate() {
     };
 
     const handleCreate = async (values) => {
+        checkProduct(values);
+        if (checkProduct(values) == true){
+            values = {
+                ...values,
+                mainAvatar: urlImages.toString(),
+
+            };
+            await createProduct(values).then(() => {
+                    Swal.fire({
+                        title: "Success",
+                        text: 'The Prodoct has been edited successfully',
+                        icon: 'success',
+                        timer: 2000
+                    })
+                },
+                navigate("/dashboard")
+            )
+                .catch(() => {
+                    navigate(`/product/create`);
+                });
+            await navigate("/dashboard");
+        }else {
+
+        }
 
     }
     const checkProduct = (product) => {
@@ -90,7 +115,7 @@ export default function ProductCreate() {
         <>
             <div className="container-fluid">
                 <div>
-                    <Header/>
+                    <HeaderAdmin/>
                 </div>
                 <div className="row">
                     <div className="col-3">

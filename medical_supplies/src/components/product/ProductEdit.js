@@ -12,6 +12,7 @@ import logoImage from "../../img/yte4.png";
 import {useNavigate, Link} from "react-router-dom";
 import Swal from "sweetalert2";
 import Sidebar from "../anHN/Sidebar";
+import {Navbar} from "react-bootstrap";
 import Header from "../anHN/Header";
 import Footer from "../anHN/Footer";
 
@@ -34,6 +35,7 @@ export default function ProductEdit() {
     }
     const getAllTypeProduct = async () => {
         const dataTypeProduct = await getListTypeProduct();
+        console.log(dataTypeProduct)
         setTypeProducts(dataTypeProduct);
     }
     const getAllProduction = async () => {
@@ -50,15 +52,14 @@ export default function ProductEdit() {
     const handleCreate = async (product) => {
         await editProduct(product)
             .then(() => {
-                    Swal.fire({
-                        title: "Success",
-                        text: 'The Prodoct has been edited successfully',
-                        icon: 'success',
-                        timer: 2000
-                    })
-                },
-                await setProduct(product),
-                navigate("/dashboard")
+                Swal.fire({
+                    title: "Success",
+                    text: 'The Prodoct has been edited successfully',
+                    icon: 'success',
+                    timer: 2000
+                })
+            },
+            navigate("/dashboard")
             )
             .catch(() => {
                 navigate(`/product/edit/${param.id}`);

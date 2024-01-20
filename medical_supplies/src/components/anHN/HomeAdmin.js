@@ -2,9 +2,13 @@ import * as method from "../../services/anHN/ProductService"
 import React, {useEffect, useState} from "react";
 import "./AnHN.css";
 import ReactPaginate from "react-paginate";
+import {useNavigate} from "react-router-dom";
+
 import {NavLink} from "react-router-dom";
 
 function HomeAdmin() {
+
+    const navigate = useNavigate();
 
     const [nameSearch, setNameSearch] = useState([])
 
@@ -15,8 +19,8 @@ function HomeAdmin() {
 
     useEffect(() => {
         getAll(0,nameSearch);
-        getAllProduct()
-    }, [nameSearch]);
+        getAllProductPage()
+    }, []);
 
     const getAll = async (page,nameSearch) => {
         try {
@@ -24,15 +28,15 @@ function HomeAdmin() {
             setProduct(data);
 
         } catch (e) {
-            console.log("error")
+            navigate("/Error");
         }
     }
-    const getAllProduct = async () => {
+    const getAllProductPage = async () => {
         try {
             let data = await method.getAllProductPage();
             setTotalPages(data.totalPages)
         } catch (e) {
-            console.log("error")
+            navigate("/Error");
         }
     }
     console.log(product)
@@ -40,6 +44,15 @@ function HomeAdmin() {
         style: 'currency',
         currency: 'VND',
     });
+
+    const handleNameSearch = (value) =>{
+        setNameSearch(value);
+    }
+
+    const submitSearch = async () =>{
+        let res = await method.getAllProduct(0,nameSearch);
+        setProduct(res);
+    }
 
     const handlePageClick = (event) => {
         getAll(event.selected, nameSearch)
@@ -52,17 +65,17 @@ function HomeAdmin() {
                 <main className="content px-3 py-2">
                     <div className="container">
                         <h2 style={{textAlign: "center"}}>DANH SÁCH VẬT TƯ</h2>
-                        <div className="input-group w-25">
-                            <input type="text" className="form-control " placeholder="Tìm kiếm theo tên sản phẩm" style={{marginLeft:"23px"}}
-                                   aria-label="Recipient's username with two button addons"
-                                   onChange={event => setNameSearch(event.target.value)}/>
-                            <button className="btn btn-outline-secondary" type="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                     fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-                                    <path
-                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                                </svg>
-                            </button>
+                        <div className="input-group" style={{marginLeft:"400px"}}>
+                            <div className="row m-2">
+                                <div className="col-auto">
+                                    <input type="text" name="name" className="form-control"  onChange={(event => handleNameSearch(event.target.value))} id="name" placeholder="Tìm kiếm theo tên "/>
+                                </div>
+                                <div className="col-auto">
+                                    <button type="submit" className="btn btn-outline-secondary" onClick={()=>submitSearch()}>
+                                        Tìm kiếm
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <div className="row row-1-home">
                             {product ?(
@@ -86,7 +99,7 @@ function HomeAdmin() {
                                     </div>
                                 )
                             ):(
-                                <h5>Không có dữ liệu</h5>
+                                <h5 style={{color: "red"}}>Không tìm thấy dữ liệu</h5>
                             )}
                         </div>
                     </div>

@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {NavLink, useNavigate, useParams} from "react-router-dom";
-import {editEmployeeService, getEmployeeByIdService} from "../../services/employee/employeeService";
+import {editEmployeeService} from "../../services/employee/employeeService";
 import {toast} from "react-toastify";
 import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
@@ -10,7 +10,8 @@ import * as employeeSevice from "../../services/employee/employeeService";
 import HeaderAdmin from "../anHN/HeaderAdmin";
 import Sidebar from "../anHN/Sidebar";
 import Footer from "../anHN/Footer";
-
+import {getDownloadURL, refImage, storage, uploadBytes} from "../../services/firebase/firebaseConfig";
+import ProductImage from "../product/ProductImage";
 
 
 export function EditEmployee() {
@@ -18,38 +19,63 @@ export function EditEmployee() {
     const [employee, setEmployee] = useState();
     const email = authToken().sub;
     const role = authToken().roles[0].authority;
+    const [urlImages, setUrlImages] = useState("");
+    const [beError, setBeError] = useState();
+    // const [image,setImage] = useState("");
+
     useEffect(() => {
         if (email) {
             getInfoEmployee();
         }
+
     }, []);
 
-
+    const onCallBack = (urls) => {
+        console.log(urls);
+        if (urls) {
+            setBeError((prevState) => ({
+                ...prevState, avatar: "",
+            }));
+        }
+        setUrlImages((prevState) => [...prevState, ...urls]);
+    }
+    const changeValue = (e) => {
+        setBeError((prevState) => ({
+            ...prevState,
+            [e.target.name]: "",
+        }));
+    };
     const getInfoEmployee = async () => {
         try {
-            const res = await employeeSevice.getAllByEmployee(email);
-            setEmployee({...res.data, gender: res.gender ? 1 : 0});
+            if (email) {
+                const res = await employeeSevice.getAllByEmployee(email);
+                await setEmployee({...res.data, gender: res.data.gender ? "true" : "false"});
+            }
         } catch (e) {
-            throw e.response;
+            if (e.response && e.response.status === 403) {
+                navigate("/error");
+            }
         }
     };
 
 
     const editEmployee = async (data, setErrors) => {
-
         try {
+            data.avatar = urlImages.toString();
+            data.gender = data.gender == "true" ? true : false;
             console.log(data)
             const res = await editEmployeeService(data)
-            console.log(res)
             if (res.status === 200) {
                 navigate("/dashboard")
                 toast.success("Chỉnh sửa thông tin thành công.")
             } else if (res.status === 201) {
-                toast("Chỉnh sửa thông tin thất bai.")
+                toast.error("Chỉnh sửa thông tin thất bai.")
                 setErrors(res.data)
             }
         } catch (e) {
-            alert("Error edit")
+            if (e.status === 403) {
+                navigate("/error");
+            }
         }
     }
 
@@ -62,7 +88,7 @@ export function EditEmployee() {
             .required("Vui lòng nhập tên")
             .matches(/^[AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+ [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+(?: [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]*)*$/, "Chứa kí tự đặc biệt, hoặc số."),
         birthday: Yup.date()
-            .required("vui lòng nhập tuổi.")
+            .required("vui lòng nhập ngày sinh.")
             .max(date18, "Vui lòng nhập lớn hơn 18 tuổi.")
             .min(date65, "Vui lòng nhập bé hơn 65 tuổi."),
         phone: Yup.string()
@@ -73,9 +99,7 @@ export function EditEmployee() {
         gender: Yup.string()
             .required("vui lòng chọn giới tính.")
     }
-    const handleGenderChange = (e) => {
-        setEmployee({...employee, gender: +e.target.value})
-    }
+
     if (!employee) return null
     return (
         <>
@@ -83,13 +107,11 @@ export function EditEmployee() {
             {/*cho anh An them sidebarAccountant*/}
             <div className="container-fluid wrapper">
                 <Sidebar/>
-
                 <div className="main">
                     <Formik
                         initialValues={employee}
                         onSubmit={(values, {setErrors}) => {
-                            const empObj = {...values, gender: +employee.gender === 1}
-                            editEmployee(empObj, setErrors)
+                            editEmployee(values, setErrors)
                         }}
                         validationSchema={Yup.object(employeeValidate)}
                     >
@@ -105,21 +127,24 @@ export function EditEmployee() {
                                                         style={{paddingTop: "3%"}}>
                                                         Chỉnh Sửa Thông Tin Cá Nhân
                                                     </h2>
-                                                    <div className="row py-5 mt-4 align-items-center">
-                                                        {/*// <!-- For Demo Purpose -->*/}
-                                                        <div className="col-md-5 pr-lg-5 mb-5 mb-md-0"
-                                                             style={{textAlign: "center"}}>
-                                                            <img
-                                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTz9mo8UybQ2Uf6MdgKs-8nz-OM7SS9nKsWRArR-bcdvRvNUTlLHmIksU_onSdvZQmtcY&usqp=CAU"
-                                                                alt="img"
-                                                                className="img-fluid mb-3 d-none d-md-block rounded-0"
-                                                                style={{paddingLeft: "18%"}}/>
-                                                            <button className="btn btn-success btn-sm">Thay Đổi</button>
-                                                        </div>
+                                                    <Form>
+                                                        <div className="row py-5 mt-4 align-items-center">
+                                                            {/*// <!-- For Demo Purpose -->*/}
+                                                            <div className="col-md-5 pr-lg-5 mb-5 mb-md-0"
+                                                                 style={{textAlign: "center"}}>
+                                                                <img style={{padding: "10px"}} alt="img"
+                                                                     src={employee.avatar}
+                                                                     className="img-fluid mb-3 d-none d-md-block rounded-0"/>
+                                                                <ProductImage
+                                                                    callBack={onCallBack}
+                                                                    name="avatar"
+                                                                    onInput={changeValue}
+                                                                />
+                                                            </div>
 
-                                                        {/*--Form--*/}
-                                                        <div className="col-md-7 col-lg-6 ml-auto">
-                                                            <Form className="trungnd-form">
+                                                            {/*--Form--*/}
+                                                            <div className="col-md-7 col-lg-6 ml-auto">
+
                                                                 <div className="row">
                                                                     {/* -- Name --*/}
                                                                     <div className="input-group col-lg-6 mb-4">
@@ -161,33 +186,27 @@ export function EditEmployee() {
                                                                              id="gender">
                                                                             <Field className="form-check-input"
                                                                                    style={{marginLeft: "2%"}}
-                                                                                   id="gender"
                                                                                    type="radio"
-                                                                                   value={0}
-                                                                                   checked={employee.gender === 0}
-                                                                                   onChange={handleGenderChange}
+                                                                                   value="false"
                                                                                    data-sb-validations="required"
                                                                                    name="gender"
                                                                             />
                                                                             <label className="form-check-label"
                                                                                    htmlFor="nam">
-                                                                                Nam
+                                                                                Nữ
                                                                             </label>
                                                                         </div>
                                                                         <div className="form-check form-check-inline">
                                                                             <Field className="form-check-input"
                                                                                    style={{marginLeft: "2%"}}
                                                                                    type="radio"
-                                                                                   id="gender"
-                                                                                   value={1}
-                                                                                   checked={employee.gender === 1}
-                                                                                   onChange={handleGenderChange}
+                                                                                   value="true"
                                                                                    data-sb-validations="required"
                                                                                    name="gender"
                                                                             />
                                                                             <label className="form-check-label"
                                                                                    htmlFor="nữ">
-                                                                                Nữ
+                                                                                Nam
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -238,9 +257,10 @@ export function EditEmployee() {
                                                                         nhật
                                                                     </button>
                                                                 </div>
-                                                            </Form>
+
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    </Form>
                                                 </div>
                                             </div>
                                         </div>
@@ -248,7 +268,6 @@ export function EditEmployee() {
                                 </div>
                             </div>
                         </div>
-
                     </Formik>
                 </div>
             </div>

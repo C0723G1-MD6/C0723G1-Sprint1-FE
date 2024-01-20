@@ -6,8 +6,14 @@ import "./AnHN.css";
 import ReactPaginate from 'react-paginate';
 import home from "../img/home.png"
 import home1 from "../img/home1.png"
+import {NavLink, useNavigate} from "react-router-dom";
+
+import authToken from "../../services/units/UserToken";
 
 function Home() {
+
+    const navigate = useNavigate();
+
 
     const [nameSearch, setNameSearch] = useState([])
 
@@ -19,24 +25,36 @@ function Home() {
 
     useEffect(() => {
         getAll(0,nameSearch);
-        getAllProduct()
-    }, [nameSearch]);
+        getAllProductPage()
+    }, []);
 
     const getAll = async (page,nameSearch) => {
         try {
             let data = await method.getAllProduct(page,nameSearch);
             setProduct(data);
         }catch (e) {
-            console.log("error")
+            navigate("/Error");
         }
     }
 
-    const getAllProduct = async () => {
+    const getAllProductPage = async () => {
         try {
             let data = await method.getAllProductPage();
             setTotalPages(data.totalPages)
         } catch (e) {
-            console.log("error")
+            navigate("/Error");
+        }
+    }
+    const handleNameSearch = (value) =>{
+        setNameSearch(value);
+    }
+
+    const submitSearch = async () =>{
+        try {
+            let res = await method.getAllProduct(0,nameSearch);
+            setProduct(res);
+        } catch (e){
+            navigate("/Error");
         }
     }
 
@@ -50,6 +68,9 @@ function Home() {
         getAll(event.selected, nameSearch)
     }
 
+    if (authToken()){
+        return navigate("/dashboard");
+    }
     return (
         <>
             <div>
@@ -78,17 +99,17 @@ function Home() {
                 </div>
                 <div className="row container row-home">
                     <h2>DANH SÁCH VẬT TƯ</h2>
-                    <div className="input-group w-25">
-                        <input type="text" className="form-control " placeholder="Tìm kiếm theo tên sản phẩm" style={{marginLeft:"23px"}}
-                               aria-label="Recipient's username with two button addons"
-                               onChange={event => setNameSearch(event.target.value)}/>
-                        <button className="btn btn-outline-secondary" type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                 fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-                                <path
-                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                            </svg>
-                        </button>
+                    <div className="input-group" style={{marginLeft:"450px"}}>
+                        <div className="row m-2">
+                            <div className="col-auto">
+                                <input type="text" name="name" className="form-control"  onChange={(event => handleNameSearch(event.target.value))} id="name" placeholder="Tìm kiếm theo tên "/>
+                            </div>
+                            <div className="col-auto">
+                                <button type="submit" className="btn btn-outline-secondary" onClick={()=>submitSearch()}>
+                                    Tìm kiếm
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <div className="row row-1-home">
                         {product ?(
@@ -101,21 +122,24 @@ function Home() {
                                                 <h5 className="card-text">{item.name}</h5>
                                                 <p className="card-text">Giá: {VND.format(item.price)}
                                                 </p>
-                                                <a href="#" className="btn btn-primary">Xem chi tiết</a>
+                                                <NavLink to={"#"} >
+                                                    <button className="btn btn-primary" >Xem chi tiết</button>
+                                                </NavLink>
+                                                <NavLink to={"#"} >
+                                                    <button className="btn btn-danger" style={{marginLeft:"15px"}}>Đặt hàng</button>
+                                                </NavLink>
                                             </div>
                                         </div>
                                     </div>
                                 )
-                        ):(
-                            <h5>Không có dữ liệu</h5>
-                        )}
+                        ):(<h5 style={{color: "red"}}>Không tìm thấy dữ liệu </h5>)
+                        }
                     </div>
                     <div className="page">
                         <ReactPaginate
                             breakLabel="..."
                             nextLabel="Sau>"
                             onPageChange={handlePageClick}
-                            pageRangeDisplayed={5}
                             pageCount={totalPages}
                             previousLabel="<Trước"
 
