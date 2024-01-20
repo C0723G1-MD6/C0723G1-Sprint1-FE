@@ -95,7 +95,7 @@ export default function ProductDetails() {
                                             <div className="btn btn-primary" style={{marginLeft:"10%",marginRight:"0px" ,}}>
                                                 <Link to="/dashboard-admin"style={{
                                                     color:"white"
-                                                }}>Thoát</Link>
+                                                }}>Quay lại</Link>
                                             </div>
                                         </div>
                                         <div className="col-6" style={{marginRight:""}}>
