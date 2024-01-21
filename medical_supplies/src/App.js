@@ -18,12 +18,17 @@ import DashboardAdmin from "./components/DashboardAdmin";
 import DashboardAccountant from "./components/DashboardAccountant";
 import DashboardSalesman from "./components/DashboardSalesman";
 import {NotFound} from "./components/NotFound";
+import ProductDetails from "./components/product/ProductDetail";
+
 import Error403 from "./components/auth/Error403";
 import authToken from "./services/units/UserToken";
 import React from "react";
 import RegisterCustomer from "./components/register/RegisterCustomer";
 import DashboardCustomer from "./components/DashboardCustomer";
 import SuccessPay from "./components/cart/SuccessPay";
+
+import HomeCustomer from "./components/anHN/HomeCustomer";
+
 
 
 function App() {
@@ -96,6 +101,7 @@ function App() {
                 <Route path="/" element={<Home/>}/>
                 <Route path="/dashboard" element={<Dashboard/>}/>
                 <Route path={"/login"} element={<Login/>}></Route>
+                <Route path="product/detail/:id" element={<ProductDetails/>}/>
                 <Route path="*" element={<NotFound/>}/>
                 <Route path="/error" element={<Error403/>}/>
                 <Route path="/register-customer" element={<RegisterCustomer/>}/>

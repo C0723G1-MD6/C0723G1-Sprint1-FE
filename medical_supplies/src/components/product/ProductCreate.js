@@ -15,6 +15,7 @@ import Sidebar from "../anHN/Sidebar";
 import Footer from "../anHN/Footer";
 import {forEach} from "react-bootstrap/ElementChildren";
 import Swal from "sweetalert2";
+import {value} from "firebase-tools/lib/deploymentTool";
 import HeaderAdmin from "../anHN/HeaderAdmin";
 
 export default function ProductCreate() {
@@ -92,6 +93,7 @@ export default function ProductCreate() {
             if (product.name === products[i].name) {
                 setMessage("Tên vật tư đã tồn tại");
                 return false;
+                break;
             }
             return true;
         }
@@ -102,6 +104,7 @@ export default function ProductCreate() {
         getListtProduction();
         getListtTypeProduct();
         getListProduct();
+        handleCreate();
         window.scrollTo(0, 0);
     }, []);
 
@@ -196,12 +199,12 @@ export default function ProductCreate() {
                                                         <small>
                                                             <ErrorMessage name="name"
                                                                           component="div"
-                                                                          className="text-error"
+                                                                          className="text-error mb-0"
                                                                           id="name"/>
                                                         </small>
                                                     </p>
                                                     {/*Loại vật tư*/}
-                                                    <div className="input-group">
+                                                    <div className="input-group mt-0">
                             <span className="input-group-text bg-white px-4 border-md border-right-0">
                                 <i className="fas fa-stream"/>
                             </span>
@@ -219,14 +222,14 @@ export default function ProductCreate() {
                                                             })}
                                                         </Field>
                                                     </div>
-                                                    <p style={{color: "red"}}><small><ErrorMessage
+                                                    <p style={{color: "red",}}><small><ErrorMessage
                                                         name="typeProduct"
                                                         component="div"
-                                                        className="text-error mb-0"
+                                                        className="text-error mt-0"
                                                         id="typeProduct"/></small>
                                                     </p>
                                                     {/*Giá*/}
-                                                    <div className="input-group">
+                                                    <div className="input-group mt-0">
                             <span className="input-group-text bg-white px-4 border-md border-right-0">
                                <i className="fas fa-dollar-sign"/>
                             </span>
