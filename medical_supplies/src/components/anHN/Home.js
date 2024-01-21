@@ -23,7 +23,6 @@ function Home() {
     const [totalPages, setTotalPages] = useState(0);
 
 
-
     useEffect(() => {
         getAll(0,nameSearch);
         getAllProductPage()

@@ -1,6 +1,6 @@
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as yup from "yup";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useParams} from "react-router";
 import {
     editProduct,
@@ -15,11 +15,15 @@ import Sidebar from "../anHN/Sidebar";
 import {Navbar} from "react-bootstrap";
 import Header from "../anHN/Header";
 import Footer from "../anHN/Footer";
+import ProductImage from "./ProductImage";
+import {toast} from "react-toastify";
 
 export default function ProductEdit() {
     const [product, setProduct] = useState([]);
     const [typeProducts, setTypeProducts] = useState([]);
     const [productions, setProductions] = useState([]);
+    const [urlImages, setUrlImages] = useState("");
+    const [beError, setBeError] = useState();
     const navigate = useNavigate();
     const param = useParams();
     console.log(param.id);
@@ -27,8 +31,8 @@ export default function ProductEdit() {
         try {
             const dataProduct = await getProductById(param.id);
             setProduct(dataProduct);
-        }catch (e) {
-            if (e.status === 400){
+        } catch (e) {
+            if (e.status === 400) {
                 navigate("*");
             }
         }
@@ -42,29 +46,47 @@ export default function ProductEdit() {
         const dataProduction = await getListProduction();
         setProductions(dataProduction);
     }
+
+    const handleUpdate = async (product) => {
+        try {
+            if (urlImages !== ""){
+                product.mainAvatar = urlImages.toString();
+                await editProduct(product)
+                navigate(`/dashboard`)
+                toast.success("Chỉnh sửa thông tin vật tư thành công");
+            }else {
+                await editProduct(product)
+                navigate(`/dashboard`)
+                toast.success("Chỉnh sửa thông tin vật tư thành công");
+            }
+        } catch (e) {
+            if (e.status === 403) {
+                navigate("/error");
+            }
+        }
+    }
+    const onCallBack = (urls) => {
+        if (urls) {
+            setBeError((prevState) => ({
+                ...prevState,
+                mainAvatar: "",
+            }));
+        }
+        setUrlImages((prevState) => [...prevState, ...urls]);
+    };
+
+    const changeValue = (e) => {
+        setBeError((prevState) => ({
+            ...prevState,
+            [e.target.name]: "",
+        }));
+    };
     useEffect(() => {
         findByIdProduct();
         getAllTypeProduct();
         getAllProduction();
         window.scrollTo(0, 0);
     }, [param.id, product.name]);
-
-    const handleCreate = async (product) => {
-        await editProduct(product)
-            .then(() => {
-                Swal.fire({
-                    title: "Success",
-                    text: 'The Prodoct has been edited successfully',
-                    icon: 'success',
-                    timer: 2000
-                })
-            },
-            navigate("/dashboard")
-            )
-            .catch(() => {
-                navigate(`/product/edit/${param.id}`);
-            });
-    }
 
 
     const backgroundImage = `url(${logoImage})`;
@@ -114,7 +136,7 @@ export default function ProductEdit() {
                                     })}
 
                                     onSubmit={(values) => {
-                                        handleCreate(values);
+                                        handleUpdate(values);
                                     }}
                             >
                                 <Form>
@@ -128,10 +150,15 @@ export default function ProductEdit() {
                                                 {/*For Demo Purpose*/}
                                                 <div className="col-md-5 pr-lg-5 mb-5 mb-md-0"
                                                      style={{textAlign: "center"}}>
-                                                    <img style={{padding: "10px"}} alt="img"
+                                                    <img style={{padding: "6px", width: "25rem" , height:"18rem" , borderRadius: "50rem"}} alt="img"
                                                          src={product.mainAvatar}
                                                          className="img-fluid mb-3 d-none d-md-block rounded-0"/>
-                                                    <button className="btn btn-success btn-sm">Sửa ảnh</button>
+
+                                                    <ProductImage
+                                                        callBack={onCallBack}
+                                                        name="mainAvatar"
+                                                        onInput={changeValue}
+                                                    />
                                                 </div>
 
                                                 {/*Form */}

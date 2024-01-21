@@ -15,9 +15,7 @@ export default function ProductDetails() {
     const findByIdProduct = async () => {
         const data = await getProductById(param.id);
         await setProduct(data);
-        console.log(data);
     }
-
 
     useEffect(() => {
         findByIdProduct();
@@ -29,7 +27,6 @@ export default function ProductDetails() {
     });
 
     return (
-
         <>
             {product.id && (
                 <div className="container-fluid">
@@ -100,9 +97,9 @@ export default function ProductDetails() {
                                             </div>
                                             <div className="row mt-5 " style={{textAlign: "center"}}>
                                                 <div >
-                                                    <div className="btn btn-primary"
-                                                         style={{marginLeft: "10%", marginRight: "0px",}}>
-                                                        <Link to="/dashboard-admin" style={{
+                                                    <div className="btn btn-secondary me-2"
+                                                         style={{marginLeft: "-88%", marginRight: "0px",}}>
+                                                        <Link to="/dashboard" style={{
                                                             color: "white"
                                                         }}>Quay lại</Link>
                                                     </div>
@@ -174,8 +171,8 @@ export default function ProductDetails() {
                                             </div>
                                             <div className="row mt-5 " style={{textAlign: "center"}}>
                                                 <div >
-                                                    <div className="btn btn-primary"
-                                                         style={{marginLeft: "10%", marginRight: "0px",}}>
+                                                    <div className="btn btn-secondary me-2"
+                                                         style={{marginLeft: "-88%", marginRight: "0px",}}>
                                                         <Link to="/" style={{
                                                             color: "white"
                                                         }}>Quay lại</Link>

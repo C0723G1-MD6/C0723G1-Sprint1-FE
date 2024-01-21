@@ -17,6 +17,7 @@ import {forEach} from "react-bootstrap/ElementChildren";
 import Swal from "sweetalert2";
 import {value} from "firebase-tools/lib/deploymentTool";
 import HeaderAdmin from "../anHN/HeaderAdmin";
+import {toast} from "react-toastify";
 
 export default function ProductCreate() {
     const [typeProducts, setTypePrudcts] = useState([]);
@@ -34,21 +35,17 @@ export default function ProductCreate() {
     const getListtTypeProduct = async () => {
         const data = await getListTypeProduct();
         await setTypePrudcts(data);
-        // await console.log(typeProducts);
-
     }
     const getListtProduction = async () => {
         const data = await getListProduction();
         await setProductions(data);
-        await console.log(productions);
     }
 
     const onCallBack = (urls) => {
-        console.log(urls);
         if (urls) {
             setBeError((prevState) => ({
                 ...prevState,
-                productImage: "",
+                mainAvatar: "",
             }));
         }
         setUrlImages((prevState) => [...prevState, ...urls]);
@@ -62,28 +59,15 @@ export default function ProductCreate() {
     };
 
     const handleCreate = async (values) => {
-        checkProduct(values);
-        if (checkProduct(values) == true){
+        if (checkProduct(values)) {
             values = {
                 ...values,
                 mainAvatar: urlImages.toString(),
-
             };
-            await createProduct(values).then(() => {
-                    Swal.fire({
-                        title: "Success",
-                        text: 'The Prodoct has been edited successfully',
-                        icon: 'success',
-                        timer: 2000
-                    })
-                },
-                navigate("/dashboard")
-            )
-                .catch(() => {
-                    navigate(`/product/create`);
-                });
-            await navigate("/dashboard");
-        }else {
+            await createProduct(values)
+            navigate("/dashboard")
+            toast.success("Thêm vật tư thành công.")
+        } else {
 
         }
 

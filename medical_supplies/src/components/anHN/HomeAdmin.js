@@ -10,7 +10,6 @@ function HomeAdmin() {
 
     const navigate = useNavigate();
 
-
     const [nameSearch, setNameSearch] = useState([])
 
     const [product, setProduct] = useState([]);
@@ -18,12 +17,6 @@ function HomeAdmin() {
 
     const [totalPages, setTotalPages] = useState(0);
 
-
-
-    useEffect(() => {
-        getAll(0,nameSearch);
-        getAllProductPage()
-    }, []);
 
     const getAll = async (page,nameSearch) => {
         try {
@@ -37,7 +30,7 @@ function HomeAdmin() {
     const getAllProductPage = async (page,nameSearch) => {
         try {
             let data = await method.getAllProductPage(page,nameSearch);
-            setTotalPages(data.totalPages)
+            setTotalPages(data.totalPages )
         } catch (e) {
             navigate("/Error");
         }
@@ -67,6 +60,13 @@ function HomeAdmin() {
         getAll(event.selected, nameSearch)
     }
 
+    useEffect(() => {
+        getAll(0,nameSearch);
+        getAllProductPage()
+        console.log(product);
+    }, [ product.name, product.price,
+        product.quantity, product.supplier, product.ingredient,
+        product.mainAvatar, product.avatarOne, product.avatarTwo]);
 
     return (
         <>
@@ -98,9 +98,9 @@ function HomeAdmin() {
                                                 <p className="card-text">Giá: {VND.format(item.price)}
                                                 </p>
                                                 <NavLink to={`/product/detail/${item.id}`}>
-                                                    <button className="btn btn-primary">Xem chi tiết</button>
+                                                    <button className="btn btn-primary ">Xem chi tiết</button>
                                                 </NavLink>
-                                                <NavLink to={`/product/edit/${item.id}`} style={{marginLeft:"15px"}}>
+                                                <NavLink to={`/product/edit/${item.id}`}>
                                                     <button className="btn btn-danger">Chỉnh sửa</button>
                                                 </NavLink>
                                             </div>
