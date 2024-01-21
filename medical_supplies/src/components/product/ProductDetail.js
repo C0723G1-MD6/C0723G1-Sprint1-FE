@@ -10,17 +10,13 @@ import {NavLink} from "react-bootstrap";
 export default function ProductDetails() {
     const [product, setProduct] = useState([]);
     const param = useParams();
-
     const findByIdProduct = async () => {
         const data = await getProductById(param.id);
         await setProduct(data);
-        console.log(data);
     }
-
 
     useEffect(() => {
         findByIdProduct();
-        console.log(product);
     }, [product.id])
 
     return (

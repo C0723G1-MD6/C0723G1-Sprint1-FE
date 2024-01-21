@@ -167,6 +167,7 @@ function ProductImage(props) {
                                 <img
                                     className="card-img"
                                     variant="top"
+                                    name="mainAvatar"
                                     src={URL.createObjectURL(file)}
                                     style={{
                                         height: "230px",

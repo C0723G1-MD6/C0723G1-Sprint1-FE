@@ -3,30 +3,18 @@ import React, {useEffect, useState} from "react";
 import "./AnHN.css";
 import ReactPaginate from "react-paginate";
 import {useNavigate} from "react-router-dom";
-
 import {NavLink} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 
 function HomeAdmin() {
-
     const navigate = useNavigate();
-
     const [nameSearch, setNameSearch] = useState([])
-
     const [product, setProduct] = useState([]);
-
-
     const [totalPages, setTotalPages] = useState(0);
-
-    useEffect(() => {
-        getAll(0,nameSearch);
-        getAllProductPage()
-    }, []);
-
-    const getAll = async (page,nameSearch) => {
+    const getAll = async (page, nameSearch) => {
         try {
-            let data = await method.getAllProduct(page,nameSearch);
+            let data = await method.getAllProduct(page, nameSearch);
             setProduct(data);
-
         } catch (e) {
             navigate("/Error");
         }
@@ -39,50 +27,58 @@ function HomeAdmin() {
             navigate("/Error");
         }
     }
-    console.log(product)
     const VND = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND',
     });
 
-    const handleNameSearch = (value) =>{
+    const handleNameSearch = (value) => {
         setNameSearch(value);
     }
 
-    const submitSearch = async () =>{
-        let res = await method.getAllProduct(0,nameSearch);
+    const submitSearch = async () => {
+        let res = await method.getAllProduct(0, nameSearch);
         setProduct(res);
     }
 
     const handlePageClick = (event) => {
         getAll(event.selected, nameSearch)
     }
-
-
+    useEffect(() => {
+        console.log("fist render");
+        getAll(0, nameSearch);
+        getAllProductPage();
+    }, [product.length, product.name, product.price,
+        product.quantity, product.supplier, product.ingredient,
+        product.mainAvatar, product.avatarOne, product.avatarTwo]);
     return (
         <>
             <div className="main">
                 <main className="content px-3 py-2">
                     <div className="container">
                         <h2 style={{textAlign: "center"}}>DANH SÁCH VẬT TƯ</h2>
-                        <div className="input-group" style={{marginLeft:"400px"}}>
+                        <div className="input-group" style={{marginLeft: "400px"}}>
                             <div className="row m-2">
                                 <div className="col-auto">
-                                    <input type="text" name="name" className="form-control"  onChange={(event => handleNameSearch(event.target.value))} id="name" placeholder="Tìm kiếm theo tên "/>
+                                    <input type="text" name="name" className="form-control"
+                                           onChange={(event => handleNameSearch(event.target.value))} id="name"
+                                           placeholder="Tìm kiếm theo tên "/>
                                 </div>
                                 <div className="col-auto">
-                                    <button type="submit" className="btn btn-outline-secondary" onClick={()=>submitSearch()}>
+                                    <button type="submit" className="btn btn-outline-secondary"
+                                            onClick={() => submitSearch()}>
                                         Tìm kiếm
                                     </button>
                                 </div>
                             </div>
                         </div>
                         <div className="row row-1-home">
-                            {product ?(
+                            {product ? (
                                 product.map(item =>
                                     <div key={item.id} className="col-12 col-lg-4">
                                         <div className="card" style={{width: "400px"}}>
-                                            <img className="card-img-top" src={item.mainAvatar} alt="Card image" height="280"
+                                            <img className="card-img-top" src={item.mainAvatar} alt="Card image"
+                                                 height="280"
                                                  width="250"/>
                                             <div className="card-body">
                                                 <h5 className="card-text">{item.name}</h5>
@@ -98,7 +94,7 @@ function HomeAdmin() {
                                         </div>
                                     </div>
                                 )
-                            ):(
+                            ) : (
                                 <h5 style={{color: "red"}}>Không tìm thấy dữ liệu</h5>
                             )}
                         </div>

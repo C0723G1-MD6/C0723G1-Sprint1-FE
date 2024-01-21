@@ -30,7 +30,7 @@ function Sidebar(){
             const res = await employeeService.getAllByEmployee(email);
             setEmployee(res.data);
         } catch (e) {
-            throw e.response;
+           console.log(e);
         }
     };
 

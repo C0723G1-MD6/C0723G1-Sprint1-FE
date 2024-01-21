@@ -122,7 +122,7 @@ function Home() {
                                                 <h5 className="card-text">{item.name}</h5>
                                                 <p className="card-text">Giá: {VND.format(item.price)}
                                                 </p>
-                                                <NavLink to={"#"} >
+                                                <NavLink to={`/product/detail/${item.id}`} >
                                                     <button className="btn btn-primary" >Xem chi tiết</button>
                                                 </NavLink>
                                                 <NavLink to={"#"} >

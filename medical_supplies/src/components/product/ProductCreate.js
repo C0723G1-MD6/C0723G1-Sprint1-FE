@@ -29,27 +29,22 @@ export default function ProductCreate() {
     const getListProduct = async () => {
         const products = await listProducts();
         setProduct(products.content);
-        console.log(products);
     }
 
     const getListtTypeProduct = async () => {
         const data = await getListTypeProduct();
         await setTypePrudcts(data);
-        await console.log(typeProducts);
-
     }
     const getListtProduction = async () => {
         const data = await getListProduction();
         await setProductions(data);
-        await console.log(productions);
     }
 
     const onCallBack = (urls) => {
-        console.log(urls);
         if (urls) {
             setBeError((prevState) => ({
                 ...prevState,
-                productImage: "",
+                mainAvatar: "",
             }));
         }
         setUrlImages((prevState) => [...prevState, ...urls]);
@@ -63,38 +58,32 @@ export default function ProductCreate() {
     };
 
     const handleCreate = async (values) => {
-        checkProduct(values);
-        if (checkProduct(values) == true){
+        if (checkProduct(values)){
             values = {
                 ...values,
                 mainAvatar: urlImages.toString(),
-
             };
             await createProduct(values).then(() => {
                     Swal.fire({
                         title: "Success",
                         text: 'The Prodoct has been edited successfully',
                         icon: 'success',
+                        showConfirmButton:false,
                         timer: 2000
                     })
                 },
                 navigate("/dashboard")
             )
-                .catch(() => {
+                .catch((e) => {
                     navigate(`/product/create`);
                 });
-            await navigate("/dashboard");
-        }else {
-
         }
-
     }
     const checkProduct = (product) => {
         for (let i = 0; i < products.length; i++) {
             if (product.name === products[i].name) {
                 setMessage("Tên vật tư đã tồn tại");
                 return false;
-                break;
             }
             return true;
         }
