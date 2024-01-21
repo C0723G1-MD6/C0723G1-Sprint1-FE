@@ -8,6 +8,8 @@ import home from "../img/home.png"
 import home1 from "../img/home1.png"
 import {NavLink, useNavigate} from "react-router-dom";
 
+import authToken from "../../services/units/UserToken";
+
 function Home() {
 
     const navigate = useNavigate();
@@ -69,7 +71,9 @@ function Home() {
         getAll(event.selected, nameSearch)
     }
 
-
+    if (authToken()){
+        return navigate("/dashboard");
+    }
     return (
         <>
             <div className="main">
@@ -121,8 +125,8 @@ function Home() {
                                                 <h5 className="card-text">{item.name}</h5>
                                                 <p className="card-text">Giá: {VND.format(item.price)}
                                                 </p>
-                                                <NavLink to={"#"} >
-                                                    <button className="btn btn-primary" >Xem chi tiết</button>
+                                                <NavLink to={`/product/detail/${item.id}`}>
+                                                    <button className="btn btn-primary">Xem chi tiết</button>
                                                 </NavLink>
                                             </div>
                                         </div>

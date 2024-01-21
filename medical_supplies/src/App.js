@@ -18,10 +18,12 @@ import DashboardAdmin from "./components/DashboardAdmin";
 import DashboardAccountant from "./components/DashboardAccountant";
 import DashboardSalesman from "./components/DashboardSalesman";
 import {NotFound} from "./components/NotFound";
+import ProductDetails from "./components/product/ProductDetail";
+
 import Error403 from "./components/auth/Error403";
 import authToken from "./services/units/UserToken";
 import React from "react";
-import ProductImage from "./components/product/ProductImage";
+
 import HomeCustomer from "./components/anHN/HomeCustomer";
 
 
@@ -46,11 +48,18 @@ function App() {
                         <>
                             <Route path="/register" element={<Register/>}/>
                             <Route path="/home-admin" element={<HomeAdmin/>}/>
+                            <Route path="/dashboard-admin" element={<DashboardAdmin/>}/>
                         </>
 
                         : role.includes("ROLE_SALESMAN") ?
-                            <Route path="/home-employee" element={<HomeEmployee/>}/> :
-                        <Route path="/error" element={<Error403/>}/>
+                            <>
+                                <Route path="/home-employee" element={<HomeEmployee/>}/>
+                                <Route path="/dashboard-accountant" element={<DashboardAccountant/>}/>
+                            </>
+                            : role.includes("ROLE_SALESMAN") ?
+                                <Route path="/dashboard-salesman" element={<DashboardSalesman/>}/>
+                                :
+                                <Route path="/error" element={<Error403/>}/>
 
                 }
                 {
@@ -59,6 +68,7 @@ function App() {
                         <>
                             <Route path="/employee" element={<EditEmployee/>}/>
                             <Route path="/change_pass" element={<ChangePassword/>}/>
+                            <Route path="/sidebar" element={<Sidebar/>}/>
                         </>
 
                         : <Route path="/error" element={<Error403/>}/>
@@ -73,16 +83,21 @@ function App() {
 
                         : <Route path="/error" element={<Error403/>}/>
                 }
+                <Route path="/dashboard-salesman" element={<DashboardSalesman/>}/>
+                <Route path="/home-employee" element={<HomeEmployee/>}/>
+                <Route path="/dashboard-accountant" element={<DashboardAccountant/>}/>
+                <Route path="/employee" element={<EditEmployee/>}/>
+                <Route path="/change_pass" element={<ChangePassword/>}/>
+                <Route path="/sidebar" element={<Sidebar/>}/>
+                <Route path="product/create" element={<ProductCreate/>}/>
+                <Route path="product/edit/:id" element={<ProductEdit/>}/>
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/home-admin" element={<HomeAdmin/>}/>
-                <Route path="/home-customer" element={<HomeCustomer/>}/>
-                <Route path="/" element={<Home/>}/>
-                <Route path="/sidebar" element={<Sidebar/>}/>
-                <Route path="/dashboard" element={<Dashboard/>}/>
                 <Route path="/dashboard-admin" element={<DashboardAdmin/>}/>
-                <Route path="/dashboard-accountant" element={<DashboardAccountant/>}/>
-                <Route path="/dashboard-salesman" element={<DashboardSalesman/>}/>
+                <Route path="/" element={<Home/>}/>
+                <Route path="/dashboard" element={<Dashboard/>}/>
                 <Route path={"/login"} element={<Login/>}></Route>
+                <Route path="product/detail/:id" element={<ProductDetails/>}/>
                 <Route path="*" element={<NotFound/>}/>
                 <Route path="/error" element={<Error403/>}/>
             </Routes>
