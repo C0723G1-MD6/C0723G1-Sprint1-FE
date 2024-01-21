@@ -23,6 +23,11 @@ export default function ProductDetails() {
         console.log(product);
     }, [product.id])
 
+    const VND = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
+
     return (
         <>
             {product.id && (
@@ -63,7 +68,7 @@ export default function ProductDetails() {
                                     <div className="mt-md-4">
                                         <tr>
                                             <td style={{fontWeight: "bold"}}>Giá vật tư: </td>
-                                            <td>{product.price}</td>
+                                            <td> {VND.format(product.price)}</td>
                                         </tr>
                                     </div>
                                     <div className="mt-md-4">

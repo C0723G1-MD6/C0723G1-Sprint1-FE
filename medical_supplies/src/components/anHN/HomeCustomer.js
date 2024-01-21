@@ -8,9 +8,7 @@ import home from "../img/home.png"
 import home1 from "../img/home1.png"
 import {NavLink, useNavigate} from "react-router-dom";
 
-import authToken from "../../services/units/UserToken";
-
-function Home() {
+function HomeCustomer() {
 
     const navigate = useNavigate();
 
@@ -71,9 +69,7 @@ function Home() {
         getAll(event.selected, nameSearch)
     }
 
-    if (authToken()){
-        return navigate("/dashboard");
-    }
+
     return (
         <>
             <div className="main">
@@ -117,21 +113,24 @@ function Home() {
                     <div className="row row-1-home">
                         {product ?(
                             product.map(item =>
-                                    <div key={item.id} className="col-12 col-lg-4">
-                                        <div className="card" style={{width: "400px"}}>
-                                            <img className="card-img-top" src={item.mainAvatar} alt="Card image" height="280"
-                                                 width="250"/>
-                                            <div className="card-body">
-                                                <h5 className="card-text">{item.name}</h5>
-                                                <p className="card-text">Giá: {VND.format(item.price)}
-                                                </p>
-                                                <NavLink to={`/product/detail/${item.id}`}>
-                                                    <button className="btn btn-primary">Xem chi tiết</button>
-                                                </NavLink>
-                                            </div>
+                                <div key={item.id} className="col-12 col-lg-4">
+                                    <div className="card" style={{width: "400px"}}>
+                                        <img className="card-img-top" src={item.mainAvatar} alt="Card image" height="280"
+                                             width="250"/>
+                                        <div className="card-body">
+                                            <h5 className="card-text">{item.name}</h5>
+                                            <p className="card-text">Giá: {VND.format(item.price)}
+                                            </p>
+                                            <NavLink to={`/product/detail/${item.id}`} >
+                                                <button className="btn btn-primary" >Xem chi tiết</button>
+                                            </NavLink>
+                                            <NavLink to={"#"} style={{marginLeft:"15px"}} >
+                                                <button className="btn btn-danger" >Đặt hàng</button>
+                                            </NavLink>
                                         </div>
                                     </div>
-                                )
+                                </div>
+                            )
                         ):(<h5 style={{color: "red"}}>Không tìm thấy dữ liệu </h5>)
                         }
                     </div>
@@ -157,11 +156,11 @@ function Home() {
                         />
                     </div>
 
-                    </div>
+                </div>
                 <Footer/>
             </div>
         </>
     )
 }
 
-export default Home;
+export default HomeCustomer;
