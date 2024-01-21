@@ -20,7 +20,7 @@ export function EditEmployee() {
     const [employee, setEmployee] = useState();
     const email = authToken().sub;
     const role = authToken().roles[0].authority;
-    const [urlImages, setUrlImages] = useState("https://cdn.icon-icons.com/icons2/2645/PNG/512/person_circle_icon_159926.png");
+    const [urlImages, setUrlImages] = useState("");
     const [beError, setBeError] = useState();
     // const [image,setImage] = useState("");
 
@@ -95,7 +95,7 @@ export function EditEmployee() {
             .min(date65, "Vui lòng nhập bé hơn 65 tuổi."),
         phone: Yup.string()
             .required("vui lòng nhập số điện thoại.")
-            .matches(/^0[0-9]{9}$/, "SĐT bào gồm 10 số ex:012312312."),
+            .matches(/^(01|03|04|05|07|08|09)\d{8}$/, "Số điện thoại sai định dạng."),
         address: Yup.string()
             .required("vui lòng nhập địa chỉ."),
         gender: Yup.string()
@@ -135,7 +135,7 @@ export function EditEmployee() {
                                                             <div className="col-md-5 pr-lg-5 mb-5 mb-md-0"
                                                                  style={{textAlign: "center"}}>
                                                                 <img style={{padding: "10px"}} alt="img"
-                                                                     src={employee.avatar==employee.avatar?employee.avatar:"https://cdn.icon-icons.com/icons2/2645/PNG/512/person_circle_icon_159926.png" }
+                                                                     src={employee.avatar}
                                                                      className="img-fluid mb-3 d-none d-md-block rounded-0"/>
                                                                 <ProductImage
                                                                     callBack={onCallBack}

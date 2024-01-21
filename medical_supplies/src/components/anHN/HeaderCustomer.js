@@ -1,9 +1,10 @@
 import logo from "../img/logo.png";
-import "./AnHN.css";
 import {Link} from "react-router-dom";
 
-
-function Header () {
+export default function HeaderCustomer({quantity,setShowCart}){
+    const onShowCartHandler=()=>{
+        setShowCart(true);
+    }
 
 
     return (
@@ -48,13 +49,11 @@ function Header () {
                         <p className="text-header">XÂY DỰNG CUỘC SỐNG TƯƠI ĐẸP</p>
                     </div>
                     <div className="button-header col-12 col-lg-2" >
-                        <button type="button" className="btn btn-success">
-                            <Link to="/login" style={{color: "white", textDecoration: "none"}}>
-                                ĐĂNG NHẬP
-                            </Link>
-                        </button>
+
                     </div>
-                    <div className="col-12 col-lg-1 cart" >
+                    <div className="col-12 col-lg-1 cart" onClick={onShowCartHandler}>
+                        <i className="fas fa-cart-plus" aria-hidden="true" style={{fontSize: "40px"}}></i>
+                        <span className="cart-amount" ><sup className="text-light bg-danger" style={{fontSize: "20px"}}>{quantity}</sup></span>
 
                     </div>
                 </div>
@@ -129,5 +128,3 @@ function Header () {
         </div>
     )
 }
-
-export default Header
