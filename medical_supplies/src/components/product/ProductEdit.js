@@ -31,8 +31,8 @@ export default function ProductEdit() {
         try {
             const dataProduct = await getProductById(param.id);
             setProduct(dataProduct);
-        }catch (e) {
-            if (e.status === 400){
+        } catch (e) {
+            if (e.status === 400) {
                 navigate("*");
             }
         }
@@ -49,17 +49,17 @@ export default function ProductEdit() {
 
     const handleUpdate = async (product) => {
         try {
-            product.mainAvatar = urlImages.toString();
-            console.log()
-          const message =  await editProduct(product)
-            if (message === 200){
+            if (urlImages !== ""){
+                product.mainAvatar = urlImages.toString();
+                await editProduct(product)
                 navigate(`/dashboard`)
                 toast.success("Chỉnh sửa thông tin vật tư thành công");
-            }else if (message === 201){
-                toast.error(`Chỉnh sửa thông tin vật tư thất bại`)
+            }else {
+                await editProduct(product)
+                navigate(`/dashboard`)
+                toast.success("Chỉnh sửa thông tin vật tư thành công");
             }
-
-        }catch (e){
+        } catch (e) {
             if (e.status === 403) {
                 navigate("/error");
             }
@@ -150,7 +150,7 @@ export default function ProductEdit() {
                                                 {/*For Demo Purpose*/}
                                                 <div className="col-md-5 pr-lg-5 mb-5 mb-md-0"
                                                      style={{textAlign: "center"}}>
-                                                    <img style={{padding: "10px"}} alt="img"
+                                                    <img style={{padding: "6px", width: "25rem" , height:"18rem" , borderRadius: "50rem"}} alt="img"
                                                          src={product.mainAvatar}
                                                          className="img-fluid mb-3 d-none d-md-block rounded-0"/>
 

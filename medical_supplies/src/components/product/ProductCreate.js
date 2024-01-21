@@ -17,6 +17,7 @@ import {forEach} from "react-bootstrap/ElementChildren";
 import Swal from "sweetalert2";
 import {value} from "firebase-tools/lib/deploymentTool";
 import HeaderAdmin from "../anHN/HeaderAdmin";
+import {toast} from "react-toastify";
 
 export default function ProductCreate() {
     const [typeProducts, setTypePrudcts] = useState([]);
@@ -58,31 +59,25 @@ export default function ProductCreate() {
     };
 
     const handleCreate = async (values) => {
-        if (checkProduct(values)){
+        if (checkProduct(values)) {
             values = {
                 ...values,
                 mainAvatar: urlImages.toString(),
             };
-            await createProduct(values).then(() => {
-                    Swal.fire({
-                        title: "Success",
-                        text: 'The Prodoct has been edited successfully',
-                        icon: 'success',
-                        timer: 2000
-                    })
-                },
-                navigate("/dashboard")
-            )
-                .catch((e) => {
-                    navigate(`/product/create`);
-                });
+            await createProduct(values)
+            navigate("/dashboard")
+            toast.success("Thêm vật tư thành công.")
+        } else {
+
         }
+
     }
     const checkProduct = (product) => {
         for (let i = 0; i < products.length; i++) {
             if (product.name === products[i].name) {
                 setMessage("Tên vật tư đã tồn tại");
                 return false;
+                break;
             }
             return true;
         }

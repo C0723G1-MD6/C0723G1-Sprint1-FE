@@ -22,6 +22,7 @@ function HomeAdmin() {
     useEffect(() => {
         getAll(0,nameSearch);
         getAllProductPage()
+        console.log(product);
     }, [product.length, product.name, product.price,
         product.quantity, product.supplier, product.ingredient,
         product.mainAvatar, product.avatarOne, product.avatarTwo]);
