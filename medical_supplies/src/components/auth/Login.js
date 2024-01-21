@@ -1,6 +1,6 @@
 import {ErrorMessage, Field, Formik, Form} from "formik";
 import * as Yup from "yup";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import * as authService from "../../services/auth/AuthService";
 import Header from "../anHN/Header";
@@ -94,13 +94,11 @@ export default function Login() {
                                                 </div>
                                                 <ErrorMessage name="password" className="text-danger"
                                                               component="p"/>
-                                                <div className="d-flex align-items-center mb-4">
-                                                    <div className="form-check">
-                                                        <Field className="form-check-input" type="checkbox" value=""
-                                                               id="form1Example3"
-                                                               />
-                                                        <label className="form-check-label" htmlFor="form1Example3">
-                                                            Ghi nhớ</label>
+                                                <div className="row  mb-4">
+                                                    <div className="d-flex justify-content-end">
+                                                        <NavLink to={"/register-customer"} >
+                                                        Đăng ký
+                                                        </NavLink>
                                                     </div>
                                                 </div>
                                                 <div className="d-flex me-5 justify-content-center gap-3">

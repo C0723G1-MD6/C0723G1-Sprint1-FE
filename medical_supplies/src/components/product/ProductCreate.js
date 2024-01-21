@@ -68,7 +68,6 @@ export default function ProductCreate() {
                         title: "Success",
                         text: 'The Prodoct has been edited successfully',
                         icon: 'success',
-                        showConfirmButton:false,
                         timer: 2000
                     })
                 },

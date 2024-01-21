@@ -4,6 +4,7 @@ import ModalLogout from "../auth/ModalLogout";
 import React, {useEffect, useState} from "react";
 import authToken from "../../services/units/UserToken";
 import * as employeeService from "../../services/employee/employeeService";
+import * as customerService from "../../services/customer/CustomerService";
 
 
 function Sidebar(){
@@ -11,11 +12,10 @@ function Sidebar(){
     let email;
     const navigate = useNavigate();
     const [employee, setEmployee] = useState({});
-    console.log(authToken())
     if (!authToken()){
        navigate("/error")
     } else {
-         role = authToken().roles[0].authority;
+        role = authToken().roles[0].authority;
         email = authToken().sub;
     }
 
@@ -26,19 +26,24 @@ function Sidebar(){
     }, []);
 
     const getInfoEmployee = async () => {
-        try {
-            const res = await employeeService.getAllByEmployee(email);
-            setEmployee(res.data);
-        } catch (e) {
-           console.log(e);
-        }
+            try {
+                let res;
+                if (role!=="ROLE_USER"){
+                    res = await employeeService.getAllByEmployee(email);
+                }else {
+                    res = await customerService.getByCustomer(email);
+                }
+                setEmployee(res.data);
+            } catch (e) {
+                throw e.response;
+            }
     };
 
     return (
         role === "ROLE_ADMIN" ?
             <aside id="sidebar">
                 <div className="h-100">
-                    <div className="sidebar-logo" style={{textAlign:"center"}}>
+                    <div className="sidebar-logo" style={{textAlign: "center"}}>
                         <div className="user-img">
                             <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
                                  src="https://a0.anyrgb.com/pngimg/16/486/user-profile-user-experience-user-interface-design-avatar-user-interface-ico-person-user-man-computer-software-thumbnail.png"
@@ -76,14 +81,14 @@ function Sidebar(){
                             <ul id="pages" className="sidebar-dropdown collapse"
                                 data-bs-parent="#sidebar">
                                 <li className="sidebar-item ">
-                                    <NavLink to="/employee" className="sidebar-link text-dark" >
-                                        <div style={{fontSize: 14}} >
+                                    <NavLink to="/employee" className="sidebar-link text-dark">
+                                        <div style={{fontSize: 14}}>
                                             Chỉnh Sửa Thông Tin
                                         </div>
                                     </NavLink>
                                 </li>
                                 <li className="sidebar-item">
-                                    <NavLink to="/change_pass" className="sidebar-link text-dark" >
+                                    <NavLink to="/change_pass" className="sidebar-link text-dark">
                                         <div style={{fontSize: 14}}>
                                             Đổi Mật Khẩu
                                         </div>
@@ -112,7 +117,7 @@ function Sidebar(){
             : role === "ROLE_ACCOUNTANT" ?
                 <aside id="sidebar">
                     <div className="h-100">
-                        <div className="sidebar-logo" style={{textAlign:"center"}}>
+                        <div className="sidebar-logo" style={{textAlign: "center"}}>
                             <div className="user-img">
                                 <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
                                      src="https://a0.anyrgb.com/pngimg/16/486/user-profile-user-experience-user-interface-design-avatar-user-interface-ico-person-user-man-computer-software-thumbnail.png"
@@ -161,58 +166,110 @@ function Sidebar(){
                         </ul>
                     </div>
                 </aside>
-                :
-                <aside id="sidebar">
-                    <div className="h-100">
-                        <div className="sidebar-logo" style={{textAlign:"center"}}>
-                            <div className="user-img">
-                                <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
-                                     src="https://a0.anyrgb.com/pngimg/16/486/user-profile-user-experience-user-interface-design-avatar-user-interface-ico-person-user-man-computer-software-thumbnail.png"
-                                     alt=""/>
+                : role === "ROLE_SALESMAN" ?
+                    <aside id="sidebar">
+                        <div className="h-100">
+                            <div className="sidebar-logo" style={{textAlign: "center"}}>
+                                <div className="user-img">
+                                    <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
+                                         src="https://a0.anyrgb.com/pngimg/16/486/user-profile-user-experience-user-interface-design-avatar-user-interface-ico-person-user-man-computer-software-thumbnail.png"
+                                         alt=""/>
+                                </div>
+                                <div className="user-detail">
+                                    <div className="title">Bán hàng</div>
+                                    <div className="name fw-bold">{employee.name}</div>
+                                </div>
                             </div>
-                            <div className="user-detail">
-                                <div className="title">Bán hàng</div>
-                                <div className="name fw-bold">{employee.name}</div>
-                            </div>
-                        </div>
-                        <ul className="sidebar-nav">
-                        <div style={{fontSize: 20, paddingLeft: "25px"}}>
-                                Chức năng
-                            </div>
-                            <li className="sidebar-item">
-                                <a href="#" className="sidebar-link collapsed text-dark" data-bs-toggle="collapse"
-                                   data-bs-target="#pages"
-                                   aria-expanded="false" aria-controls="pages">
-                                    <i className="fa-regular fa-file-lines pe-2"></i>
-                                    Thông Tin
-                                </a>
-                                <ul id="pages" className="sidebar-dropdown collapse"
-                                    data-bs-parent="#sidebar">
-                                    <li className="sidebar-item ">
-                                        <NavLink to="/employee" className="sidebar-link text-dark">
-                                            <p style={{fontSize: 14}}>Chỉnh Sửa Thông Tin</p>
-                                        </NavLink>
-                                    </li>
-                                    <li className="sidebar-item">
-                                        <NavLink to="/change_pass" className="sidebar-link text-dark">
-                                            <p style={{fontSize: 14}}>Đổi Mật Khẩu</p>
-                                        </NavLink>
-                                    </li>
-                                </ul>
-                            </li>
+                            <ul className="sidebar-nav">
+                                <div style={{fontSize: 20, paddingLeft: "25px"}}>
+                                    Chức năng
+                                </div>
+                                <li className="sidebar-item">
+                                    <a href="#" className="sidebar-link collapsed text-dark" data-bs-toggle="collapse"
+                                       data-bs-target="#pages"
+                                       aria-expanded="false" aria-controls="pages">
+                                        <i className="fa-regular fa-file-lines pe-2"></i>
+                                        Thông Tin
+                                    </a>
+                                    <ul id="pages" className="sidebar-dropdown collapse"
+                                        data-bs-parent="#sidebar">
+                                        <li className="sidebar-item ">
+                                            <NavLink to="/employee" className="sidebar-link text-dark">
+                                                <p style={{fontSize: 14}}>Chỉnh Sửa Thông Tin</p>
+                                            </NavLink>
+                                        </li>
+                                        <li className="sidebar-item">
+                                            <NavLink to="/change_pass" className="sidebar-link text-dark">
+                                                <p style={{fontSize: 14}}>Đổi Mật Khẩu</p>
+                                            </NavLink>
+                                        </li>
+                                    </ul>
+                                </li>
 
-                            <li className="sidebar-item" style={{paddingTop: "80%", paddingLeft: "12%"}}>
-                                <NavLink role="button" className="sidebar-link text-dark">
-                                    <i className="fa-solid fa-list pe-2"></i>
-                                    <button className="btn btn-outline-secondary" data-bs-toggle="modal"
-                                            data-bs-target="#logout">Đăng Xuất
-                                    </button>
-                                </NavLink>
-                            </li>
-                            <ModalLogout/>
-                        </ul>
-                    </div>
-                </aside>
+                                <li className="sidebar-item" style={{paddingTop: "80%", paddingLeft: "12%"}}>
+                                    <NavLink role="button" className="sidebar-link text-dark">
+                                        <i className="fa-solid fa-list pe-2"></i>
+                                        <button className="btn btn-outline-secondary" data-bs-toggle="modal"
+                                                data-bs-target="#logout">Đăng Xuất
+                                        </button>
+                                    </NavLink>
+                                </li>
+                                <ModalLogout/>
+                            </ul>
+                        </div>
+                    </aside>
+                    :
+                    // Chua xu ly
+                    (<aside id="sidebar">
+                        <div className="h-100">
+                            <div className="sidebar-logo" style={{textAlign: "center"}}>
+                                <div className="user-img">
+                                    <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
+                                         src="https://a0.anyrgb.com/pngimg/16/486/user-profile-user-experience-user-interface-design-avatar-user-interface-ico-person-user-man-computer-software-thumbnail.png"
+                                         alt=""/>
+                                </div>
+                                <div className="user-detail">
+                                    <div className="name fw-bold">{employee.name}</div>
+                                </div>
+                            </div>
+                            <ul className="sidebar-nav">
+                                <div style={{fontSize: 20, paddingLeft: "25px"}}>
+                                    Chức năng
+                                </div>
+                                <li className="sidebar-item">
+                                    <a href="#" className="sidebar-link collapsed text-dark" data-bs-toggle="collapse"
+                                       data-bs-target="#pages"
+                                       aria-expanded="false" aria-controls="pages">
+                                        <i className="fa-regular fa-file-lines pe-2"></i>
+                                        Thông Tin
+                                    </a>
+                                    <ul id="pages" className="sidebar-dropdown collapse"
+                                        data-bs-parent="#sidebar">
+                                        <li className="sidebar-item ">
+                                            <NavLink to="/employee" className="sidebar-link text-dark">
+                                                <p style={{fontSize: 14}}>Chỉnh Sửa Thông Tin</p>
+                                            </NavLink>
+                                        </li>
+                                        <li className="sidebar-item">
+                                            <NavLink to="/change_pass" className="sidebar-link text-dark">
+                                                <p style={{fontSize: 14}}>Đổi Mật Khẩu</p>
+                                            </NavLink>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li className="sidebar-item" style={{paddingTop: "80%", paddingLeft: "12%"}}>
+                                    <NavLink role="button" className="sidebar-link text-dark">
+                                        <i className="fa-solid fa-list pe-2"></i>
+                                        <button className="btn btn-outline-secondary" data-bs-toggle="modal"
+                                                data-bs-target="#logout">Đăng Xuất
+                                        </button>
+                                    </NavLink>
+                                </li>
+                                <ModalLogout/>
+                            </ul>
+                        </div>
+                    </aside>)
     )
 }
 
