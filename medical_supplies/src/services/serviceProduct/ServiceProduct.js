@@ -22,7 +22,7 @@ export async function editProduct(product){
 
 export const getProductById = async (id) => {
     try {
-        const product = await axios.get(`http://localhost:8080/api/products/details/${id}`,{headers:authHeader()});
+        const product = await axios.get(`http://localhost:8080/api/products/details/${id}`);
         return product.data;
     }catch (e){
         return false;

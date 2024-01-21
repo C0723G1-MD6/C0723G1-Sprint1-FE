@@ -33,7 +33,6 @@ function Sidebar(){
                 }else {
                     res = await customerService.getByCustomer(email);
                 }
-                console.log(res)
                 setEmployee(res.data);
             } catch (e) {
                 throw e.response;
