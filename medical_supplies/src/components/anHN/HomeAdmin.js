@@ -18,15 +18,6 @@ function HomeAdmin() {
     const [totalPages, setTotalPages] = useState(0);
 
 
-
-    useEffect(() => {
-        getAll(0,nameSearch);
-        getAllProductPage()
-        console.log(product);
-    }, [product.length, product.name, product.price,
-        product.quantity, product.supplier, product.ingredient,
-        product.mainAvatar, product.avatarOne, product.avatarTwo]);
-
     const getAll = async (page,nameSearch) => {
         try {
             let data = await method.getAllProduct(page,nameSearch);
@@ -39,7 +30,7 @@ function HomeAdmin() {
     const getAllProductPage = async (page,nameSearch) => {
         try {
             let data = await method.getAllProductPage(page,nameSearch);
-            setTotalPages(data.totalPages)
+            setTotalPages(data.totalPages )
         } catch (e) {
             navigate("/Error");
         }
@@ -69,6 +60,13 @@ function HomeAdmin() {
         getAll(event.selected, nameSearch)
     }
 
+    useEffect(() => {
+        getAll(0,nameSearch);
+        getAllProductPage()
+        console.log(product);
+    }, [ product.name, product.price,
+        product.quantity, product.supplier, product.ingredient,
+        product.mainAvatar, product.avatarOne, product.avatarTwo]);
 
     return (
         <>
