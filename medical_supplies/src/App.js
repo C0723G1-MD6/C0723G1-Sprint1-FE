@@ -24,6 +24,9 @@ import Error403 from "./components/auth/Error403";
 import authToken from "./services/units/UserToken";
 import React from "react";
 
+import HomeCustomer from "./components/anHN/HomeCustomer";
+
+
 
 function App() {
     const user = JSON.parse(localStorage.getItem('user'));

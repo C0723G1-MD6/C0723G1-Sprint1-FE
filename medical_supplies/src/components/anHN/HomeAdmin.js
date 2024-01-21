@@ -10,12 +10,15 @@ function HomeAdmin() {
 
     const navigate = useNavigate();
 
+
     const [nameSearch, setNameSearch] = useState([])
 
     const [product, setProduct] = useState([]);
 
 
     const [totalPages, setTotalPages] = useState(0);
+
+
 
     useEffect(() => {
         getAll(0,nameSearch);
@@ -25,34 +28,40 @@ function HomeAdmin() {
     const getAll = async (page,nameSearch) => {
         try {
             let data = await method.getAllProduct(page,nameSearch);
-            setProduct(data);
-
-        } catch (e) {
+            setProduct(data.content);
+        }catch (e) {
             navigate("/Error");
         }
     }
-    const getAllProductPage = async () => {
+
+    const getAllProductPage = async (page,nameSearch) => {
         try {
-            let data = await method.getAllProductPage();
+            let data = await method.getAllProductPage(page,nameSearch);
             setTotalPages(data.totalPages)
         } catch (e) {
             navigate("/Error");
         }
     }
-    console.log(product)
-    const VND = new Intl.NumberFormat('vi-VN', {
-        style: 'currency',
-        currency: 'VND',
-    });
 
     const handleNameSearch = (value) =>{
         setNameSearch(value);
     }
 
     const submitSearch = async () =>{
-        let res = await method.getAllProduct(0,nameSearch);
-        setProduct(res);
+        try {
+            let res = await method.getAllProduct(0,nameSearch);
+            setProduct(res.content);
+            setTotalPages(Math.ceil(res.totalElements/res.size))
+        } catch (e){
+            navigate("/Error");
+        }
     }
+
+
+    const VND = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
 
     const handlePageClick = (event) => {
         getAll(event.selected, nameSearch)
@@ -89,9 +98,9 @@ function HomeAdmin() {
                                                 <p className="card-text">Giá: {VND.format(item.price)}
                                                 </p>
                                                 <NavLink to={`/product/detail/${item.id}`}>
-                                                    <button className="btn btn-primary ">Xem chi tiết</button>
+                                                    <button className="btn btn-primary">Xem chi tiết</button>
                                                 </NavLink>
-                                                <NavLink to={`/product/edit/${item.id}`}>
+                                                <NavLink to={`/product/edit/${item.id}`} style={{marginLeft:"15px"}}>
                                                     <button className="btn btn-danger">Chỉnh sửa</button>
                                                 </NavLink>
                                             </div>

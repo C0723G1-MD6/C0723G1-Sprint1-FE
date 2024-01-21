@@ -7,6 +7,7 @@ import {useNavigate, NavLink} from "react-router-dom";
 import Footer from "../anHN/Footer";
 import HeaderAdmin from "../anHN/HeaderAdmin";
 import Sidebar from "../anHN/Sidebar";
+import logoImage from "../../img/yte4.png";
 
 
 export default function Register() {
@@ -72,6 +73,7 @@ export default function Register() {
             }
         }
     }
+    const backgroundImage = `url(${logoImage})`;
     return (
         <>
             <HeaderAdmin/>
@@ -85,7 +87,7 @@ export default function Register() {
                                     <div className="col-md-9 col-lg-9 col-xl-9">
                                         <div className="d-flex justify-content-center">
                                             <div className="form-control shadow rounded-0 p-4"
-                                                 style={{backgroundImage: "url('/imgage/yte4.png')"}}>
+                                                 style={{backgroundImage}}>
                                                 <h2 className="text-center">Tạo Tài Khoản</h2>
                                                 <Formik initialValues={initValues}
                                                         onSubmit={(values, {setErrors}) => handleSubmitFormRegister(values, {setErrors})}

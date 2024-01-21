@@ -20,7 +20,7 @@ export function EditEmployee() {
     const [employee, setEmployee] = useState();
     const email = authToken().sub;
     const role = authToken().roles[0].authority;
-    const [urlImages, setUrlImages] = useState("");
+    const [urlImages, setUrlImages] = useState("https://cdn.icon-icons.com/icons2/2645/PNG/512/person_circle_icon_159926.png");
     const [beError, setBeError] = useState();
     // const [image,setImage] = useState("");
 
@@ -135,7 +135,7 @@ export function EditEmployee() {
                                                             <div className="col-md-5 pr-lg-5 mb-5 mb-md-0"
                                                                  style={{textAlign: "center"}}>
                                                                 <img style={{padding: "10px"}} alt="img"
-                                                                     src={employee.avatar}
+                                                                     src={employee.avatar==employee.avatar?employee.avatar:"https://cdn.icon-icons.com/icons2/2645/PNG/512/person_circle_icon_159926.png" }
                                                                      className="img-fluid mb-3 d-none d-md-block rounded-0"/>
                                                                 <ProductImage
                                                                     callBack={onCallBack}

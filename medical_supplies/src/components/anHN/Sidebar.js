@@ -41,7 +41,7 @@ function Sidebar(){
                     <div className="sidebar-logo" style={{textAlign:"center"}}>
                         <div className="user-img">
                             <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
-                                 src="https://a0.anyrgb.com/pngimg/16/486/user-profile-user-experience-user-interface-design-avatar-user-interface-ico-person-user-man-computer-software-thumbnail.png"
+                                 src={employee.avatar}
                                  alt=""/>
                         </div>
                         <div className="user-detail">
@@ -115,7 +115,7 @@ function Sidebar(){
                         <div className="sidebar-logo" style={{textAlign:"center"}}>
                             <div className="user-img">
                                 <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
-                                     src="https://a0.anyrgb.com/pngimg/16/486/user-profile-user-experience-user-interface-design-avatar-user-interface-ico-person-user-man-computer-software-thumbnail.png"
+                                     src={employee.avatar}
                                      alt=""/>
                             </div>
                             <div className="user-detail">
@@ -167,7 +167,7 @@ function Sidebar(){
                         <div className="sidebar-logo" style={{textAlign:"center"}}>
                             <div className="user-img">
                                 <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
-                                     src="https://a0.anyrgb.com/pngimg/16/486/user-profile-user-experience-user-interface-design-avatar-user-interface-ico-person-user-man-computer-software-thumbnail.png"
+                                     src={employee.avatar}
                                      alt=""/>
                             </div>
                             <div className="user-detail">
