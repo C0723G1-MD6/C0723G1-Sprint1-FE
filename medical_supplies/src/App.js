@@ -21,6 +21,8 @@ import {NotFound} from "./components/NotFound";
 import Error403 from "./components/auth/Error403";
 import authToken from "./services/units/UserToken";
 import React from "react";
+import ProductImage from "./components/product/ProductImage";
+import HomeCustomer from "./components/anHN/HomeCustomer";
 
 
 
@@ -73,6 +75,7 @@ function App() {
                 }
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/home-admin" element={<HomeAdmin/>}/>
+                <Route path="/home-customer" element={<HomeCustomer/>}/>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/sidebar" element={<Sidebar/>}/>
                 <Route path="/dashboard" element={<Dashboard/>}/>
