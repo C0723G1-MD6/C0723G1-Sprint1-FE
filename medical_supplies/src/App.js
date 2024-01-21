@@ -21,6 +21,9 @@ import {NotFound} from "./components/NotFound";
 import Error403 from "./components/auth/Error403";
 import authToken from "./services/units/UserToken";
 import React from "react";
+import RegisterCustomer from "./components/register/RegisterCustomer";
+import DashboardCustomer from "./components/DashboardCustomer";
+import SuccessPay from "./components/cart/SuccessPay";
 
 
 function App() {
@@ -81,6 +84,7 @@ function App() {
                 <Route path="/dashboard-salesman" element={<DashboardSalesman/>}/>
                 <Route path="/home-employee" element={<HomeEmployee/>}/>
                 <Route path="/dashboard-accountant" element={<DashboardAccountant/>}/>
+                <Route path="/dashboard-customer" element={<DashboardCustomer/>}/>
                 <Route path="/employee" element={<EditEmployee/>}/>
                 <Route path="/change_pass" element={<ChangePassword/>}/>
                 <Route path="/sidebar" element={<Sidebar/>}/>
@@ -94,6 +98,8 @@ function App() {
                 <Route path={"/login"} element={<Login/>}></Route>
                 <Route path="*" element={<NotFound/>}/>
                 <Route path="/error" element={<Error403/>}/>
+                <Route path="/register-customer" element={<RegisterCustomer/>}/>
+                <Route path="/success" element={<SuccessPay/>}/>
             </Routes>
             <ToastContainer/>
         </BrowserRouter>

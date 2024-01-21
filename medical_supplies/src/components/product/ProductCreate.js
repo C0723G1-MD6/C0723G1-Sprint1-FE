@@ -28,13 +28,12 @@ export default function ProductCreate() {
     const getListProduct = async () => {
         const products = await listProducts();
         setProduct(products.content);
-        console.log(products);
     }
 
     const getListtTypeProduct = async () => {
         const data = await getListTypeProduct();
         await setTypePrudcts(data);
-        await console.log(typeProducts);
+        // await console.log(typeProducts);
 
     }
     const getListtProduction = async () => {
