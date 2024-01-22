@@ -7,6 +7,7 @@ import HeaderAdmin from "../anHN/HeaderAdmin";
 import Sidebar from "../anHN/Sidebar";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import Footer from "../anHN/Footer";
+import logoImage from "../../img/yte4.png";
 
 
 export default function RegisterCustomer() {
@@ -54,6 +55,7 @@ export default function RegisterCustomer() {
             }
         }
     }
+    const backgroundImage = `url(${logoImage})`;
     return (
         <>
             <HeaderAdmin/>
@@ -66,7 +68,7 @@ export default function RegisterCustomer() {
                                 <div className="col-md-9 col-lg-9 col-xl-9">
                                     <div className="d-flex justify-content-center">
                                         <div className="form-control shadow rounded-0 p-4"
-                                             style={{backgroundImage: "url('/imgage/yte4.png')"}}>
+                                             style={{backgroundImage}}>
                                             <h2 className="text-center">Tạo Tài Khoản</h2>
                                             <Formik initialValues={initValues}
                                                     onSubmit={(values, {setErrors}) => handleSubmitFormRegisterCustomer(values, {setErrors})}

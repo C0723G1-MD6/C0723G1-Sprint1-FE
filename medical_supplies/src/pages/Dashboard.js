@@ -20,6 +20,7 @@ function Dashboard() {
             getInfoEmployee();
         }
     }, []);
+    console.log(role)
 
 
     const getInfoEmployee = async () => {
@@ -32,7 +33,7 @@ function Dashboard() {
             }
             setEmployee(res.data);
         } catch (e) {
-            throw e.response;
+            console.log(e);
         }
     };
 

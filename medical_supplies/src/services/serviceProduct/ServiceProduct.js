@@ -13,8 +13,8 @@ export const createProduct= async (productDTO) =>{
 
 export async function editProduct(product){
     try {
-        await axios.patch(`http://localhost:8080/api/products/update`,product,{headers:authHeader()});
-        return true;
+       const status = await axios.patch(`http://localhost:8080/api/products/update`,product,{headers:authHeader()});
+        return status;
     }catch (e){
         return false;
     }
@@ -25,7 +25,8 @@ export const getProductById = async (id) => {
         const product = await axios.get(`http://localhost:8080/api/products/details/${id}`);
         return product.data;
     }catch (e){
-        return false;
+        console.log(e)
+        throw e.response;
     }
 }
 

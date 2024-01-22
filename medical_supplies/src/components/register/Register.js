@@ -7,6 +7,7 @@ import {useNavigate, NavLink} from "react-router-dom";
 import Footer from "../anHN/Footer";
 import HeaderAdmin from "../anHN/HeaderAdmin";
 import Sidebar from "../anHN/Sidebar";
+import logoImage from "../../img/yte4.png";
 
 
 export default function Register() {
@@ -38,6 +39,7 @@ export default function Register() {
         idRole: ""
 
     }
+
     const validateFormRegister = {
         email: Yup.string()
             .required("Vui lòng nhập email."),
@@ -54,16 +56,19 @@ export default function Register() {
         address: Yup.string()
             .required("Vui lòng nhập địa chỉ."),
         idRole: Yup.string()
-            .required("Vui lòng chọn chức vụ.")
+            .required("Vui lòng chọn nghiệp vụ.")
+            .min(1,"Vui lòng chọn chức vụ.")
+            .max(3,"Vui lòng chọn chức vụ."),
+
     };
 
     const handleSubmitFormRegister = async (values, {setErrors}) => {
         try {
+            values.idRole= +values.idRole;
             const res = await accountService.createAccount(values);
             if (res.status === 200) {
                 navigate("/register")
                 toast.success("Đăng ký thành công!");
-
             }
         } catch (e) {
             setErrors(e.data);
@@ -72,6 +77,7 @@ export default function Register() {
             }
         }
     }
+    const backgroundImage = `url(${logoImage})`;
     return (
         <>
             <HeaderAdmin/>
@@ -85,7 +91,7 @@ export default function Register() {
                                     <div className="col-md-9 col-lg-9 col-xl-9">
                                         <div className="d-flex justify-content-center">
                                             <div className="form-control shadow rounded-0 p-4"
-                                                 style={{backgroundImage: "url('/imgage/yte4.png')"}}>
+                                                 style={{backgroundImage}}>
                                                 <h2 className="text-center">Tạo Tài Khoản</h2>
                                                 <Formik initialValues={initValues}
                                                         onSubmit={(values, {setErrors}) => handleSubmitFormRegister(values, {setErrors})}
@@ -117,13 +123,15 @@ export default function Register() {
                                                                 vụ<span
                                                                     className="text-danger">(*)</span></label>
                                                             < Field as="select" className="form-select" name="idRole">
-                                                                <option value="">-----Chọn nghiệp vụ-----</option>
+                                                                <option value="">-----Chọn nghiệp vụ----- </option>
                                                                 {
                                                                     roles.map(role => (
                                                                         <option key={role.idRole} value={role.idRole}>
                                                                             {role.idRole === 1 ?
                                                                                 "Admin" : role.idRole === 2 ?
-                                                                                    "Kế toán" : "Người bán hàng"}
+                                                                                    "Kế toán" :
+                                                                                    role.idRole === 3 ?"Người bán hàng"
+                                                                            :"-----------------------------"}
                                                                         </option>
                                                                     ))
                                                                 }

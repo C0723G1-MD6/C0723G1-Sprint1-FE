@@ -3,7 +3,7 @@ import "./AnHN.css";
 function Footer() {
 
     return (
-        <div className="container-fluid">
+        <div className="container-fluid mt-5">
             <div className="row row-footer-1">
                 <div className="left-footer col-12 col-lg-4">
                     <p className="text-footer">CTY TNHH AN NAM </p>

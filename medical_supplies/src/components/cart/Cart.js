@@ -112,7 +112,7 @@ export default function Cart({setShowCart, cart, setCart}) {
                                         <button className="btn btn-secondary me-2" onClick={onCloseHandler}> Trở về</button>
                                     </div>
                                     <div className="col-6">
-                                        <button onClick={onShowPayHandler} className="btn btn-warning ms-2 text-light ">Thanh toán</button>
+                                        <button onClick={onShowPayHandler} className="btn btn-success ms-2 text-light ">Thanh toán</button>
                                     </div>
                                 </div>
                             </div>
