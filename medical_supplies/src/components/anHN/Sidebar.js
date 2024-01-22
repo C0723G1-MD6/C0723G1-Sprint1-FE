@@ -60,11 +60,11 @@ function Sidebar(){
                         <li className="sidebar-item">
                             <NavLink to="/product/create" className="sidebar-link text-dark">
                                 <i className="fa-solid fa-list pe-2"></i>
-                                Thêm mới vật tư
+                                Thêm Mới Vật Tư
                             </NavLink>
                         </li>
                         <div style={{fontSize: 20, paddingLeft: "25px"}}>
-                            Chức năng
+                            Chức Năng
                         </div>
                         <li className="sidebar-item">
                             <a href="#" className="sidebar-link collapsed text-dark" data-bs-toggle="collapse"
@@ -125,7 +125,7 @@ function Sidebar(){
                         </div>
                         <ul className="sidebar-nav">
                             <div style={{fontSize: 20, paddingLeft: "25px"}}>
-                                Chức năng
+                                Chức Năng
                             </div>
                             <li className="sidebar-item">
                                 <a href="#" className="sidebar-link collapsed text-dark" data-bs-toggle="collapse"

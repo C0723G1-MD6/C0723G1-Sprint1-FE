@@ -100,8 +100,12 @@ footer{
     margin-bottom: 30px;
 }
 .page{
-    padding-left: 500px;
+    text-align: center;
+    display: inline-block;
 }
 .err-name{
     color: red;
+}
+header{
+    margin-top: 20px;
 }
