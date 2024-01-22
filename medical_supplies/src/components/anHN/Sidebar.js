@@ -44,11 +44,21 @@ function Sidebar(){
             <aside id="sidebar">
                 <div className="h-100">
                     <div className="sidebar-logo" style={{textAlign:"center"}}>
-                        <div className="user-img">
-                            <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
-                                 src={employee.avatar}
-                                 alt=""/>
-                        </div>
+                        {employee.avatar  ?
+                            <div className="user-img">
+
+                                <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
+                                     src={employee.avatar}
+                                     alt=""/>
+                            </div>
+                            :
+                            <div className="user-img">
+
+                                <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
+                                     src="https://static.vecteezy.com/system/resources/thumbnails/002/608/327/small/mobile-application-avatar-web-button-menu-digital-silhouette-style-icon-free-vector.jpg"
+                                     alt=""/>
+                            </div>
+                        }
                         <div className="user-detail">
                             <div className="title">
                                 Admin
@@ -118,11 +128,21 @@ function Sidebar(){
                 <aside id="sidebar">
                     <div className="h-100">
                         <div className="sidebar-logo" style={{textAlign: "center"}}>
-                            <div className="user-img">
-                                <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
-                                     src={employee.avatar}
-                                     alt=""/>
-                            </div>
+                            {employee.avatar  ?
+                                <div className="user-img">
+
+                                    <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
+                                         src={employee.avatar}
+                                         alt=""/>
+                                </div>
+                                :
+                                <div className="user-img">
+
+                                    <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
+                                         src="https://static.vecteezy.com/system/resources/thumbnails/002/608/327/small/mobile-application-avatar-web-button-menu-digital-silhouette-style-icon-free-vector.jpg"
+                                         alt=""/>
+                                </div>
+                            }
                             <div className="user-detail">
                                 <div className="title">Kế toán</div>
                                 <div className="name fw-bold">{employee.name}</div>
@@ -170,11 +190,22 @@ function Sidebar(){
                     <aside id="sidebar">
                         <div className="h-100">
                             <div className="sidebar-logo" style={{textAlign: "center"}}>
-                                <div className="user-img">
-                                    <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
-                                         src="https://a0.anyrgb.com/pngimg/16/486/user-profile-user-experience-user-interface-design-avatar-user-interface-ico-person-user-man-computer-software-thumbnail.png"
-                                         alt=""/>
-                                </div>
+                                {employee.avatar  ?
+                                    <div className="user-img">
+
+                                        <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
+                                             src={employee.avatar}
+                                             alt=""/>
+                                    </div>
+                                    :
+                                    <div className="user-img">
+
+                                        <img style={{height: "4rem", width: "4rem", borderRadius: "50%"}}
+                                             src="https://static.vecteezy.com/system/resources/thumbnails/002/608/327/small/mobile-application-avatar-web-button-menu-digital-silhouette-style-icon-free-vector.jpg"
+                                             alt=""/>
+                                    </div>
+                                }
+
                                 <div className="user-detail">
                                     <div className="title">Bán hàng</div>
                                     <div className="name fw-bold">{employee.name}</div>

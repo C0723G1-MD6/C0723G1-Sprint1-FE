@@ -141,11 +141,11 @@ function ProductImage(props) {
                         />
                     </label>
                 )}
-                <div className="row">
+                <div className="row" >
                     {files.length > 0 &&
                     files.map((file) => (
                         <div
-                            style={{width: "18rem", marginTop: "15px"}}
+                            style={{width: "15.5rem",padding: "10px",}}
                             key={file.name}
                             className="col-6 card m-3"
                         >
@@ -167,6 +167,7 @@ function ProductImage(props) {
                                 <img
                                     className="card-img"
                                     variant="top"
+                                    name="mainAvatar"
                                     src={URL.createObjectURL(file)}
                                     style={{
                                         height: "230px",

@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import Header from "../anHN/Header";
 import Sidebar from "../anHN/Sidebar";
 import {getProductById} from "../../services/serviceProduct/ServiceProduct";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import Footer from "../anHN/Footer";
 import {NavLink} from "react-bootstrap";
 
@@ -11,17 +11,22 @@ export default function ProductDetails() {
     const [product, setProduct] = useState([]);
     const param = useParams();
     const user = JSON.parse(localStorage.getItem(`user`));
+    const navigate = useNavigate();
 
     const findByIdProduct = async () => {
-        const data = await getProductById(param.id);
-        await setProduct(data);
-        console.log(data);
-    }
+        try {
+            const data = await getProductById(param.id);
+            await setProduct(data);
+        }catch (e) {
+            if (e.status ===400){
+                navigate("/error-detail")
+            }
+        }
 
+    }
 
     useEffect(() => {
         findByIdProduct();
-        console.log(product);
     }, [product.id])
 
     const VND = new Intl.NumberFormat('vi-VN', {
@@ -100,7 +105,7 @@ export default function ProductDetails() {
                                             </div>
                                             <div className="row mt-5 " style={{textAlign: "center"}}>
                                                 <div >
-                                                    <div className="btn btn-primary"
+                                                    <div className="btn btn-secondary me-2"
                                                          style={{marginLeft: "-88%", marginRight: "0px",}}>
                                                         <Link to="/dashboard" style={{
                                                             color: "white"
@@ -174,7 +179,7 @@ export default function ProductDetails() {
                                             </div>
                                             <div className="row mt-5 " style={{textAlign: "center"}}>
                                                 <div >
-                                                    <div className="btn btn-primary"
+                                                    <div className="btn btn-secondary me-2"
                                                          style={{marginLeft: "-88%", marginRight: "0px",}}>
                                                         <Link to="/" style={{
                                                             color: "white"

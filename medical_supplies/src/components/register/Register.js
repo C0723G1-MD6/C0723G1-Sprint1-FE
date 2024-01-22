@@ -39,6 +39,7 @@ export default function Register() {
         idRole: ""
 
     }
+
     const validateFormRegister = {
         email: Yup.string()
             .required("Vui lòng nhập email."),
@@ -68,7 +69,6 @@ export default function Register() {
             if (res.status === 200) {
                 navigate("/register")
                 toast.success("Đăng ký thành công!");
-
             }
         } catch (e) {
             setErrors(e.data);

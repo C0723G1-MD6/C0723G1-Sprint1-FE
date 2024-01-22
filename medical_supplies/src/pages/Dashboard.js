@@ -33,7 +33,7 @@ function Dashboard() {
             }
             setEmployee(res.data);
         } catch (e) {
-            throw e.response;
+            console.log(e);
         }
     };
 
