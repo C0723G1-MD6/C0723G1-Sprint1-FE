@@ -27,8 +27,6 @@ export default function Cart({setShowCart, cart, setCart}) {
         setCart([...arr])
     }
 
-
-
     // tính tong tien
     const getTotalPrice = () => {
         let total = 0;
