@@ -12,6 +12,7 @@ import Sidebar from "../anHN/Sidebar";
 import Footer from "../anHN/Footer";
 import {getDownloadURL, refImage, storage, uploadBytes} from "../../services/firebase/firebaseConfig";
 import ProductImage from "../product/ProductImage";
+import logoImage from "../../img/yte4.png";
 
 
 export function EditEmployee() {
@@ -59,6 +60,7 @@ export function EditEmployee() {
     };
 
 
+
     const editEmployee = async (data, setErrors) => {
         try {
             data.avatar = urlImages.toString();
@@ -78,7 +80,7 @@ export function EditEmployee() {
             }
         }
     }
-
+    const backgroundImage = `url(${logoImage})`;
     const dd = new Date();
     const date18 = `${dd.getFullYear() - 18}-${dd.getMonth() + 1}-${dd.getDate()}`;
     const date65 = `${dd.getFullYear() - 65}-${dd.getMonth() + 1}-${dd.getDate()}`;
@@ -93,7 +95,7 @@ export function EditEmployee() {
             .min(date65, "Vui lòng nhập bé hơn 65 tuổi."),
         phone: Yup.string()
             .required("vui lòng nhập số điện thoại.")
-            .matches(/^0[0-9]{9}$/, "SĐT bào gồm 10 số ex:012312312."),
+            .matches(/^(01|03|04|05|07|08|09)\d{8}$/, "Số điện thoại sai định dạng."),
         address: Yup.string()
             .required("vui lòng nhập địa chỉ."),
         gender: Yup.string()
@@ -122,7 +124,7 @@ export function EditEmployee() {
                                         <div className="d-flex justify-content-center">
                                             <div className="col-7">
                                                 <div className="form-control shadow rounded-0 p-4"
-                                                     style={{backgroundImage: "url('../img/yte4.png')"}}>
+                                                     style={{backgroundImage}}>
                                                     <h2 className="text-secondary fw-bolder text-center"
                                                         style={{paddingTop: "3%"}}>
                                                         Chỉnh Sửa Thông Tin Cá Nhân
@@ -167,9 +169,10 @@ export function EditEmployee() {
                                     style={{color: "red"}}>*</span></FontAwesomeIcon>
                             </span>
                                                                         <Field as="textarea" id="address" type="text"
+                                                                               style ={{height:"100px"}}
                                                                                name="address"
                                                                                placeholder="Địa Chỉ*"
-                                                                               className="form-control bg-white border-left-0 border-md"/>
+                                                                               className="form-control bg-white border-left-0 border-md" />
 
                                                                     </div>
                                                                     <p><small><ErrorMessage className="text text-danger"

@@ -67,6 +67,9 @@ footer{
 .left-footer{
     padding-left: 70px;
 }
+.icon-footer{
+    letter-spacing: 5px;
+}
 .row-home{
     text-align: center;
     margin-left: 70px;
@@ -100,12 +103,14 @@ footer{
     margin-bottom: 30px;
 }
 .page{
-    text-align: center;
-    display: inline-block;
+    margin: auto;  width: 30%;
+}
+header{
+    margin-top: 20px;
 }
 .err-name{
     color: red;
 }
-header{
-    margin-top: 20px;
+.input-find{
+    margin: auto;  width: 30%;
 }

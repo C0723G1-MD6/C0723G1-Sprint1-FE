@@ -2,10 +2,12 @@
 import React, {useEffect,useState} from "react";
 import authToken from "../services/units/UserToken";
 import * as employeeService from "../services/employee/employeeService";
+import * as customerService from "../services/customer/CustomerService";
 import Home from "../components/anHN/Home";
 import DashboardAdmin from "../components/DashboardAdmin";
 import DashboardAccountant from "../components/DashboardAccountant";
 import DashboardSalesman from "../components/DashboardSalesman";
+import DashboardCustomer from "../components/DashboardCustomer";
 
 
 
@@ -18,14 +20,20 @@ function Dashboard() {
             getInfoEmployee();
         }
     }, []);
+    console.log(role)
 
 
     const getInfoEmployee = async () => {
         try {
-            const res = await employeeService.getAllByEmployee(email);
+            let res;
+            if (role!=="ROLE_USER"){
+                 res = await employeeService.getAllByEmployee(email);
+            }else {
+                 res = await customerService.getByCustomer(email);
+            }
             setEmployee(res.data);
         } catch (e) {
-            throw e.response;
+            console.log(e);
         }
     };
 
@@ -38,6 +46,8 @@ function Dashboard() {
             return <DashboardAccountant employee={employee}/>;
         } else if (role.includes("ROLE_SALESMAN")) {
             return <DashboardSalesman employee={employee}/>;
+        } else {
+            return <DashboardCustomer employee={employee}/>;
         }
     };
 

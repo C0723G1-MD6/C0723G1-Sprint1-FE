@@ -76,7 +76,7 @@ function HomeEmployee(){
                 <main className="content px-3 py-2">
                     <div className="container">
                         <h2 style={{textAlign: "center"}}>DANH SÁCH VẬT TƯ</h2>
-                        <div className="input-group" style={{marginLeft:"400px"}}>
+                        <div className="input-find" >
                             <div className="row m-2">
                                 <div className="col-auto">
                                     <input type="text" name="name" className="form-control"  onChange={(event => handleNameSearch(event.target.value))} id="name" placeholder="Tìm kiếm theo tên "/>
@@ -93,7 +93,7 @@ function HomeEmployee(){
                             {product ?(
                                 product.map(item =>
                                     <div key={item.id} className="col-12 col-lg-4">
-                                        <div className="card" style={{width: "400px"}}>
+                                        <div className="card gap-3" >
                                             <img className="card-img-top" src={item.mainAvatar} alt="Card image" height="280"
                                                  width="250"/>
                                             <div className="card-body">

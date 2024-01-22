@@ -10,7 +10,6 @@ function HomeAdmin() {
 
     const navigate = useNavigate();
 
-
     const [nameSearch, setNameSearch] = useState([])
 
     const [product, setProduct] = useState([]);
@@ -18,12 +17,6 @@ function HomeAdmin() {
 
     const [totalPages, setTotalPages] = useState(0);
 
-
-
-    useEffect(() => {
-        getAll(0,nameSearch);
-        getAllProductPage()
-    }, []);
 
     const getAll = async (page,nameSearch) => {
         try {
@@ -37,7 +30,7 @@ function HomeAdmin() {
     const getAllProductPage = async (page,nameSearch) => {
         try {
             let data = await method.getAllProductPage(page,nameSearch);
-            setTotalPages(data.totalPages)
+            setTotalPages(data.totalPages )
         } catch (e) {
             navigate("/Error");
         }
@@ -67,6 +60,13 @@ function HomeAdmin() {
         getAll(event.selected, nameSearch)
     }
 
+    useEffect(() => {
+        getAll(0,nameSearch);
+        getAllProductPage()
+        console.log(product);
+    }, [ product.name, product.price,
+        product.quantity, product.supplier, product.ingredient,
+        product.mainAvatar, product.avatarOne, product.avatarTwo]);
 
     return (
         <>
@@ -74,12 +74,10 @@ function HomeAdmin() {
                 <main className="content px-3 py-2">
                     <div className="container">
                         <h2 style={{textAlign: "center"}}>DANH SÁCH VẬT TƯ</h2>
-                        <div className="input-group" style={{marginLeft:"400px"}}>
+                        <div className="input-find" >
                             <div className="row m-2">
                                 <div className="col-auto">
                                     <input type="text" name="name" className="form-control"  onChange={(event => handleNameSearch(event.target.value))} id="name" placeholder="Tìm kiếm theo tên "/>
-                                </div>
-                                <div className="col-auto">
                                     <button type="submit" className="btn btn-outline-secondary" onClick={()=>submitSearch()}>
                                         Tìm kiếm
                                     </button>
@@ -90,17 +88,17 @@ function HomeAdmin() {
                             {product ?(
                                 product.map(item =>
                                     <div key={item.id} className="col-12 col-lg-4">
-                                        <div className="card" style={{width: "400px"}}>
+                                        <div className="card gap-3" >
                                             <img className="card-img-top" src={item.mainAvatar} alt="Card image" height="280"
                                                  width="250"/>
                                             <div className="card-body">
                                                 <h5 className="card-text">{item.name}</h5>
                                                 <p className="card-text">Giá: {VND.format(item.price)}
                                                 </p>
-                                                <NavLink to={`/product/detail/${item.id}`}>
-                                                    <button className="btn btn-primary">Xem chi tiết</button>
+                                                <NavLink to={`/product/detail/${item.id}`} style={{marginRight:"20px"}}>
+                                                    <button className="btn btn-primary ">Xem chi tiết</button>
                                                 </NavLink>
-                                                <NavLink to={`/product/edit/${item.id}`} style={{marginLeft:"15px"}}>
+                                                <NavLink to={`/product/edit/${item.id}`} style={{marginLeft:"10px"}}>
                                                     <button className="btn btn-danger">Chỉnh sửa</button>
                                                 </NavLink>
                                             </div>
