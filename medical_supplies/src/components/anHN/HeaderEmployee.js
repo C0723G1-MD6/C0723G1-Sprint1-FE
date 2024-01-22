@@ -49,7 +49,7 @@ function HeaderEmployee(){
                         </div>
                         <div className="button-header col-12 col-lg-2" >
                             <div className="button-header col-12 col-lg-2 btn-success">
-                                <img className="logo-header" src={employee} style={{width:"150px", height:"130px"}}/>
+                                {/*<img className="logo-header" src={employee} style={{width:"150px", height:"130px"}}/>*/}
                             </div>
                         </div>
                         <div className="col-12 col-lg-1">

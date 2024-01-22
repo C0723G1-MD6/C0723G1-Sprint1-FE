@@ -20,6 +20,7 @@ function Dashboard() {
             getInfoEmployee();
         }
     }, []);
+    console.log(role)
 
 
     const getInfoEmployee = async () => {

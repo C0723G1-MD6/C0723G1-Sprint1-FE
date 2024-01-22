@@ -17,6 +17,7 @@ import Header from "../anHN/Header";
 import Footer from "../anHN/Footer";
 import ProductImage from "./ProductImage";
 import {toast} from "react-toastify";
+import {NotFound} from "../NotFound";
 
 export default function ProductEdit() {
     const [product, setProduct] = useState([]);
@@ -26,14 +27,15 @@ export default function ProductEdit() {
     const [beError, setBeError] = useState();
     const navigate = useNavigate();
     const param = useParams();
-    console.log(param.id);
+
     const findByIdProduct = async () => {
         try {
             const dataProduct = await getProductById(param.id);
             setProduct(dataProduct);
         } catch (e) {
+            console.log(e)
             if (e.status === 400) {
-                navigate("*");
+                navigate("/error-edit")
             }
         }
     }
@@ -49,12 +51,12 @@ export default function ProductEdit() {
 
     const handleUpdate = async (product) => {
         try {
-            if (urlImages !== ""){
+            if (urlImages !== "") {
                 product.mainAvatar = urlImages.toString();
                 await editProduct(product)
                 navigate(`/dashboard`)
                 toast.success("Chỉnh sửa thông tin vật tư thành công");
-            }else {
+            } else {
                 await editProduct(product)
                 navigate(`/dashboard`)
                 toast.success("Chỉnh sửa thông tin vật tư thành công");
@@ -150,7 +152,12 @@ export default function ProductEdit() {
                                                 {/*For Demo Purpose*/}
                                                 <div className="col-md-5 pr-lg-5 mb-5 mb-md-0"
                                                      style={{textAlign: "center"}}>
-                                                    <img style={{padding: "6px", width: "25rem" , height:"18rem" , borderRadius: "50rem"}} alt="img"
+                                                    <img style={{
+                                                        padding: "6px",
+                                                        width: "25rem",
+                                                        height: "18rem",
+                                                        borderRadius: "50rem"
+                                                    }} alt="img"
                                                          src={product.mainAvatar}
                                                          className="img-fluid mb-3 d-none d-md-block rounded-0"/>
 
@@ -298,7 +305,7 @@ export default function ProductEdit() {
                                                     </div>
                                                     <div
                                                         className="d-flex me-5 justify-content-center gap-3">
-                                                        <Link to="/dashboard" className="btn btn-success btn-sm">
+                                                        <Link to="/dashboard" className="btn btn-secondary btn-sm">
                                                             Hủy
                                                         </Link>
                                                         <button className="btn btn-success btn-sm"

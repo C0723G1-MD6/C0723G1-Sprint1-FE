@@ -59,28 +59,24 @@ export default function ProductCreate() {
     };
 
     const handleCreate = async (values) => {
-        if (checkProduct(values)) {
-            values = {
-                ...values,
-                mainAvatar: urlImages.toString(),
-            };
-            await createProduct(values)
-            navigate("/dashboard")
-            toast.success("Thêm vật tư thành công.")
-        } else {
-
-        }
-
-    }
-    const checkProduct = (product) => {
-        for (let i = 0; i < products.length; i++) {
-            if (product.name === products[i].name) {
-                setMessage("Tên vật tư đã tồn tại");
-                return false;
-                break;
+        try {
+            if (urlImages.valueOf() !== ""){
+                values = {
+                    ...values,
+                    mainAvatar: urlImages.toString(),
+                };
+                await createProduct(values);
+                navigate("/dashboard");
+                toast.success("Thêm vật tư thành công.");
+            }else {
+                toast.error("Vui lòng chọn ảnh vật tư sau đó nhấn tải ảnh lên.");
             }
-            return true;
+        }catch (e){
+            if (e.status === 403) {
+                navigate("/error");
+            }
         }
+
     }
 
 
@@ -88,7 +84,6 @@ export default function ProductCreate() {
         getListtProduction();
         getListtTypeProduct();
         getListProduct();
-        handleCreate();
         window.scrollTo(0, 0);
     }, []);
 
@@ -109,7 +104,7 @@ export default function ProductCreate() {
                         <Formik initialValues={{
                             name: "",
                             price: 1000,
-                            quantity: 0,
+                            quantity: 1,
                             supplier: "",
                             ingredient: "",
                             mainAvatar: "",
@@ -165,7 +160,7 @@ export default function ProductCreate() {
 
                                                 <div className="row">
                                                     {/*Tên vật tư*/}
-                                                    <div className="input-group mb-1">
+                                                    <div className="input-group mb-3">
                             <span className="input-group-text bg-white px-4 border-md border-right-0">
                                 <i className="fas fa-file-signature"/>
                             </span>
@@ -298,11 +293,9 @@ export default function ProductCreate() {
                                                     </p>
                                                 </div>
                                                 <div className="d-flex me-5 justify-content-center gap-3">
-
-                                                    <Link to="/dashboard" className="btn btn-success btn-sm"
+                                                    <Link to="/dashboard" className="btn btn-secondary btn-sm"
                                                           type="submit">Hủy
                                                     </Link>
-
                                                     <button className="btn btn-success btn-sm"
                                                             type="submit">Thêm Mới
                                                     </button>

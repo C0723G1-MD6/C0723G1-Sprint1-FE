@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import Header from "../anHN/Header";
 import Sidebar from "../anHN/Sidebar";
 import {getProductById} from "../../services/serviceProduct/ServiceProduct";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import Footer from "../anHN/Footer";
 import {NavLink} from "react-bootstrap";
 
@@ -11,10 +11,18 @@ export default function ProductDetails() {
     const [product, setProduct] = useState([]);
     const param = useParams();
     const user = JSON.parse(localStorage.getItem(`user`));
+    const navigate = useNavigate();
 
     const findByIdProduct = async () => {
-        const data = await getProductById(param.id);
-        await setProduct(data);
+        try {
+            const data = await getProductById(param.id);
+            await setProduct(data);
+        }catch (e) {
+            if (e.status ===400){
+                navigate("/error-detail")
+            }
+        }
+
     }
 
     useEffect(() => {

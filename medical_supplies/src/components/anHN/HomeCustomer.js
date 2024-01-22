@@ -104,7 +104,7 @@ export default function HomeCustomer() {
                                         {product ? (
                                             product.map(item =>
                                                 <div key={item.id} className="col-12 col-lg-4">
-                                                    <div className="card" style={{width: "400px"}}>
+                                                    <div className="card gap-3" >
                                                         <img className="card-img-top" src={item.mainAvatar}
                                                              alt="Card image"
                                                              height="280"

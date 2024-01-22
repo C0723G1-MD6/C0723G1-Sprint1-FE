@@ -90,17 +90,17 @@ function HomeAdmin() {
                             {product ?(
                                 product.map(item =>
                                     <div key={item.id} className="col-12 col-lg-4">
-                                        <div className="card" style={{width: "400px"}}>
+                                        <div className="card gap-3" >
                                             <img className="card-img-top" src={item.mainAvatar} alt="Card image" height="280"
                                                  width="250"/>
                                             <div className="card-body">
                                                 <h5 className="card-text">{item.name}</h5>
                                                 <p className="card-text">Giá: {VND.format(item.price)}
                                                 </p>
-                                                <NavLink to={`/product/detail/${item.id}`}>
+                                                <NavLink to={`/product/detail/${item.id}`} style={{marginRight:"20px"}}>
                                                     <button className="btn btn-primary ">Xem chi tiết</button>
                                                 </NavLink>
-                                                <NavLink to={`/product/edit/${item.id}`}>
+                                                <NavLink to={`/product/edit/${item.id}`} style={{marginLeft:"10px"}}>
                                                     <button className="btn btn-danger">Chỉnh sửa</button>
                                                 </NavLink>
                                             </div>

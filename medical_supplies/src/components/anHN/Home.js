@@ -102,7 +102,7 @@ function Home() {
                 </div>
                 <div className="container">
                     <h2 style={{textAlign: "center"}}>DANH SÁCH VẬT TƯ</h2>
-                    <div className="input-group" style={{marginLeft: "400px"}}>
+                    <div className="input-group" style={{marginLeft: "400px"}} >
                         <div className="row m-2">
                             <div className="col-auto">
                                 <input type="text" name="name" className="form-control"
@@ -163,7 +163,9 @@ function Home() {
                     activeClassName="active"
                 />
             </div>
+
         </div>
+        <Footer/>
     </>
 )
 }
