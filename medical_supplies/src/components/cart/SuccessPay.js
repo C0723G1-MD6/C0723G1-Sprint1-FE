@@ -11,13 +11,13 @@ function SuccessPay() {
     const status = searchParams.get("vnp_ResponseCode");
     const navigate=useNavigate();
 
-
+    console.log(order)
 
     const transaction=async ()=>{
         if(status==="00"){
            const res = await orderService.saveOrder(order);
             toast.success("Thanh toán thành công");
-            // localStorage.removeItem('order');
+            localStorage.removeItem('order');
             navigate("/dashboard-customer");
         }  else {
             toast.error("Thanh toán thất bại");

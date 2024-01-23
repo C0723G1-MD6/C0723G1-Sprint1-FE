@@ -78,7 +78,7 @@ export default function RegisterCustomer() {
                                                     <div className="mb-3">
                                                         <label htmlFor="email"
                                                                className="form-label fw-bold">Email<span
-                                                            className="text-danger">(*)</span></label>
+                                                            className="text-danger">  *(bắt buộc)</span></label>
                                                         <Field type="text" className="form-control" id="email"
                                                                name="email"
                                                                aria-describedby="emailHelp"/>
@@ -88,7 +88,7 @@ export default function RegisterCustomer() {
                                                     <div className="mb-3">
                                                         <label htmlFor="password" className="form-label fw-bold">Mật
                                                             khẩu<span
-                                                                className="text-danger">(*)</span></label>
+                                                                className="text-danger">  *(bắt buộc)</span></label>
                                                         <Field type="password" className="form-control"
                                                                id="password"
                                                                name="password"/>
@@ -99,7 +99,7 @@ export default function RegisterCustomer() {
                                                     <div className="mb-3">
                                                         <label htmlFor="name" className="form-label fw-bold">
                                                             Họ và tên
-                                                            <span className="text-danger">(*)</span></label>
+                                                            <span className="text-danger">*(bắt buộc)</span></label>
                                                         <Field type="text" className="form-control" id="name"
                                                                name="name"/>
                                                     </div>
@@ -108,7 +108,7 @@ export default function RegisterCustomer() {
                                                     <div className="mb-3">
                                                         <label htmlFor="birthday" className="form-label fw-bold">Ngày
                                                             sinh<span
-                                                                className="text-danger">(*)</span></label>
+                                                                className="text-danger">  *(bắt buộc)</span></label>
                                                         <Field type="date" className="form-control" id="birthday"
                                                                name="birthday"/>
                                                     </div>
@@ -117,7 +117,7 @@ export default function RegisterCustomer() {
                                                     <div className="mb-3">
                                                         <label htmlFor="address" className="form-label fw-bold">Địa
                                                             chỉ<span
-                                                                className="text-danger">(*)</span></label>
+                                                                className="text-danger">  *(bắt buộc)</span></label>
                                                         <Field as="textarea" className="form-control" id="address"
                                                                name="address"></Field>
                                                     </div>
@@ -126,7 +126,7 @@ export default function RegisterCustomer() {
                                                     <div className="mb-3">
                                                         <label htmlFor="phone" className="form-label fw-bold">
                                                             Số điện thoại
-                                                            <span className="text-danger">(*)</span></label>
+                                                            <span className="text-danger">  *(bắt buộc)</span></label>
                                                         <Field type="text" className="form-control" id="phone"
                                                                name="phone"/>
                                                     </div>

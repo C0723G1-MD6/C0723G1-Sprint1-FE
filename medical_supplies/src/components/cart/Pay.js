@@ -12,11 +12,14 @@ export default function Pay({setShowPay, cart, setCart, totalPrice}) {
     let email;
     const navigate = useNavigate();
     const [customer, setCustomer] = useState({});
+    const [orderDetails, setOrderDetails] = useState([])
+
     if (!authToken()) {
         navigate("/error")
     } else {
         email = authToken().sub;
     }
+
 
     useEffect(() => {
         if (email) {
@@ -44,7 +47,19 @@ export default function Pay({setShowPay, cart, setCart, totalPrice}) {
         style: 'currency',
         currency: 'VND',
     });
-
+    const handleOrderDetail = (cart) => {
+        return {
+            id: cart.id,
+            price: cart.price,
+            amount: cart.amount,
+        }
+    }
+    const handleOrderDetails = () => {
+       return  cart.map(item => {
+           return handleOrderDetail(item);
+       })
+    }
+    console.log(customer)
 
     // Thanh toan VNP
     const handlerSubmitForPay = async (value) => {
@@ -54,7 +69,7 @@ export default function Pay({setShowPay, cart, setCart, totalPrice}) {
         }
 
         if (cart.length > 0) {
-            order = {id: customer.id, list: cart}
+            order = {idCustomer: customer.id, list: handleOrderDetails()}
             localStorage.setItem('order', JSON.stringify(order));
             try {
                 const url = await payService.pay(totalPrice * 1);
