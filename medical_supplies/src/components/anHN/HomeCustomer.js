@@ -5,6 +5,7 @@ import ReactPaginate from "react-paginate";
 import Cart from "../cart/Cart";
 import HeaderCustomer from "./HeaderCustomer";
 import Sidebar from "./Sidebar";
+import {toast} from "react-toastify";
 
 export default function HomeCustomer() {
     const navigate = useNavigate();
@@ -62,6 +63,7 @@ export default function HomeCustomer() {
         product.amount = 1;
         arrProduct.push(product);
         setCart([...arrProduct]);
+        toast.success("Thêm sản phẩm thành công! ")
     }
 
 

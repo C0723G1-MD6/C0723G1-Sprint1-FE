@@ -56,7 +56,7 @@ export default function Cart({setShowCart, cart, setCart}) {
     return (
         <>
             {
-                !showPay?
+                !showPay ?
                     (
                         <>
                             <div className="container">
@@ -76,30 +76,70 @@ export default function Cart({setShowCart, cart, setCart}) {
                                         cart.map(product => (
                                             <tr key={product.id}>
                                                 <td className="text-start">
-                                                    <img src={product.mainAvatar} width="100" height="100"/>
-                                                    {product.name} (<span className="text-danger">{product.quantity}</span>)
+                                                    <img src={product.mainAvatar} width="100" height="100"
+                                                         className="me-2"/>
+                                                    {product.name} (<span
+                                                    className="text-danger">{product.quantity}</span>)
                                                 </td>
                                                 <td>
                                                     {VND.format(product.price)}
                                                 </td>
 
                                                 <td>
-                                                    <button onClick={() => changeQuantity(product, -1)} className="btn "><i
+                                                    <button onClick={() => changeQuantity(product, -1)}
+                                                            className="btn "><i
                                                         className="fas fa-minus"></i></button>
                                                     <input type="text" className="form-control-sm  fw-bold text-center"
                                                            style={{width: "70px"}}
                                                            value={product.amount}/>
-                                                    <button onClick={() => changeQuantity(product, 1)} className="btn"><i
-                                                        className="fas fa-plus"></i></button>
+                                                    <button onClick={() => changeQuantity(product, 1)} className="btn">
+                                                        <i
+                                                            className="fas fa-plus"></i></button>
                                                 </td>
                                                 <td>
                                                     {VND.format(product.price * product.amount)}
                                                 </td>
                                                 <td>
-                                                    <button onClick={() => removeProduct(product)} className="btn btn-danger"><i
+                                                    <button data-bs-toggle="modal"
+                                                            data-bs-target="#exampleModal"
+                                                            className="btn btn-danger"><i
                                                         className="fas fa-trash-alt"></i></button>
+                                                    <div>
+                                                        <div className="modal fade" id="exampleModal" tabIndex="-1"
+                                                             aria-labelledby="exampleModalLabel"
+                                                             aria-hidden="true">
+                                                            <div className="modal-dialog">
+                                                                <div className="modal-content">
+                                                                    <div className="modal-header">
+                                                                        <h1 className="modal-title fs-5"
+                                                                            id="exampleModalLabel">Xác nhận xóa</h1>
+                                                                        <button type="button" className="btn-close"
+                                                                                data-bs-dismiss="modal"
+                                                                                aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div className="modal-body">
+                                                                        Bạn có chắc chắn muốn xóa <span
+                                                                        className="text-primary">{product.name}</span> ra
+                                                                        khỏi giỏ hàng không?
+                                                                    </div>
+                                                                    <div className="modal-footer">
+                                                                        <button type="button"
+                                                                                className="btn btn-secondary"
+                                                                                data-bs-dismiss="modal">Không
+                                                                        </button>
+                                                                        <button onClick={() => removeProduct(product)}
+                                                                                type="button"
+                                                                                className="btn btn-danger"
+                                                                                data-bs-dismiss="modal">Có
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
+
                                         ))
                                     }
                                     </tbody>
@@ -109,16 +149,20 @@ export default function Cart({setShowCart, cart, setCart}) {
                                 </div>
                                 <div className="row mt 5 mb-3">
                                     <div className="col-6 d-flex justify-content-end">
-                                        <button className="btn btn-secondary me-2" onClick={onCloseHandler}> Trở về</button>
+                                        <button className="btn btn-secondary me-2" onClick={onCloseHandler}> Trở về
+                                        </button>
                                     </div>
                                     <div className="col-6">
-                                        <button onClick={onShowPayHandler} className="btn btn-success ms-2 text-light ">Thanh toán</button>
+                                        <button onClick={onShowPayHandler}
+                                                className="btn btn-success ms-2 text-light ">Thanh toán
+                                        </button>
                                     </div>
                                 </div>
                             </div>
+
                         </>
-                    ):
-                    (<Pay setShowPay={setShowPay} cart={cart} setCart={setCart} totalPrice={totalPrice} />)
+                    ) :
+                    (<Pay setShowPay={setShowPay} cart={cart} setCart={setCart} totalPrice={totalPrice}/>)
             }
         </>
 
