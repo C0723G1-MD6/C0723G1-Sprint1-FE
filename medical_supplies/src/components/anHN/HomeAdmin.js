@@ -4,6 +4,7 @@ import "./AnHN.css";
 import ReactPaginate from "react-paginate";
 import {useNavigate} from "react-router-dom";
 
+import {NavLink} from "react-router-dom";
 
 function HomeAdmin() {
 
@@ -16,29 +17,40 @@ function HomeAdmin() {
 
     const [totalPages, setTotalPages] = useState(0);
 
-    useEffect(() => {
-        getAll(0,nameSearch);
-        getAllProduct()
-    }, [nameSearch]);
 
     const getAll = async (page,nameSearch) => {
         try {
             let data = await method.getAllProduct(page,nameSearch);
-            setProduct(data);
+            setProduct(data.content);
+        }catch (e) {
+            navigate("/Error");
+        }
+    }
 
-        } catch (e) {
-            navigate("/Error");
-        }
-    }
-    const getAllProduct = async () => {
+    const getAllProductPage = async (page,nameSearch) => {
         try {
-            let data = await method.getAllProductPage();
-            setTotalPages(data.totalPages)
+            let data = await method.getAllProductPage(page,nameSearch);
+            setTotalPages(data.totalPages )
         } catch (e) {
             navigate("/Error");
         }
     }
-    console.log(product)
+
+    const handleNameSearch = (value) =>{
+        setNameSearch(value);
+    }
+
+    const submitSearch = async () =>{
+        try {
+            let res = await method.getAllProduct(0,nameSearch);
+            setProduct(res.content);
+            setTotalPages(Math.ceil(res.totalElements/res.size))
+        } catch (e){
+            navigate("/Error");
+        }
+    }
+
+
     const VND = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND',
@@ -48,6 +60,13 @@ function HomeAdmin() {
         getAll(event.selected, nameSearch)
     }
 
+    useEffect(() => {
+        getAll(0,nameSearch);
+        getAllProductPage()
+        console.log(product);
+    }, [ product.name, product.price,
+        product.quantity, product.supplier, product.ingredient,
+        product.mainAvatar, product.avatarOne, product.avatarTwo]);
 
     return (
         <>
@@ -55,37 +74,41 @@ function HomeAdmin() {
                 <main className="content px-3 py-2">
                     <div className="container">
                         <h2 style={{textAlign: "center"}}>DANH SÁCH VẬT TƯ</h2>
-                        <div className="input-group w-25">
-                            <input type="text" className="form-control " placeholder="Tìm kiếm theo tên sản phẩm" style={{marginLeft:"23px"}}
-                                   aria-label="Recipient's username with two button addons"
-                                   onChange={event => setNameSearch(event.target.value)}/>
-                            <button className="btn btn-outline-secondary" type="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                     fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-                                    <path
-                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                                </svg>
-                            </button>
+                        <div className="input-group" style={{marginLeft:"400px"}}>
+                            <div className="row m-2">
+                                <div className="col-auto">
+                                    <input type="text" name="name" className="form-control"  onChange={(event => handleNameSearch(event.target.value))} id="name" placeholder="Tìm kiếm theo tên "/>
+                                </div>
+                                <div className="col-auto">
+                                    <button type="submit" className="btn btn-outline-secondary" onClick={()=>submitSearch()}>
+                                        Tìm kiếm
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <div className="row row-1-home">
                             {product ?(
                                 product.map(item =>
                                     <div key={item.id} className="col-12 col-lg-4">
-                                        <div className="card" style={{width: "400px"}}>
+                                        <div className="card gap-3" >
                                             <img className="card-img-top" src={item.mainAvatar} alt="Card image" height="280"
                                                  width="250"/>
                                             <div className="card-body">
                                                 <h5 className="card-text">{item.name}</h5>
                                                 <p className="card-text">Giá: {VND.format(item.price)}
                                                 </p>
-                                                <a href="#" className="btn btn-primary">Xem chi tiết</a>
-                                                <a href="#" className="btn btn-danger" style={{marginLeft:"15px"}}>Chỉnh sửa</a>
+                                                <NavLink to={`/product/detail/${item.id}`} style={{marginRight:"20px"}}>
+                                                    <button className="btn btn-primary ">Xem chi tiết</button>
+                                                </NavLink>
+                                                <NavLink to={`/product/edit/${item.id}`} style={{marginLeft:"10px"}}>
+                                                    <button className="btn btn-danger">Chỉnh sửa</button>
+                                                </NavLink>
                                             </div>
                                         </div>
                                     </div>
                                 )
                             ):(
-                                <h5>Không có dữ liệu</h5>
+                                <h5 style={{color: "red"}}>Không tìm thấy dữ liệu</h5>
                             )}
                         </div>
                     </div>

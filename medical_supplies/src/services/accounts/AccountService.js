@@ -3,7 +3,17 @@ import authHeader from "../auth/AuthService";
 
 export const createAccount = async (accountDto) => {
     try {
-        const res = await axios.post(`http://localhost:8080/api/register`, accountDto);
+        const res = await axios.post(`http://localhost:8080/api/register`, accountDto, {headers:authHeader()});
+        return res;
+    } catch (e) {
+        throw e.response;
+
+    }
+}
+
+export const createAccountCustomer = async (accountDto) => {
+    try {
+        const res = await axios.post(`http://localhost:8080/api/customer/register`, accountDto);
         return res;
     } catch (e) {
         throw e.response;
@@ -12,7 +22,7 @@ export const createAccount = async (accountDto) => {
 }
 export const roleList = async () => {
     try {
-        const res = await axios.get(`http://localhost:8080/api/role`);
+        const res = await axios.get(`http://localhost:8080/api/role`,{headers:authHeader()});
         return res;
     } catch (e) {
         throw e.response;

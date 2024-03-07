@@ -8,7 +8,7 @@ export default function authHeader(){
             "Content-Type": 'application/json'
         };
     } else {
-        return {};
+        return undefined;
     }
 }
 
@@ -17,6 +17,7 @@ export const login = async (account)=>{
         const res = await axios.post("http://localhost:8080/api/login",account);
         return res;
     }catch (e) {
+        console.log(e)
         throw e.response;
     }
 }

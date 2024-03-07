@@ -1,8 +1,8 @@
 import React from 'react';
 import Footer from "./anHN/Footer";
 import HeaderEmployee from "./anHN/HeaderEmployee";
-import SidebarEmployee from "./anHN/SidebarEmployee";
 import HomeEmployee from "./anHN/HomeEmployee";
+import Sidebar from "./anHN/Sidebar";
 
 
 function DashboardSalesman() {
@@ -10,7 +10,7 @@ function DashboardSalesman() {
         <>
             <HeaderEmployee/>
             <div className="container-fluid wrapper">
-                <SidebarEmployee/>
+                <Sidebar/>
                 <HomeEmployee/>
             </div>
             <Footer/>

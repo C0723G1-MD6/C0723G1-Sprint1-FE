@@ -102,3 +102,24 @@ footer{
 .page{
     padding-left: 500px;
 }
+.err-name{
+    color: red;
+}
+
+/*nam css*/
+
+
+.cart{
+    flex-grow: 1;
+    text-align: left;
+    padding-left: 10px;
+    padding-top:10px
+}
+
+
+.cart-amount sup{
+    border-radius: 5px;
+    padding: 0 5px;
+    position:relative;
+    top: -20px;
+}

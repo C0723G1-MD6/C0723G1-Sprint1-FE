@@ -1,16 +1,17 @@
 import {ErrorMessage, Field, Formik, Form} from "formik";
 import * as Yup from "yup";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import * as authService from "../../services/auth/AuthService";
 import Header from "../anHN/Header";
 import Footer from "../anHN/Footer";
 import {useEffect} from "react";
+import logo from "./img/logo.png";
+import logoImage from "../../img/yte4.png";
 
 export default function Login() {
     const user = JSON.parse(localStorage.getItem(`user`));
     const navigate = useNavigate();
-    console.log(user);
 
     useEffect(() => {
         if (user) {
@@ -42,10 +43,11 @@ export default function Login() {
             }
         } catch (e) {
             setFieldError("password", e.data);
-            console.log(e);
+
 
         }
     }
+    const backgroundImage = `url(${logoImage})`;
     return (
         <>
             <Header/>
@@ -54,7 +56,7 @@ export default function Login() {
 
                     <div className="col-8">
                         <div className="form-control shadow rounded-0 p-4"
-                             style={{backgroundImage: "url('/image/yte4.png')"}}>
+                             style={{backgroundImage}}>
                             <div className="text-center mt-1">
                                 <h2>ĐĂNG NHẬP</h2>
                             </div>
@@ -63,8 +65,7 @@ export default function Login() {
                                 <div className="col-md-6 col-lg-6 pr-lg-5 mb-5 mb-md-0 mp"
                                      style={{textAlign: `center`}}>
                                     <img
-                                        src="https://thuonghieusaigon.vn/uploads/shops/thumb/vina.gif"
-                                        alt="img"
+                                        src={logo} alt="img"
                                         className="img-fluid mb-3 d-none d-md-block rounded-5"/>
                                 </div>
 
@@ -95,19 +96,18 @@ export default function Login() {
                                                 </div>
                                                 <ErrorMessage name="password" className="text-danger"
                                                               component="p"/>
-                                                <div className="d-flex align-items-center mb-4">
-                                                    <div className="form-check">
-                                                        <Field className="form-check-input" type="checkbox" value=""
-                                                               id="form1Example3"
-                                                               checked/>
-                                                        <label className="form-check-label" htmlFor="form1Example3">
-                                                            Ghi nhớ</label>
-                                                    </div>
-                                                </div>
+
                                                 <div className="d-flex me-5 justify-content-center gap-3">
                                                     <button type="submit" className="btn btn-success btn-sm w-100">
                                                         Đăng nhập
                                                     </button>
+                                                </div>
+                                                <div className="d-flex me-5 justify-content-center gap-3 mt-3">
+
+                                                        <NavLink className="btn btn-primary btn-sm w-100" to={"/register-customer"} >
+                                                            Đăng ký
+                                                        </NavLink>
+
                                                 </div>
                                             </div>
                                         </Form>

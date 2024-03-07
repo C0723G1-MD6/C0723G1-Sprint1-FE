@@ -6,7 +6,8 @@ import {toast} from "react-toastify";
 import {useNavigate, NavLink} from "react-router-dom";
 import Footer from "../anHN/Footer";
 import HeaderAdmin from "../anHN/HeaderAdmin";
-import SidebarAdmin from "../anHN/SidebarAdmin";
+import Sidebar from "../anHN/Sidebar";
+import logoImage from "../../img/yte4.png";
 
 
 export default function Register() {
@@ -21,7 +22,9 @@ export default function Register() {
             const res = await accountService.roleList();
             setRoles(res.data)
         } catch (e) {
-            return e;
+            if (e.status === 403) {
+                navigate("/error");
+            }
         }
     }
 
@@ -36,6 +39,7 @@ export default function Register() {
         idRole: ""
 
     }
+
     const validateFormRegister = {
         email: Yup.string()
             .required("Vui lòng nhập email."),
@@ -48,32 +52,38 @@ export default function Register() {
         phone: Yup.string()
             .required("Vui lòng nhập số điện thoại."),
         gender: Yup.string()
-            .required("Vui lòng cho giới tính."),
+            .required("Vui lòng chọn giới tính."),
         address: Yup.string()
             .required("Vui lòng nhập địa chỉ."),
         idRole: Yup.string()
-            .required("Vui lòng chọn chức vụ.")
+            .required("Vui lòng chọn nghiệp vụ.")
+            .min(1, "Vui lòng chọn chức vụ.")
+            .max(3, "Vui lòng chọn chức vụ."),
+
     };
 
-    const handleSubmitFormRegister = async (values, {setErrors}) => {
+    const handleSubmitFormRegister = async (values, {setErrors, resetForm}) => {
         try {
-            console.log(values);
+            values.idRole = +values.idRole;
             const res = await accountService.createAccount(values);
             if (res.status === 200) {
+                resetForm();
                 navigate("/register")
                 toast.success("Đăng ký thành công!");
-
             }
         } catch (e) {
             setErrors(e.data);
+            if (e.status === 403) {
+                navigate("/error");
+            }
         }
     }
-    if (!roles) return null;
+    const backgroundImage = `url(${logoImage})`;
     return (
         <>
             <HeaderAdmin/>
             <div className="container-fluid wrapper">
-                <SidebarAdmin/>
+                <Sidebar/>
                 <div className="main">
                     <main className="content px-3 py-2">
                         <div className="container-fluid">
@@ -82,17 +92,20 @@ export default function Register() {
                                     <div className="col-md-9 col-lg-9 col-xl-9">
                                         <div className="d-flex justify-content-center">
                                             <div className="form-control shadow rounded-0 p-4"
-                                                 style={{backgroundImage: "url('/imgage/yte4.png')"}}>
+                                                 style={{backgroundImage}}>
                                                 <h2 className="text-center">Tạo Tài Khoản</h2>
                                                 <Formik initialValues={initValues}
-                                                        onSubmit={(values, {setErrors}) => handleSubmitFormRegister(values, {setErrors})}
+                                                        onSubmit={(values, {
+                                                            setErrors,
+                                                            resetForm
+                                                        }) => handleSubmitFormRegister(values, {setErrors, resetForm})}
                                                         validationSchema={Yup.object(validateFormRegister)}
                                                 >
                                                     <Form className="mt-3">
                                                         <div className="mb-3">
                                                             <label htmlFor="email"
                                                                    className="form-label fw-bold">Email<span
-                                                                className="text-danger">(*)</span></label>
+                                                                className="text-danger">  *(bắt buộc)</span></label>
                                                             <Field type="text" className="form-control" id="email"
                                                                    name="email"
                                                                    aria-describedby="emailHelp"/>
@@ -102,7 +115,7 @@ export default function Register() {
                                                         <div className="mb-3">
                                                             <label htmlFor="password" className="form-label fw-bold">Mật
                                                                 khẩu<span
-                                                                    className="text-danger">(*)</span></label>
+                                                                    className="text-danger">  *(bắt buộc)</span></label>
                                                             <Field type="password" className="form-control"
                                                                    id="password"
                                                                    name="password"/>
@@ -112,18 +125,16 @@ export default function Register() {
                                                         <div className="mb-3">
                                                             <label htmlFor="idRole" className="form-label fw-bold">Chức
                                                                 vụ<span
-                                                                    className="text-danger">(*)</span></label>
+                                                                    className="text-danger">  *(bắt buộc)</span></label>
                                                             < Field as="select" className="form-select" name="idRole">
                                                                 <option value="">-----Chọn nghiệp vụ-----</option>
-                                                                {
-                                                                    roles.map(role => (
+                                                                {roles.map(role => (
+                                                                    (role.idRole === 1 || role.idRole === 2 || role.idRole === 3) && (
                                                                         <option key={role.idRole} value={role.idRole}>
-                                                                            {role.idRole === 1 ?
-                                                                                "Admin" : role.idRole === 2 ?
-                                                                                    "Kế toán" : "Người bán hàng"}
+                                                                            {role.idRole === 1 ? "Admin" : role.idRole === 2 ? "Kế toán" : "Người bán hàng"}
                                                                         </option>
-                                                                    ))
-                                                                }
+                                                                    )
+                                                                ))}
                                                             </Field>
                                                         </div>
                                                         <ErrorMessage name="idRole" className="text-danger"
@@ -132,7 +143,7 @@ export default function Register() {
                                                             <label htmlFor="name" className="form-label fw-bold">Tên
                                                                 nhân
                                                                 viên<span
-                                                                    className="text-danger">(*)</span></label>
+                                                                    className="text-danger">  *(bắt buộc)</span></label>
                                                             <Field type="text" className="form-control" id="name"
                                                                    name="name"/>
                                                         </div>
@@ -141,7 +152,7 @@ export default function Register() {
                                                         <div className="mb-3">
                                                             <label htmlFor="birthday" className="form-label fw-bold">Ngày
                                                                 sinh<span
-                                                                    className="text-danger">(*)</span></label>
+                                                                    className="text-danger">  *(bắt buộc)</span></label>
                                                             <Field type="date" className="form-control" id="birthday"
                                                                    name="birthday"/>
                                                         </div>
@@ -149,7 +160,7 @@ export default function Register() {
                                                                       component="p"/>
                                                         <div className="mb-3">
                                                             <label className="form-label fw-bold">Giới tính<span
-                                                                className="text-danger">(*)</span></label>
+                                                                className="text-danger">  *(bắt buộc)</span></label>
                                                             <div>
                                                                 <Field className="form-check-input" type="radio"
                                                                        name="gender"
@@ -176,7 +187,7 @@ export default function Register() {
                                                         <div className="mb-3">
                                                             <label htmlFor="address" className="form-label fw-bold">Địa
                                                                 chỉ<span
-                                                                    className="text-danger">(*)</span></label>
+                                                                    className="text-danger">  *(bắt buộc)</span></label>
                                                             <Field as="textarea" className="form-control" id="address"
                                                                    name="address"></Field>
                                                         </div>
@@ -185,7 +196,8 @@ export default function Register() {
                                                         <div className="mb-3">
                                                             <label htmlFor="phone" className="form-label fw-bold">
                                                                 Số điện thoại
-                                                                <span className="text-danger">(*)</span></label>
+                                                                <span
+                                                                    className="text-danger">  *(bắt buộc)</span></label>
                                                             <Field type="text" className="form-control" id="phone"
                                                                    name="phone"/>
                                                         </div>

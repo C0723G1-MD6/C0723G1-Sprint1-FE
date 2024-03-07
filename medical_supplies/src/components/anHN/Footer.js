@@ -3,10 +3,10 @@ import "./AnHN.css";
 function Footer() {
 
     return (
-        <div className="container-fluid">
+        <div className="container-fluid mt-5">
             <div className="row row-footer-1">
                 <div className="left-footer col-12 col-lg-4">
-                    <p className="text-footer">CTY TNHH TBYT - C0723G1-CODEGYM</p>
+                    <p className="text-footer">CTY TNHH AN NAM </p>
                 </div>
                 <div className="col-12 col-lg-5">
                     <p className="text-footer">LIÊN HỆ</p>
@@ -26,7 +26,7 @@ function Footer() {
                     <p> <b/>Trụ sở<b/>: 280 Đường Trần Hưng Đạo, Phường An Hải Tây, Quận Sơn Trà, Thành phố Đà Nẵng<br/>
                         <b/>Hotline:<b/> 0923456789<br/>
                         <b/>Điện thoại:<b/> 023.12.12.34.34<br/>
-                        <b/>Email:<b/> info@C0723G1codegym.com
+                        <b/>Email:<b/> info@AnNam.com
                     </p>
                 </div>
                 <div className="col-12 col-lg-3">
@@ -40,7 +40,7 @@ function Footer() {
 
                 </div>
                 <div className="col-12 col-lg-9">
-                    <p style={{color: "white", textAlign: "left"}}>Copyright @ C0723G1codegym.vn</p>
+                    <p style={{color: "white", textAlign: "left"}}>Copyright @ AnNam.vn</p>
                 </div>
                 <div className="col-12 col-lg-2 icon-footer">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
